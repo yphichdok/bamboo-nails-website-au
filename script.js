@@ -78,12 +78,14 @@ if (hamburger && navMenuRight) {
         // Show navbar and promotion bar when menu is opened (mobile)
         if (isMobileDevice() && navbar) {
             navbar.classList.remove('navbar-hidden');
-            navbar.style.transform = '';
+            navbar.style.removeProperty('transform');
+            navbar.style.removeProperty('opacity');
             const promotionBar = document.getElementById('promotionBar');
             if (promotionBar && !promotionBar.classList.contains('hidden')) {
                 promotionBar.classList.remove('promotion-bar-hidden');
-                promotionBar.style.transform = '';
-                promotionBar.style.zIndex = '10001';
+                promotionBar.style.removeProperty('transform');
+                promotionBar.style.removeProperty('opacity');
+                promotionBar.style.removeProperty('visibility');
                 // Restore navbar top if promotion bar is visible
                 navbar.style.top = '32px';
             } else {
@@ -269,51 +271,34 @@ window.addEventListener('scroll', () => {
             
             // Use requestAnimationFrame to ensure synchronous updates
             requestAnimationFrame(() => {
-                // Only hide/show if scrolled past threshold
-                if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
-                    if (shouldHide) {
-                        // Scrolling down - hide BOTH elements simultaneously
-                        if (isPromotionVisible) {
-                            promotionBar.classList.add('promotion-bar-hidden');
-                            promotionBar.style.transform = 'translateY(-100%)';
-                            promotionBar.style.opacity = '0';
-                            promotionBar.style.visibility = 'hidden';
-                        }
-                        
-                        navbar.classList.add('navbar-hidden');
-                        navbar.style.transform = 'translateY(-100%)';
-                        navbar.style.top = '0';
-                        navbar.style.opacity = '0';
-                    } else if (shouldShow) {
-                        // Scrolling up - show BOTH elements simultaneously
-                        if (isPromotionVisible) {
-                            promotionBar.classList.remove('promotion-bar-hidden');
-                            promotionBar.style.transform = '';
-                            promotionBar.style.opacity = '1';
-                            promotionBar.style.visibility = 'visible';
-                            promotionBar.style.zIndex = '10001';
-                        }
-                        
-                        navbar.classList.remove('navbar-hidden');
-                        navbar.style.transform = '';
-                        navbar.style.opacity = '1';
-                        navbar.style.top = isPromotionVisible ? '32px' : '0';
-                    }
-                }
+                // Determine if we should hide or show
+                const shouldHideNow = shouldHide && currentScrollTop > 100;
+                const shouldShowNow = shouldShow || currentScrollTop <= 50;
                 
-                // Always show navbar and promotion bar at the top
-                if (currentScrollTop <= 50) {
+                if (shouldHideNow) {
+                    // Scrolling down - hide BOTH elements simultaneously
+                    if (isPromotionVisible) {
+                        promotionBar.classList.add('promotion-bar-hidden');
+                        // Reset inline styles to let CSS handle it
+                        promotionBar.style.removeProperty('opacity');
+                        promotionBar.style.removeProperty('visibility');
+                    }
+                    
+                    navbar.classList.add('navbar-hidden');
+                    navbar.style.top = '0';
+                    navbar.style.removeProperty('opacity');
+                } else if (shouldShowNow) {
+                    // Scrolling up or at top - show BOTH elements simultaneously
                     if (isPromotionVisible) {
                         promotionBar.classList.remove('promotion-bar-hidden');
-                        promotionBar.style.transform = '';
-                        promotionBar.style.opacity = '1';
-                        promotionBar.style.visibility = 'visible';
-                        promotionBar.style.zIndex = '10001';
+                        promotionBar.style.removeProperty('opacity');
+                        promotionBar.style.removeProperty('visibility');
+                        promotionBar.style.removeProperty('transform');
                     }
                     
                     navbar.classList.remove('navbar-hidden');
-                    navbar.style.transform = '';
-                    navbar.style.opacity = '1';
+                    navbar.style.removeProperty('opacity');
+                    navbar.style.removeProperty('transform');
                     navbar.style.top = isPromotionVisible ? '32px' : '0';
                 }
             });
@@ -672,14 +657,14 @@ const adjustLayout = (promotionVisible) => {
         // Ensure navbar is visible when promotion bar is visible
         if (promotionVisible) {
             navbar.classList.remove('navbar-hidden');
-            navbar.style.transform = '';
+            navbar.style.removeProperty('transform');
+            navbar.style.removeProperty('opacity');
             // Also ensure promotion bar is visible (not hidden by scroll)
             if (promotionBar && !promotionBar.classList.contains('hidden')) {
                 promotionBar.classList.remove('promotion-bar-hidden');
-                promotionBar.style.transform = '';
-                promotionBar.style.zIndex = '10001';
-                promotionBar.style.opacity = '1';
-                promotionBar.style.visibility = 'visible';
+                promotionBar.style.removeProperty('transform');
+                promotionBar.style.removeProperty('opacity');
+                promotionBar.style.removeProperty('visibility');
             }
         }
     }
