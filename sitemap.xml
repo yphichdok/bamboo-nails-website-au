@@ -6,56 +6,56 @@
     
     <!-- Home Page -->
     <url>
-        <loc>https://www.bamboonailscoomera.com/</loc>
-        <lastmod>2024-01-01</lastmod>
+        <loc>https://bamboonails.com.au/</loc>
+        <lastmod>2024-12-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     
     <!-- Services Page -->
     <url>
-        <loc>https://www.bamboonailscoomera.com/services.html</loc>
-        <lastmod>2024-01-01</lastmod>
+        <loc>https://bamboonails.com.au/services.html</loc>
+        <lastmod>2024-12-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
     
     <!-- About Page -->
     <url>
-        <loc>https://www.bamboonailscoomera.com/about.html</loc>
-        <lastmod>2024-01-01</lastmod>
+        <loc>https://bamboonails.com.au/about.html</loc>
+        <lastmod>2024-12-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <!-- Gallery Page -->
     <url>
-        <loc>https://www.bamboonailscoomera.com/gallery.html</loc>
-        <lastmod>2024-01-01</lastmod>
+        <loc>https://bamboonails.com.au/gallery.html</loc>
+        <lastmod>2024-12-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     
     <!-- Contact Page -->
     <url>
-        <loc>https://www.bamboonailscoomera.com/contact.html</loc>
-        <lastmod>2024-01-01</lastmod>
+        <loc>https://bamboonails.com.au/contact.html</loc>
+        <lastmod>2024-12-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <!-- Coomera Location -->
     <url>
-        <loc>https://www.bamboonailscoomera.com/location-coomera.html</loc>
-        <lastmod>2024-01-01</lastmod>
+        <loc>https://bamboonails.com.au/location-coomera.html</loc>
+        <lastmod>2024-12-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     
     <!-- Forest Lake Location -->
     <url>
-        <loc>https://www.bamboonailscoomera.com/location-forest-lake.html</loc>
-        <lastmod>2024-01-01</lastmod>
+        <loc>https://bamboonails.com.au/location-forest-lake.html</loc>
+        <lastmod>2024-12-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
