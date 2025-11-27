@@ -31,14 +31,15 @@
     --pink-warm: #FFC0CB;
     --green-fresh: #A8E6CF;
     --green-soft: #C8E6C9;
-    /* Text Color System - Consistent across all pages */
+    /* Text Color System - Consistent across all pages (NO PINK) */
     --text-black: #000000;
-    --text-pink: #FFB6C1;
-    --text-pink-dark: #FF91A4;
     --text-white: #ffffff;
     --text-grey: #666666;
     --text-grey-light: #999999;
     --text-grey-dark: #333333;
+    /* Button Color - Simple consistent color */
+    --button-color: #66BB6A;
+    --button-color-dark: #4CAF50;
     /* Legacy variables for compatibility */
     --text-dark: #000000;
     --text-light: #666666;
@@ -273,7 +274,7 @@ html {
 }
 
 .nav-link:hover {
-    color: var(--text-pink);
+    color: var(--text-grey-dark);
     transform: translateY(-2px);
 }
 
@@ -307,14 +308,14 @@ html {
 
 /* Active Navigation Link Styling */
 .nav-link.active {
-    color: var(--text-pink);
+    color: var(--text-black);
     font-weight: 600;
 }
 
 .nav-link.active::after {
     width: 80% !important;
     height: 3px;
-    background: linear-gradient(90deg, var(--secondary-color) 0%, var(--green-fresh) 50%, var(--primary-color) 100%);
+    background: linear-gradient(90deg, var(--button-color) 0%, var(--button-color-dark) 100%);
     border-radius: 2px;
     animation: underlineExpand 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     left: 50%;
@@ -324,7 +325,7 @@ html {
 .nav-link.active::before {
     opacity: 1;
     left: -1rem;
-    color: var(--text-pink);
+    color: var(--button-color);
 }
 
 @keyframes underlineExpand {
@@ -503,6 +504,15 @@ html {
     overflow: hidden;
     /* Mobile browser fixes */
     -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile: Hero section full viewport */
+@media (max-width: 767px) {
+    .hero {
+        height: 100vh;
+        min-height: 100vh;
+        margin-top: 70px; /* Mobile navbar height */
+    }
 }
 
 /* Hero margin will be set by JavaScript via adjustLayout function */
@@ -740,10 +750,10 @@ html {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--green-fresh) 0%, var(--white) 50%, var(--pink-soft) 100%);
-    color: var(--text-black);
-    border: 2px solid var(--secondary-color);
-    box-shadow: 0 8px 30px rgba(102, 187, 106, 0.6), 0 4px 15px rgba(255, 182, 193, 0.5), 0 2px 10px rgba(102, 187, 106, 0.4);
+    background: var(--button-color);
+    color: var(--text-white);
+    border: 2px solid var(--button-color);
+    box-shadow: 0 8px 30px rgba(102, 187, 106, 0.6), 0 4px 15px rgba(102, 187, 106, 0.4), 0 2px 10px rgba(102, 187, 106, 0.3);
     font-weight: 600;
     letter-spacing: 1.8px;
     text-transform: uppercase;
@@ -789,9 +799,9 @@ html {
 .btn-primary:hover {
     color: var(--text-white);
     transform: translateY(-5px);
-    box-shadow: 0 15px 45px rgba(102, 187, 106, 0.7), 0 8px 25px rgba(255, 182, 193, 0.6), 0 5px 15px rgba(102, 187, 106, 0.5);
-    border-color: var(--secondary-color);
-    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--green-fresh) 50%, var(--primary-color) 100%);
+    box-shadow: 0 15px 45px rgba(102, 187, 106, 0.7), 0 8px 25px rgba(102, 187, 106, 0.5), 0 5px 15px rgba(102, 187, 106, 0.4);
+    border-color: var(--button-color-dark);
+    background: var(--button-color-dark);
 }
 
 .btn-primary:hover::before {
@@ -1040,13 +1050,13 @@ section::before {
     font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
     font-weight: 800;
-    color: var(--text-pink);
+    color: var(--button-color);
     line-height: 1.2;
     margin-bottom: 0.25rem;
     /* Remove gradient background clip */
     background: none !important;
     -webkit-background-clip: unset !important;
-    -webkit-text-fill-color: var(--text-pink) !important;
+    -webkit-text-fill-color: var(--button-color) !important;
     background-clip: unset !important;
 }
 
@@ -1088,7 +1098,7 @@ section::before {
 }
 
 .service-features li:hover {
-    color: var(--text-pink);
+    color: var(--button-color);
     padding-left: 0.5rem;
 }
 
@@ -1097,8 +1107,8 @@ section::before {
     display: inline-block;
     margin-top: auto;
     padding: 16px 36px;
-    background: var(--gradient-primary);
-    color: white;
+    background: var(--button-color);
+    color: var(--text-white);
     text-decoration: none;
     border-radius: 16px;
     font-weight: 600;
@@ -1135,8 +1145,8 @@ section::before {
 
 .btn-service:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5), 0 4px 12px rgba(255, 182, 193, 0.25);
-    background: linear-gradient(135deg, var(--pink-bright) 0%, var(--pink-rose) 50%, var(--pink-warm) 100%);
+    box-shadow: 0 10px 30px rgba(102, 187, 106, 0.5), 0 4px 12px rgba(102, 187, 106, 0.3);
+    background: var(--button-color-dark);
 }
 
 .btn-service:active {
@@ -1144,18 +1154,18 @@ section::before {
 }
 
 .service-card.featured .btn-service {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #2E7D32 100%);
-    box-shadow: 0 4px 15px rgba(255, 182, 193, 0.45);
+    background: var(--button-color);
+    box-shadow: 0 4px 15px rgba(102, 187, 106, 0.5);
 }
 
 .service-card.premium .btn-service {
-    background: linear-gradient(135deg, var(--yellow-warm) 0%, #FFC107 100%);
-    color: var(--text-dark);
-    box-shadow: 0 4px 15px rgba(255, 235, 59, 0.4);
+    background: var(--button-color);
+    color: var(--text-white);
+    box-shadow: 0 4px 15px rgba(102, 187, 106, 0.5);
 }
 
 .service-card.premium .btn-service:hover {
-    background: linear-gradient(135deg, #FFC107 0%, var(--yellow-warm) 100%);
+    background: var(--button-color-dark);
 }
 
 /* About Section */
@@ -1486,7 +1496,7 @@ img {
 }
 
 .footer-section a:hover {
-    color: var(--text-pink);
+    color: var(--button-color);
 }
 
 .social-links {
@@ -1982,7 +1992,7 @@ html {
 }
 
 .feature-check {
-    color: var(--text-pink);
+    color: var(--button-color);
     font-weight: bold;
     font-size: 1.3rem;
 }
