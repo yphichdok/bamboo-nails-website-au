@@ -5,7 +5,6 @@
   "framework": null,
   "installCommand": "",
   "cleanUrls": true,
-  "trailingSlash": false,
-  "public": true
+  "trailingSlash": false
 }
 
