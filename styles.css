@@ -1616,7 +1616,7 @@ html {
     padding: 120px 0 80px;
     text-align: center;
     color: var(--white);
-    margin-top: 70px;
+    margin-top: 80px; /* Updated to match navbar height */
 }
 
 .page-title {
@@ -1832,7 +1832,7 @@ html {
     height: 60vh;
     min-height: 400px;
     overflow: hidden;
-    margin-top: 70px;
+    margin-top: 80px; /* Updated to match navbar height */
 }
 
 .location-hero-image {
@@ -2565,12 +2565,12 @@ html {
     }
     
     /* Adjust mobile menu when promotion bar is visible */
-    body.promotion-visible .nav-menu-left.active {
-        top: 92px; /* Promotion bar (32px on mobile) + navbar (60px) */
+    .nav-menu-left.active {
+        top: 70px; /* Navbar height (70px on mobile) */
     }
     
-    body.promotion-visible .nav-menu-right.active {
-        top: calc(92px + 180px);
+    .nav-menu-right.active {
+        top: calc(70px + 180px);
     }
     
     .nav-menu-left li,
@@ -2652,7 +2652,7 @@ html {
         height: 80vh;
         min-height: 500px;
         min-height: -webkit-fill-available; /* iOS Safari fix */
-        margin-top: 70px; /* Navbar height (70px) */
+        margin-top: 80px; /* Updated to match navbar height */ /* Navbar height (70px) */
         padding-top: 0;
         margin-bottom: 0;
     }
@@ -2842,7 +2842,7 @@ html {
     /* Page Header */
     .page-header {
         padding: 80px 0 50px;
-        margin-top: 60px;
+        margin-top: 80px; /* Updated to match navbar height */ /* Updated to match navbar height */
     }
 
     .page-title {
