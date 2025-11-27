@@ -153,7 +153,7 @@ p, span, li, a, input, textarea, select, button {
     left: 0;
     right: 0;
     bottom: 0;
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    border: 1px solid rgba(255, 182, 193, 0.3);
     border-radius: 50px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 254, 248, 0.05) 100%);
     z-index: -1;
@@ -1801,7 +1801,7 @@ html {
     border-radius: 20px;
     margin-bottom: 1.5rem;
     box-shadow: var(--shadow);
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    border: 1px solid rgba(255, 182, 193, 0.3);
     transition: all 0.4s ease;
 }
 
