@@ -648,9 +648,14 @@ const adjustLayout = (promotionVisible) => {
     
     // Get promotion bar height (smaller on mobile)
     const isMobile = window.innerWidth <= 767;
-    const promotionHeight = isMobile ? '32px' : '40px';
+    const promotionHeight = isMobile ? 32 : 40;
+    const navbarHeight = isMobile ? 60 : 60; // Navbar height is consistent
     const navbarOffset = isMobile ? '32px' : '40px';
-    const heroOffset = isMobile ? '92px' : '110px'; // promotion bar + navbar (60px)
+    
+    // Calculate hero margin: navbar height + (promotion bar height if visible)
+    const heroMarginTop = promotionVisible 
+        ? `${navbarHeight + promotionHeight}px` 
+        : `${navbarHeight}px`;
     
     if (navbar) {
         navbar.style.top = promotionVisible ? navbarOffset : '0';
@@ -668,8 +673,10 @@ const adjustLayout = (promotionVisible) => {
             }
         }
     }
+    
+    // Set hero margin to align with bottom edge of header (navbar + promotion bar if visible)
     if (hero) {
-        hero.style.marginTop = promotionVisible ? heroOffset : '70px';
+        hero.style.marginTop = heroMarginTop;
     }
     
     // Add/remove class for mobile menu positioning
@@ -704,7 +711,10 @@ if (promotionBar && promotionText) {
             e.preventDefault();
             e.stopPropagation();
             promotionBar.classList.add('hidden');
-            adjustLayout(false);
+            // Adjust layout after a small delay to ensure promotion bar is hidden
+            setTimeout(() => {
+                adjustLayout(false);
+            }, 50);
         };
         
         promotionClose.addEventListener('click', closePromotion);

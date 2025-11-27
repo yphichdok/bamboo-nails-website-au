@@ -671,20 +671,23 @@ html {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: var(--white);
     text-align: center;
-    margin-top: 70px;
+    margin-top: 60px; /* Default: navbar height only (will be adjusted by JavaScript) */
     overflow: hidden;
     /* Mobile browser fixes */
     -webkit-overflow-scrolling: touch;
+    transition: margin-top 0.3s ease; /* Smooth transition when promotion bar opens/closes */
 }
 
+/* Hero margin will be set by JavaScript via adjustLayout function */
+/* These CSS rules are fallbacks but JavaScript takes precedence */
 body:has(.promotion-bar:not(.hidden)) .hero {
-    margin-top: 110px;
+    margin-top: 110px; /* Desktop: Promotion bar (40px) + navbar (60px) = 100px, but using 110px for spacing */
 }
 
 /* Mobile specific hero adjustment */
 @media (max-width: 767px) {
     body:has(.promotion-bar:not(.hidden)) .hero {
-        margin-top: 92px; /* Promotion bar (32px) + navbar (60px) */
+        margin-top: 92px; /* Mobile: Promotion bar (32px) + navbar (60px) = 92px */
     }
 }
 
