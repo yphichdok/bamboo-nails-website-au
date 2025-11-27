@@ -887,6 +887,10 @@ section::before {
     backdrop-filter: blur(10px);
 }
 
+.service-card {
+    border: 2px solid rgba(102, 187, 106, 0.4);
+}
+
 .service-card::after {
     content: '';
     position: absolute;
