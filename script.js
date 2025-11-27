@@ -75,22 +75,11 @@ if (hamburger && navMenuRight) {
         navMenuRight.classList.toggle('active');
         hamburger.classList.toggle('active');
         
-        // Show navbar and promotion bar when menu is opened (mobile)
+        // Show navbar when menu is opened (mobile)
         if (isMobileDevice() && navbar) {
             navbar.classList.remove('navbar-hidden');
             navbar.style.removeProperty('transform');
-            navbar.style.removeProperty('opacity');
-            const promotionBar = document.getElementById('promotionBar');
-            if (promotionBar && !promotionBar.classList.contains('hidden')) {
-                promotionBar.classList.remove('promotion-bar-hidden');
-                promotionBar.style.removeProperty('transform');
-                promotionBar.style.removeProperty('opacity');
-                promotionBar.style.removeProperty('visibility');
-                // Restore navbar top if promotion bar is visible
-                navbar.style.top = '32px';
-            } else {
-                navbar.style.top = '0';
-            }
+            navbar.style.top = '0';
         }
         
         // Prevent body scroll when menu is open
@@ -253,7 +242,7 @@ window.addEventListener('scroll', () => {
         navbar.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 254, 248, 0.95) 100%)';
     }
     
-    // Mobile-only: Hide/show navbar and promotion bar on scroll
+    // Mobile-only: Hide/show navbar on scroll
     if (isMobileDevice()) {
         // Clear any existing timeout
         clearTimeout(scrollTimeout);
@@ -262,56 +251,30 @@ window.addEventListener('scroll', () => {
         scrollTimeout = setTimeout(() => {
             const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
-            const promotionBar = document.getElementById('promotionBar');
             
-            // Get promotion bar state once
-            const isPromotionVisible = promotionBar && !promotionBar.classList.contains('hidden');
-            const shouldHide = currentScrollTop > lastScrollTop && currentScrollTop > 100;
-            const shouldShow = currentScrollTop <= 50 || currentScrollTop <= lastScrollTop;
-            
-            // Use requestAnimationFrame to ensure synchronous updates
+            // Use requestAnimationFrame to ensure smooth updates
             requestAnimationFrame(() => {
                 // Determine if we should hide or show
-                const shouldHideNow = shouldHide && currentScrollTop > 100;
-                const shouldShowNow = shouldShow || currentScrollTop <= 50;
+                const shouldHide = currentScrollTop > lastScrollTop && currentScrollTop > 100;
+                const shouldShow = currentScrollTop <= 50 || currentScrollTop <= lastScrollTop;
                 
-                if (shouldHideNow) {
-                    // Scrolling down - hide BOTH elements simultaneously
-                    if (isPromotionVisible) {
-                        promotionBar.classList.add('promotion-bar-hidden');
-                        // Reset inline styles to let CSS handle it
-                        promotionBar.style.removeProperty('opacity');
-                        promotionBar.style.removeProperty('visibility');
-                    }
-                    
+                if (shouldHide) {
+                    // Scrolling down - hide navbar
                     navbar.classList.add('navbar-hidden');
                     navbar.style.top = '0';
-                    navbar.style.removeProperty('opacity');
-                } else if (shouldShowNow) {
-                    // Scrolling up or at top - show BOTH elements simultaneously
-                    if (isPromotionVisible) {
-                        promotionBar.classList.remove('promotion-bar-hidden');
-                        promotionBar.style.removeProperty('opacity');
-                        promotionBar.style.removeProperty('visibility');
-                        promotionBar.style.removeProperty('transform');
-                    }
-                    
+                } else if (shouldShow) {
+                    // Scrolling up or at top - show navbar
                     navbar.classList.remove('navbar-hidden');
-                    navbar.style.removeProperty('opacity');
                     navbar.style.removeProperty('transform');
-                    navbar.style.top = isPromotionVisible ? '32px' : '0';
+                    navbar.style.top = '0';
                 }
             });
             
             lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
         }, 10); // Throttle to every 10ms
     } else {
-        // Desktop: Always show navbar and promotion bar
+        // Desktop: Always show navbar
         navbar.classList.remove('navbar-hidden');
-        const promotionBar = document.getElementById('promotionBar');
-        if (promotionBar && !promotionBar.classList.contains('hidden')) {
-            promotionBar.classList.remove('promotion-bar-hidden');
-        }
     }
     
     // Parallax effect for hero content
@@ -622,117 +585,12 @@ if (document.readyState === 'loading') {
 // Update active link when hash changes (for same-page navigation)
 window.addEventListener('hashchange', setActiveNavLink);
 
-// Promotion Bar with Rotating Messages
-const promotionMessages = [
-    "🎄 Christmas Special: 20% off all services! Book now.",
-    "🎉 New Year, New Nails! Book your appointment today!",
-    "💅 Valentine's Special: Luxury nail experience available!",
-    "🌸 Spring Collection: Fresh designs now available!",
-    "✨ Refer a friend: Both get 15% off!",
-    "🎁 Holiday Packages: Gift cards available!",
-    "💎 Premium Services: Luxury treatments. Book now!",
-    "🌟 Follow us on Instagram for daily inspiration!"
-];
-
-let currentPromotionIndex = 0;
-const promotionBar = document.getElementById('promotionBar');
-const promotionText = document.getElementById('promotionText');
-const promotionClose = document.getElementById('promotionClose');
-
-// Function to adjust layout based on promotion bar visibility
-const adjustLayout = (promotionVisible) => {
-    const navbar = document.querySelector('.navbar');
-    const hero = document.querySelector('.hero');
-    const body = document.body;
-    const promotionBar = document.getElementById('promotionBar');
-    
-    // Get promotion bar height (smaller on mobile)
+// Promotion Bar - REMOVED
+// Set hero margin to navbar height
+const hero = document.querySelector('.hero');
+if (hero) {
     const isMobile = window.innerWidth <= 767;
-    const promotionHeight = isMobile ? 32 : 40;
-    const navbarHeight = isMobile ? 60 : 60; // Navbar height is consistent
-    const navbarOffset = isMobile ? '32px' : '40px';
-    
-    // Calculate hero margin: navbar height + (promotion bar height if visible) - exact calculation
-    const heroMarginTop = promotionVisible 
-        ? `${navbarHeight + promotionHeight}px` 
-        : `${navbarHeight}px`;
-    
-    if (navbar) {
-        // Set navbar top position exactly at promotion bar height (no gap)
-        navbar.style.top = promotionVisible ? navbarOffset : '0';
-        navbar.style.marginTop = '0';
-        navbar.style.paddingTop = '0';
-        
-        // Ensure navbar is visible when promotion bar is visible
-        if (promotionVisible) {
-            navbar.classList.remove('navbar-hidden');
-            navbar.style.removeProperty('transform');
-            navbar.style.removeProperty('opacity');
-            // Also ensure promotion bar is visible (not hidden by scroll)
-            if (promotionBar && !promotionBar.classList.contains('hidden')) {
-                promotionBar.classList.remove('promotion-bar-hidden');
-                promotionBar.style.removeProperty('transform');
-                promotionBar.style.removeProperty('opacity');
-                promotionBar.style.removeProperty('visibility');
-            }
-        }
-    }
-    
-    // Set hero margin to align exactly with bottom edge of header (navbar + promotion bar if visible)
-    if (hero) {
-        hero.style.marginTop = heroMarginTop;
-        hero.style.paddingTop = '0';
-        hero.style.marginBottom = '0';
-    }
-    
-    // Add/remove class for mobile menu positioning
-    if (promotionVisible) {
-        body.classList.add('promotion-visible');
-    } else {
-        body.classList.remove('promotion-visible');
-    }
-};
-
-// Initialize promotion bar - show on every page load
-if (promotionBar && promotionText) {
-    // Remove hidden class if present (show on every refresh)
-    promotionBar.classList.remove('hidden');
-    
-    // Set initial message
-    promotionText.textContent = promotionMessages[currentPromotionIndex];
-    
-    // Adjust layout for visible promotion bar
-    adjustLayout(true);
-    
-    // Rotate messages every 20 seconds (matches animation duration)
-    setInterval(() => {
-        currentPromotionIndex = (currentPromotionIndex + 1) % promotionMessages.length;
-        promotionText.textContent = promotionMessages[currentPromotionIndex];
-    }, 20000);
-    
-    // Close button functionality - works on both desktop and mobile
-    if (promotionClose) {
-        // Use both click and touchstart for better mobile support
-        const closePromotion = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            promotionBar.classList.add('hidden');
-            // Adjust layout after a small delay to ensure promotion bar is hidden
-            setTimeout(() => {
-                adjustLayout(false);
-            }, 50);
-        };
-        
-        promotionClose.addEventListener('click', closePromotion);
-        promotionClose.addEventListener('touchend', closePromotion);
-        
-        // Prevent default touch behavior
-        promotionClose.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-        });
-    }
-} else {
-    // No promotion bar, ensure default layout
-    adjustLayout(false);
+    const navbarHeight = isMobile ? 70 : 80; // Navbar height (larger now)
+    hero.style.marginTop = `${navbarHeight}px`;
 }
 

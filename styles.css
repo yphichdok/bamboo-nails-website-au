@@ -5,203 +5,7 @@
     box-sizing: border-box;
 }
 
-/* Promotion Bar */
-.promotion-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(135deg, #4A4A4A 0%, #5A5A5A 50%, #66BB6A 100%);
-    color: var(--white);
-    padding: 0.75rem 0;
-    z-index: 10001;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease;
-    /* Mobile browser fixes */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-
-.promotion-bar.hidden {
-    transform: translateY(-100%);
-    display: none; /* Completely hide on mobile for better performance */
-}
-
-@media (min-width: 768px) {
-    .promotion-bar.hidden {
-        display: flex; /* Keep flex for smooth transition on desktop */
-    }
-}
-
-/* Mobile: Hide promotion bar when scrolling down (along with navbar) */
-@media (max-width: 767px) {
-    .promotion-bar {
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        will-change: transform;
-        margin: 0;
-        padding: 0.45rem 0;
-        height: 32px;
-        min-height: 32px;
-        max-height: 32px;
-        box-sizing: border-box;
-    }
-    
-    .promotion-bar.promotion-bar-hidden {
-        transform: translateY(-100%);
-        pointer-events: none;
-    }
-    
-    /* Ensure promotion bar shows when manually closed */
-    .promotion-bar.hidden {
-        transform: translateY(-100%);
-        display: none;
-    }
-    
-    /* When promotion bar is hidden by scroll, ensure navbar can hide completely */
-    .promotion-bar.promotion-bar-hidden ~ .navbar {
-        top: 0 !important;
-    }
-    
-    /* Ensure no gap between promotion bar and navbar */
-    .promotion-bar:not(.hidden):not(.promotion-bar-hidden) ~ .navbar {
-        top: 32px !important;
-        margin-top: 0 !important;
-    }
-}
-
-.promotion-content {
-    flex: 1;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-    height: 24px;
-    padding: 0 1rem;
-    max-width: calc(100% - 60px);
-}
-
-.promotion-text {
-    display: inline-block;
-    white-space: nowrap;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.95rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    animation: scrollText 20s linear infinite;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-@keyframes scrollText {
-    0% {
-        transform: translateX(100%);
-    }
-    40% {
-        transform: translateX(0);
-    }
-    60% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
-.promotion-close {
-    background: transparent;
-    border: none;
-    color: var(--white);
-    font-size: 1.5rem;
-    font-weight: 300;
-    cursor: pointer;
-    padding: 0 1rem;
-    line-height: 1;
-    transition: opacity 0.3s ease, transform 0.2s ease;
-    opacity: 0.8;
-    flex-shrink: 0;
-    /* Better mobile touch support */
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-.promotion-close:hover {
-    opacity: 1;
-}
-
-.promotion-close:active {
-    transform: scale(0.95);
-    opacity: 1;
-}
-
-@media (max-width: 767px) {
-    .promotion-bar {
-        padding: 0.45rem 0;
-        height: 32px;
-        min-height: 32px;
-        max-height: 32px;
-        /* Mobile browser fixes */
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-    
-    .promotion-content {
-        height: 20px;
-        padding: 0 0.5rem;
-        max-width: calc(100% - 50px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        /* Prevent text selection on mobile */
-        -webkit-user-select: none;
-        user-select: none;
-    }
-    
-    .promotion-text {
-        font-size: 0.8rem;
-        letter-spacing: 0.4px;
-        font-weight: 500;
-        line-height: 1.2;
-        /* Smooth text rendering */
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-    }
-    
-    .promotion-close {
-        font-size: 1.2rem;
-        padding: 0 0.5rem;
-        line-height: 1;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        /* Better touch target */
-        min-width: 44px;
-        min-height: 44px;
-        justify-content: center;
-        /* Enhanced mobile touch support */
-        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
-        touch-action: manipulation;
-        z-index: 10002;
-        position: relative;
-    }
-    
-    .promotion-close:active {
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 4px;
-    }
-    
-    /* Fix for iOS Safari address bar */
-    @supports (-webkit-touch-callout: none) {
-        .promotion-bar {
-            position: -webkit-sticky;
-        }
-    }
-}
+/* Promotion Bar - REMOVED */
 
 :root {
     --primary-color: #FFB6C1;
@@ -339,7 +143,7 @@ html {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 254, 248, 0.95) 100%);
     box-shadow: 0 4px 40px rgba(255, 182, 193, 0.12), 0 1px 0 rgba(255, 182, 193, 0.15);
     z-index: 10000;
-    transition: top 0.3s ease, transform 0.3s ease;
+    transition: transform 0.3s ease;
     -webkit-backdrop-filter: blur(30px) saturate(180%);
     backdrop-filter: blur(30px) saturate(180%);
     border-bottom: 1px solid rgba(255, 182, 193, 0.2);
@@ -350,6 +154,7 @@ html {
     backface-visibility: hidden;
     margin: 0;
     padding: 0;
+    min-height: 80px; /* Increased from default for larger header */
 }
 
 /* Mobile: Hide navbar when scrolling down */
@@ -372,6 +177,7 @@ html {
     padding: 1.5rem 0;
     position: relative;
     width: 100%;
+    min-height: 80px; /* Increased for larger header */
 }
 
 .logo {
@@ -685,25 +491,15 @@ html {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: var(--white);
     text-align: center;
-    margin-top: 60px; /* Default: navbar height only (will be adjusted by JavaScript) */
+    margin-top: 80px; /* Navbar height (80px) */
     overflow: hidden;
     /* Mobile browser fixes */
     -webkit-overflow-scrolling: touch;
-    transition: margin-top 0.3s ease; /* Smooth transition when promotion bar opens/closes */
 }
 
 /* Hero margin will be set by JavaScript via adjustLayout function */
 /* These CSS rules are fallbacks but JavaScript takes precedence */
-body:has(.promotion-bar:not(.hidden)) .hero {
-    margin-top: 110px; /* Desktop: Promotion bar (40px) + navbar (60px) = 100px, but using 110px for spacing */
-}
-
-/* Mobile specific hero adjustment */
-@media (max-width: 767px) {
-    body:has(.promotion-bar:not(.hidden)) .hero {
-        margin-top: 92px; /* Mobile: Promotion bar (32px) + navbar (60px) = 92px */
-    }
-}
+/* Hero margin - no promotion bar, just navbar */
 
 /* Hero Slideshow */
 .hero-slideshow {
@@ -2664,8 +2460,8 @@ html {
     }
 
     .navbar {
-        min-height: 60px;
-        height: 60px;
+        min-height: 70px; /* Increased from 60px for larger header */
+        height: 70px;
         padding: 0;
         margin: 0;
         /* Mobile browser fixes */
@@ -2673,25 +2469,18 @@ html {
         transform: translateZ(0);
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
-        /* Ensure no gap with promotion bar */
-        border-top: none;
     }
     
     .nav-wrapper {
-        padding: 0;
+        padding: 0.85rem 0; /* Slightly increased padding */
         margin: 0;
         justify-content: space-between;
         position: relative;
-        min-height: 60px;
-        height: 60px;
+        min-height: 70px; /* Increased from 60px */
+        height: 70px;
         align-items: center;
         /* Prevent layout shifts */
         flex-shrink: 0;
-    }
-    
-    /* Ensure navbar sits directly below promotion bar with no gap */
-    body.promotion-visible .navbar {
-        top: 32px !important;
     }
     
     .logo {
@@ -2863,18 +2652,7 @@ html {
         height: 80vh;
         min-height: 500px;
         min-height: -webkit-fill-available; /* iOS Safari fix */
-        margin-top: 60px; /* Default: navbar height only */
-        padding-top: 0;
-        margin-bottom: 0;
-    }
-    
-    /* Adjust hero when promotion bar is visible - exact calculation: 32px + 60px = 92px */
-    body.promotion-visible .hero {
-        margin-top: 92px !important; /* Promotion bar (32px) + navbar (60px) = 92px exactly */
-    }
-    
-    /* Ensure hero has no gap with navbar when promotion bar is visible */
-    body.promotion-visible .hero {
+        margin-top: 70px; /* Navbar height (70px) */
         padding-top: 0;
         margin-bottom: 0;
     }
