@@ -538,3 +538,47 @@ if (document.readyState === 'loading') {
 // Update active link when hash changes (for same-page navigation)
 window.addEventListener('hashchange', setActiveNavLink);
 
+// Promotion Bar with Rotating Messages
+const promotionMessages = [
+    "🎄 Christmas Special: Book now and get 20% off on all services! Limited time offer.",
+    "🎉 New Year, New Nails! Start 2024 with beautiful nails. Book your appointment today!",
+    "💅 Valentine's Day Special: Treat yourself or your loved one to a luxury nail experience!",
+    "🌸 Spring Collection: Fresh nail designs and colors now available!",
+    "✨ Special Offer: Refer a friend and both get 15% off your next visit!",
+    "🎁 Holiday Packages: Perfect gift for someone special. Gift cards available!",
+    "💎 Premium Services: Experience our luxury nail treatments. Book now!",
+    "🌟 Follow us on Instagram for daily nail art inspiration and special offers!"
+];
+
+let currentPromotionIndex = 0;
+const promotionBar = document.getElementById('promotionBar');
+const promotionText = document.getElementById('promotionText');
+const promotionClose = document.getElementById('promotionClose');
+
+// Check if promotion bar was closed in this session
+const promotionClosed = sessionStorage.getItem('promotionClosed');
+
+if (promotionBar && promotionText && !promotionClosed) {
+    // Set initial message
+    promotionText.textContent = promotionMessages[currentPromotionIndex];
+    
+    // Rotate messages every 20 seconds (matches animation duration)
+    setInterval(() => {
+        currentPromotionIndex = (currentPromotionIndex + 1) % promotionMessages.length;
+        promotionText.textContent = promotionMessages[currentPromotionIndex];
+    }, 20000);
+    
+    // Close button functionality
+    if (promotionClose) {
+        promotionClose.addEventListener('click', () => {
+            promotionBar.classList.add('hidden');
+            sessionStorage.setItem('promotionClosed', 'true');
+            // Adjust navbar position
+            document.querySelector('.navbar').style.top = '0';
+        });
+    }
+} else if (promotionBar && promotionClosed) {
+    promotionBar.classList.add('hidden');
+    document.querySelector('.navbar').style.top = '0';
+}
+
