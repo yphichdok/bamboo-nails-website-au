@@ -40,6 +40,28 @@
     <title>Bamboo Nails Coomera - Professional Nail Salon | Luxury Manicures & Pedicures</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            corePlugins: {
+                preflight: false, // Disable Tailwind's reset to preserve custom styles
+            },
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#FFB6C1',
+                        'primary-dark': '#FF91A4',
+                        'primary-light': '#FFC0CB',
+                        'secondary': '#66BB6A',
+                        'accent': '#FFE4E1',
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Cormorant Garamond', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
