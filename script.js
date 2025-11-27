@@ -75,6 +75,11 @@ if (hamburger && navMenuRight) {
         navMenuRight.classList.toggle('active');
         hamburger.classList.toggle('active');
         
+        // Show navbar when menu is opened (mobile)
+        if (isMobileDevice && navbar) {
+            navbar.classList.remove('navbar-hidden');
+        }
+        
         // Prevent body scroll when menu is open
         if (!isActive) {
             document.body.style.overflow = 'hidden';
@@ -216,7 +221,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Enhanced Navbar scroll effect with parallax
 let lastScroll = 0;
+let lastScrollTop = 0;
+let scrollTimeout;
 const navbar = document.querySelector('.navbar');
+
+// Helper function to check if mobile device
+const isMobileDevice = () => window.innerWidth <= 767;
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
@@ -228,6 +238,39 @@ window.addEventListener('scroll', () => {
     } else {
         navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
         navbar.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 254, 248, 0.95) 100%)';
+    }
+    
+    // Mobile-only: Hide/show navbar on scroll
+    if (isMobileDevice()) {
+        // Clear any existing timeout
+        clearTimeout(scrollTimeout);
+        
+        // Throttle scroll events for better performance
+        scrollTimeout = setTimeout(() => {
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
+            
+            // Only hide/show if scrolled past threshold
+            if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
+                if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+                    // Scrolling down - hide navbar
+                    navbar.classList.add('navbar-hidden');
+                } else {
+                    // Scrolling up - show navbar
+                    navbar.classList.remove('navbar-hidden');
+                }
+            }
+            
+            // Always show navbar at the top
+            if (currentScrollTop <= 50) {
+                navbar.classList.remove('navbar-hidden');
+            }
+            
+            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+        }, 10); // Throttle to every 10ms
+    } else {
+        // Desktop: Always show navbar
+        navbar.classList.remove('navbar-hidden');
     }
     
     // Parallax effect for hero content
