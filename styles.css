@@ -44,6 +44,12 @@
     .promotion-bar {
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         will-change: transform;
+        margin: 0;
+        padding: 0.45rem 0;
+        height: 32px;
+        min-height: 32px;
+        max-height: 32px;
+        box-sizing: border-box;
     }
     
     .promotion-bar.promotion-bar-hidden {
@@ -60,6 +66,12 @@
     /* When promotion bar is hidden by scroll, ensure navbar can hide completely */
     .promotion-bar.promotion-bar-hidden ~ .navbar {
         top: 0 !important;
+    }
+    
+    /* Ensure no gap between promotion bar and navbar */
+    .promotion-bar:not(.hidden):not(.promotion-bar-hidden) ~ .navbar {
+        top: 32px !important;
+        margin-top: 0 !important;
     }
 }
 
@@ -336,6 +348,8 @@ html {
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 /* Mobile: Hide navbar when scrolling down */
@@ -2651,16 +2665,21 @@ html {
 
     .navbar {
         min-height: 60px;
+        height: 60px;
         padding: 0;
+        margin: 0;
         /* Mobile browser fixes */
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
+        /* Ensure no gap with promotion bar */
+        border-top: none;
     }
     
     .nav-wrapper {
-        padding: 0.75rem 0;
+        padding: 0;
+        margin: 0;
         justify-content: space-between;
         position: relative;
         min-height: 60px;
@@ -2668,6 +2687,11 @@ html {
         align-items: center;
         /* Prevent layout shifts */
         flex-shrink: 0;
+    }
+    
+    /* Ensure navbar sits directly below promotion bar with no gap */
+    body.promotion-visible .navbar {
+        top: 32px !important;
     }
     
     .logo {
@@ -2839,13 +2863,20 @@ html {
         height: 80vh;
         min-height: 500px;
         min-height: -webkit-fill-available; /* iOS Safari fix */
-        margin-top: 60px;
+        margin-top: 60px; /* Default: navbar height only */
         padding-top: 0;
+        margin-bottom: 0;
     }
     
-    /* Adjust hero when promotion bar is visible */
+    /* Adjust hero when promotion bar is visible - exact calculation: 32px + 60px = 92px */
     body.promotion-visible .hero {
-        margin-top: 92px; /* Promotion bar (32px) + navbar (60px) */
+        margin-top: 92px !important; /* Promotion bar (32px) + navbar (60px) = 92px exactly */
+    }
+    
+    /* Ensure hero has no gap with navbar when promotion bar is visible */
+    body.promotion-visible .hero {
+        padding-top: 0;
+        margin-bottom: 0;
     }
     
     /* Fix iOS Safari viewport height issues */

@@ -652,13 +652,17 @@ const adjustLayout = (promotionVisible) => {
     const navbarHeight = isMobile ? 60 : 60; // Navbar height is consistent
     const navbarOffset = isMobile ? '32px' : '40px';
     
-    // Calculate hero margin: navbar height + (promotion bar height if visible)
+    // Calculate hero margin: navbar height + (promotion bar height if visible) - exact calculation
     const heroMarginTop = promotionVisible 
         ? `${navbarHeight + promotionHeight}px` 
         : `${navbarHeight}px`;
     
     if (navbar) {
+        // Set navbar top position exactly at promotion bar height (no gap)
         navbar.style.top = promotionVisible ? navbarOffset : '0';
+        navbar.style.marginTop = '0';
+        navbar.style.paddingTop = '0';
+        
         // Ensure navbar is visible when promotion bar is visible
         if (promotionVisible) {
             navbar.classList.remove('navbar-hidden');
@@ -674,9 +678,11 @@ const adjustLayout = (promotionVisible) => {
         }
     }
     
-    // Set hero margin to align with bottom edge of header (navbar + promotion bar if visible)
+    // Set hero margin to align exactly with bottom edge of header (navbar + promotion bar if visible)
     if (hero) {
         hero.style.marginTop = heroMarginTop;
+        hero.style.paddingTop = '0';
+        hero.style.marginBottom = '0';
     }
     
     // Add/remove class for mobile menu positioning
