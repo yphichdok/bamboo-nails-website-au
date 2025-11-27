@@ -779,7 +779,7 @@ html {
 .btn-primary:hover {
     color: var(--white);
     transform: translateY(-5px);
-    box-shadow: 0 15px 45px rgba(102, 187, 106, 0.5), 0 8px 25px rgba(255, 182, 193, 0.4), 0 5px 15px rgba(102, 187, 106, 0.3);
+    box-shadow: 0 15px 45px rgba(102, 187, 106, 0.7), 0 8px 25px rgba(255, 182, 193, 0.6), 0 5px 15px rgba(102, 187, 106, 0.5);
     border-color: var(--secondary-color);
     background: linear-gradient(135deg, var(--secondary-color) 0%, var(--green-fresh) 50%, var(--primary-color) 100%);
 }
