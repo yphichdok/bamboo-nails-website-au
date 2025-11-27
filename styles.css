@@ -21,6 +21,11 @@
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease;
+    /* Mobile browser fixes */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .promotion-bar.hidden {
@@ -87,6 +92,9 @@
         height: 32px;
         min-height: 32px;
         max-height: 32px;
+        /* Mobile browser fixes */
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
     }
     
     .promotion-content {
@@ -96,6 +104,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        /* Prevent text selection on mobile */
+        -webkit-user-select: none;
+        user-select: none;
     }
     
     .promotion-text {
@@ -103,6 +114,9 @@
         letter-spacing: 0.4px;
         font-weight: 500;
         line-height: 1.2;
+        /* Smooth text rendering */
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
     }
     
     .promotion-close {
@@ -112,6 +126,17 @@
         height: 32px;
         display: flex;
         align-items: center;
+        /* Better touch target */
+        min-width: 44px;
+        min-height: 44px;
+        justify-content: center;
+    }
+    
+    /* Fix for iOS Safari address bar */
+    @supports (-webkit-touch-callout: none) {
+        .promotion-bar {
+            position: -webkit-sticky;
+        }
     }
 }
 
@@ -164,6 +189,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
     font-size: 18px;
     position: relative;
+    /* Mobile browser fixes */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+    touch-action: pan-y;
 }
 
 body::before {
@@ -196,6 +225,42 @@ p, span, li, a, input, textarea, select, button {
     -webkit-tap-highlight-color: transparent;
 }
 
+/* Mobile browser compatibility fixes */
+html {
+    /* Prevent iOS Safari bounce */
+    overscroll-behavior-y: none;
+    /* Smooth scrolling */
+    -webkit-overflow-scrolling: touch;
+    /* Prevent text size adjustment */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* Fix for iOS Safari viewport height */
+@supports (-webkit-touch-callout: none) {
+    html, body {
+        height: -webkit-fill-available;
+    }
+}
+
+/* Mobile browser compatibility fixes */
+html {
+    /* Prevent iOS Safari bounce */
+    overscroll-behavior-y: none;
+    /* Smooth scrolling */
+    -webkit-overflow-scrolling: touch;
+    /* Prevent text size adjustment */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* Fix for iOS Safari viewport height */
+@supports (-webkit-touch-callout: none) {
+    html, body {
+        height: -webkit-fill-available;
+    }
+}
+
 .container {
     max-width: 1400px;
     margin: 0 auto;
@@ -215,6 +280,11 @@ p, span, li, a, input, textarea, select, button {
     -webkit-backdrop-filter: blur(30px) saturate(180%);
     backdrop-filter: blur(30px) saturate(180%);
     border-bottom: 1px solid rgba(255, 182, 193, 0.2);
+    /* Mobile browser fixes */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .nav-wrapper {
@@ -530,6 +600,7 @@ p, span, li, a, input, textarea, select, button {
 .hero {
     position: relative;
     height: 100vh;
+    min-height: -webkit-fill-available; /* iOS Safari fix */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -538,6 +609,8 @@ p, span, li, a, input, textarea, select, button {
     text-align: center;
     margin-top: 70px;
     overflow: hidden;
+    /* Mobile browser fixes */
+    -webkit-overflow-scrolling: touch;
 }
 
 body:has(.promotion-bar:not(.hidden)) .hero {
@@ -2492,6 +2565,11 @@ html {
     .navbar {
         min-height: 60px;
         padding: 0;
+        /* Mobile browser fixes */
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
     }
     
     .nav-wrapper {
@@ -2501,6 +2579,8 @@ html {
         min-height: 60px;
         height: 60px;
         align-items: center;
+        /* Prevent layout shifts */
+        flex-shrink: 0;
     }
     
     .logo {
@@ -2671,6 +2751,7 @@ html {
     .hero {
         height: 80vh;
         min-height: 500px;
+        min-height: -webkit-fill-available; /* iOS Safari fix */
         margin-top: 60px;
         padding-top: 0;
     }
@@ -2678,6 +2759,13 @@ html {
     /* Adjust hero when promotion bar is visible */
     body.promotion-visible .hero {
         margin-top: 92px; /* Promotion bar (32px) + navbar (60px) */
+    }
+    
+    /* Fix iOS Safari viewport height issues */
+    @supports (-webkit-touch-callout: none) {
+        .hero {
+            height: -webkit-fill-available;
+        }
     }
 
     .hero-title {
