@@ -868,11 +868,11 @@ section::before {
 }
 
 .service-card {
-    background: linear-gradient(135deg, var(--white) 0%, rgba(168, 230, 207, 0.3) 50%, rgba(255, 228, 225, 0.2) 100%);
+    background: linear-gradient(135deg, var(--white) 0%, rgba(168, 230, 207, 0.5) 50%, rgba(255, 228, 225, 0.4) 100%);
     padding: 2.5rem 2rem;
     border-radius: 28px;
     text-align: center;
-    box-shadow: 0 10px 40px rgba(102, 187, 106, 0.18), 0 5px 20px rgba(255, 182, 193, 0.12), 0 2px 8px rgba(102, 187, 106, 0.1);
+    box-shadow: 0 10px 40px rgba(102, 187, 106, 0.4), 0 5px 20px rgba(255, 182, 193, 0.3), 0 2px 8px rgba(102, 187, 106, 0.25);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -3294,7 +3294,7 @@ section:not(#home) {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 20px rgba(102, 187, 106, 0.5), 0 2px 10px rgba(255, 182, 193, 0.3);
+    box-shadow: 0 4px 20px rgba(102, 187, 106, 0.7), 0 2px 10px rgba(255, 182, 193, 0.5);
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);
