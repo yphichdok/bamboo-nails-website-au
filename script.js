@@ -227,6 +227,11 @@ let lastScrollTop = 0;
 let scrollTimeout;
 const navbar = document.querySelector('.navbar');
 
+// Ensure navbar exists before adding scroll listener
+if (!navbar) {
+    console.error('Navbar element not found');
+}
+
 // Helper function to check if mobile device
 const isMobileDevice = () => window.innerWidth <= 767;
 
@@ -243,33 +248,39 @@ window.addEventListener('scroll', () => {
     }
     
     // Hide/show navbar on scroll (both mobile and desktop)
+    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
     // Clear any existing timeout
     clearTimeout(scrollTimeout);
     
     // Throttle scroll events for better performance
     scrollTimeout = setTimeout(() => {
-        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
-        
         // Use requestAnimationFrame to ensure smooth updates
         requestAnimationFrame(() => {
-            // Determine if we should hide or show
-            const shouldHide = currentScrollTop > lastScrollTop && currentScrollTop > 100;
-            const shouldShow = currentScrollTop <= 50 || currentScrollTop <= lastScrollTop;
+            // Calculate scroll direction
+            const scrollDifference = currentScrollTop - lastScrollTop;
+            const scrollThreshold = 5; // Minimum scroll distance to trigger hide/show
             
-            if (shouldHide) {
-                // Scrolling down - hide navbar
-                navbar.classList.add('navbar-hidden');
-                navbar.style.top = '0';
-            } else if (shouldShow) {
-                // Scrolling up or at top - show navbar
-                navbar.classList.remove('navbar-hidden');
-                navbar.style.removeProperty('transform');
-                navbar.style.top = '0';
+            // Determine if we should hide or show
+            // Hide when scrolling down more than threshold and past 100px
+            // Show when scrolling up or at the top
+            if (Math.abs(scrollDifference) > scrollThreshold) {
+                if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+                    // Scrolling down - hide navbar
+                    if (!navbar.classList.contains('navbar-hidden')) {
+                        navbar.classList.add('navbar-hidden');
+                    }
+                } else if (currentScrollTop < lastScrollTop || currentScrollTop <= 50) {
+                    // Scrolling up or at top - show navbar
+                    if (navbar.classList.contains('navbar-hidden')) {
+                        navbar.classList.remove('navbar-hidden');
+                    }
+                }
             }
+            
+            // Update lastScrollTop for next comparison
+            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
         });
-        
-        lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
     }, 10); // Throttle to every 10ms
     
     // Parallax effect for hero content
