@@ -1439,8 +1439,8 @@ img {
 
 /* Footer */
 .footer {
-    background: var(--text-dark);
-    color: var(--white);
+    background: var(--text-black);
+    color: var(--text-white);
     padding: 3rem 0 1rem;
 }
 
@@ -1454,10 +1454,12 @@ img {
 .footer-section h3 {
     font-family: 'Playfair Display', serif;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--gold-luxury) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-white);
+    /* Remove gradient background clip */
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: var(--text-white) !important;
+    background-clip: unset !important;
     font-weight: 600;
     font-size: 1.5rem;
     letter-spacing: 1px;
@@ -1465,7 +1467,7 @@ img {
 }
 
 .footer-section p {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-grey-light);
     line-height: 1.8;
 }
 
@@ -1478,13 +1480,13 @@ img {
 }
 
 .footer-section a {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-grey-light);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .footer-section a:hover {
-    color: var(--primary-color);
+    color: var(--text-pink);
 }
 
 .social-links {
