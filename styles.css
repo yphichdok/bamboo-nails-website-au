@@ -802,6 +802,8 @@ section::before {
     height: 100%;
     will-change: transform;
     transform: translateZ(0);
+    will-change: transform;
+    transform: translateZ(0);
     backdrop-filter: blur(10px);
 }
 
