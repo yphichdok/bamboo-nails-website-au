@@ -561,11 +561,17 @@ const adjustLayout = (promotionVisible) => {
     const hero = document.querySelector('.hero');
     const body = document.body;
     
+    // Get promotion bar height (smaller on mobile)
+    const isMobile = window.innerWidth <= 767;
+    const promotionHeight = isMobile ? '28px' : '40px';
+    const navbarOffset = isMobile ? '28px' : '40px';
+    const heroOffset = isMobile ? '98px' : '110px'; // navbar (60px) + promotion bar
+    
     if (navbar) {
-        navbar.style.top = promotionVisible ? '40px' : '0';
+        navbar.style.top = promotionVisible ? navbarOffset : '0';
     }
     if (hero) {
-        hero.style.marginTop = promotionVisible ? '110px' : '70px';
+        hero.style.marginTop = promotionVisible ? heroOffset : '70px';
     }
     
     // Add/remove class for mobile menu positioning
