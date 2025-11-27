@@ -2538,6 +2538,13 @@ html {
         font-size: 0.95rem;
     }
 
+    .btn-primary {
+        padding: 14px 28px;
+        font-size: 0.9rem;
+        max-width: 200px;
+        width: auto;
+    }
+
     /* Sections */
     section {
         padding: 60px 0;
