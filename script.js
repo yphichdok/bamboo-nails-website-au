@@ -582,10 +582,11 @@ const adjustLayout = (promotionVisible) => {
     }
 };
 
-// Check if promotion bar was closed in this session
-const promotionClosed = sessionStorage.getItem('promotionClosed');
-
-if (promotionBar && promotionText && !promotionClosed) {
+// Initialize promotion bar - show on every page load
+if (promotionBar && promotionText) {
+    // Remove hidden class if present (show on every refresh)
+    promotionBar.classList.remove('hidden');
+    
     // Set initial message
     promotionText.textContent = promotionMessages[currentPromotionIndex];
     
@@ -598,17 +599,24 @@ if (promotionBar && promotionText && !promotionClosed) {
         promotionText.textContent = promotionMessages[currentPromotionIndex];
     }, 20000);
     
-    // Close button functionality
+    // Close button functionality - works on both desktop and mobile
     if (promotionClose) {
-        promotionClose.addEventListener('click', () => {
+        // Use both click and touchstart for better mobile support
+        const closePromotion = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             promotionBar.classList.add('hidden');
-            sessionStorage.setItem('promotionClosed', 'true');
             adjustLayout(false);
+        };
+        
+        promotionClose.addEventListener('click', closePromotion);
+        promotionClose.addEventListener('touchend', closePromotion);
+        
+        // Prevent default touch behavior
+        promotionClose.addEventListener('touchstart', (e) => {
+            e.preventDefault();
         });
     }
-} else if (promotionBar && promotionClosed) {
-    promotionBar.classList.add('hidden');
-    adjustLayout(false);
 } else {
     // No promotion bar, ensure default layout
     adjustLayout(false);

@@ -30,6 +30,13 @@
 
 .promotion-bar.hidden {
     transform: translateY(-100%);
+    display: none; /* Completely hide on mobile for better performance */
+}
+
+@media (min-width: 768px) {
+    .promotion-bar.hidden {
+        display: flex; /* Keep flex for smooth transition on desktop */
+    }
 }
 
 .promotion-content {
@@ -77,12 +84,22 @@
     cursor: pointer;
     padding: 0 1rem;
     line-height: 1;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.2s ease;
     opacity: 0.8;
     flex-shrink: 0;
+    /* Better mobile touch support */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .promotion-close:hover {
+    opacity: 1;
+}
+
+.promotion-close:active {
+    transform: scale(0.95);
     opacity: 1;
 }
 
@@ -130,6 +147,16 @@
         min-width: 44px;
         min-height: 44px;
         justify-content: center;
+        /* Enhanced mobile touch support */
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+        touch-action: manipulation;
+        z-index: 10002;
+        position: relative;
+    }
+    
+    .promotion-close:active {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
     }
     
     /* Fix for iOS Safari address bar */
