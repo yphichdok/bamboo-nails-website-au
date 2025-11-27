@@ -2468,6 +2468,8 @@ html {
         display: block !important;
         max-height: 200px;
         padding: 0.5rem 0 0.5rem 2rem !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
     
     .dropdown-menu::before {
@@ -2477,15 +2479,17 @@ html {
     .dropdown-link {
         padding: 0.6rem 1rem;
         font-size: 0.95rem;
-        display: block;
+        display: block !important;
         opacity: 0;
         transform: translateX(-10px);
-        transition: opacity 0.2s ease, transform 0.2s ease, padding 0.2s ease;
+        transition: opacity 0.3s ease, transform 0.3s ease, padding 0.2s ease;
+        pointer-events: none;
     }
     
     .dropdown.active .dropdown-link {
         opacity: 1;
         transform: translateX(0);
+        pointer-events: auto;
     }
     
     .dropdown-link:hover {

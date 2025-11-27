@@ -100,57 +100,98 @@ if (hamburger && navMenuRight) {
     });
 }
 
-// Close mobile menu when clicking on a link
+// Close mobile menu when clicking on a link (but not dropdown toggle or dropdown links)
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
-        // Don't close if it's a dropdown toggle
+        // Don't close if it's a dropdown toggle - let the dropdown handler manage it
         if (link.classList.contains('dropdown-toggle')) {
-            e.preventDefault();
-            const dropdown = link.closest('.dropdown');
-            if (dropdown) {
-                dropdown.classList.toggle('active');
-            }
+            return; // Let the dropdown toggle handler manage this
+        }
+        
+        // Don't close if clicking inside dropdown menu
+        if (link.closest('.dropdown-menu')) {
             return;
         }
         
-        if (navMenuRight) {
-            navMenuRight.classList.remove('active');
+        // Close mobile menu for regular nav links
+        if (window.innerWidth <= 767) {
+            if (navMenuRight) {
+                navMenuRight.classList.remove('active');
+            }
+            if (navMenuLeft) {
+                navMenuLeft.classList.remove('active');
+            }
+            if (hamburger) {
+                hamburger.classList.remove('active');
+            }
+            document.body.style.overflow = '';
         }
-        if (navMenuLeft) {
-            navMenuLeft.classList.remove('active');
-        }
-        if (hamburger) {
-            hamburger.classList.remove('active');
-        }
-        document.body.style.overflow = '';
     });
 });
 
 // Dropdown functionality for desktop and mobile
 document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
     toggle.addEventListener('click', (e) => {
-        // Only prevent default on mobile
+        const dropdown = toggle.closest('.dropdown');
+        if (!dropdown) return;
+        
+        // On mobile, toggle the dropdown
         if (window.innerWidth <= 767) {
             e.preventDefault();
             e.stopPropagation();
-            const dropdown = toggle.closest('.dropdown');
-            if (dropdown) {
-                // Close other dropdowns
-                document.querySelectorAll('.dropdown').forEach(d => {
-                    if (d !== dropdown) {
-                        d.classList.remove('active');
-                    }
-                });
-                dropdown.classList.toggle('active');
-            }
+            
+            // Close other dropdowns
+            document.querySelectorAll('.dropdown').forEach(d => {
+                if (d !== dropdown) {
+                    d.classList.remove('active');
+                }
+            });
+            
+            // Toggle current dropdown
+            dropdown.classList.toggle('active');
         }
     });
 });
 
-// Close dropdown when clicking outside (desktop only)
+// Handle dropdown link clicks on mobile - close menu after navigation
+document.querySelectorAll('.dropdown-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+        if (window.innerWidth <= 767) {
+            // Close mobile menu after clicking dropdown link
+            setTimeout(() => {
+                if (navMenuRight) {
+                    navMenuRight.classList.remove('active');
+                }
+                if (navMenuLeft) {
+                    navMenuLeft.classList.remove('active');
+                }
+                if (hamburger) {
+                    hamburger.classList.remove('active');
+                }
+                document.body.style.overflow = '';
+                
+                // Also close dropdown
+                const dropdown = link.closest('.dropdown');
+                if (dropdown) {
+                    dropdown.classList.remove('active');
+                }
+            }, 100);
+        }
+    });
+});
+
+// Close dropdown when clicking outside
 document.addEventListener('click', (e) => {
+    // Desktop: close dropdown when clicking outside
     if (window.innerWidth > 767) {
         if (!e.target.closest('.dropdown')) {
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
+    } else {
+        // Mobile: close dropdown when clicking outside, but not when clicking nav links
+        if (!e.target.closest('.dropdown') && !e.target.closest('.nav-link') && !e.target.closest('.hamburger')) {
             document.querySelectorAll('.dropdown').forEach(dropdown => {
                 dropdown.classList.remove('active');
             });
