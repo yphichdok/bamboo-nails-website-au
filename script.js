@@ -566,6 +566,9 @@ const adjustLayout = (promotionVisible) => {
     if (hero) {
         hero.style.marginTop = promotionVisible ? '110px' : '70px';
     }
+    
+    // Update CSS custom property for mobile menu positioning
+    document.documentElement.style.setProperty('--promotion-offset', promotionVisible ? '40px' : '0px');
 };
 
 // Check if promotion bar was closed in this session
