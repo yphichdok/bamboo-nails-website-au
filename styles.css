@@ -1023,7 +1023,6 @@ section::before {
     font-size: 1.75rem;
     margin-bottom: 0;
     color: var(--text-black);
-    color: var(--text-dark);
     font-weight: 700;
     letter-spacing: 0.5px;
 }
@@ -1958,7 +1957,7 @@ html {
 .location-description p {
     font-size: 1.2rem;
     line-height: 1.9;
-    color: var(--text-light);
+    color: var(--text-grey);
     margin-bottom: 1.5rem;
 }
 
@@ -1977,11 +1976,11 @@ html {
     gap: 0.8rem;
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.1rem;
-    color: var(--text-dark);
+    color: var(--text-black);
 }
 
 .feature-check {
-    color: var(--primary-color);
+    color: var(--text-pink);
     font-weight: bold;
     font-size: 1.3rem;
 }
