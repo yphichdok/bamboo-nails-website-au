@@ -1,12 +1,11 @@
 #!/bin/bash
 
 # Script to push Bamboo Nails Coomera website to GitHub
-# Replace YOUR_USERNAME with your GitHub username
 
 echo "Setting up GitHub remote..."
 
-# Add remote (replace YOUR_USERNAME with your actual GitHub username)
-git remote add origin https://github.com/YOUR_USERNAME/bamboo-nails.git
+# Add remote
+git remote add origin https://github.com/yphichdok/bamboo-nails-website-au.git
 
 # Verify remote was added
 echo "Remote added. Verifying..."
