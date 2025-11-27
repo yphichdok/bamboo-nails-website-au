@@ -76,7 +76,7 @@ if (hamburger && navMenuRight) {
         hamburger.classList.toggle('active');
         
         // Show navbar when menu is opened (mobile)
-        if (isMobileDevice && navbar) {
+        if (isMobileDevice() && navbar) {
             navbar.classList.remove('navbar-hidden');
         }
         
