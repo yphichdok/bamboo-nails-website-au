@@ -1,8 +1,14 @@
 /* Reset and Base Styles */
+/* Note: Tailwind CSS is included via CDN and provides its own reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Prevent Tailwind from overriding custom styles */
+@layer base {
+    /* Custom styles will take precedence */
 }
 
 /* Promotion Bar - REMOVED */
