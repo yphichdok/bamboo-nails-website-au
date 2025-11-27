@@ -2106,7 +2106,7 @@ html {
     right: 1.5rem;
     font-size: 2rem;
     font-weight: bold;
-    color: var(--text-dark);
+    color: var(--text-black);
     cursor: pointer;
     line-height: 1;
     transition: all 0.3s ease;
