@@ -573,12 +573,26 @@ if (promotionBar && promotionText && !promotionClosed) {
         promotionClose.addEventListener('click', () => {
             promotionBar.classList.add('hidden');
             sessionStorage.setItem('promotionClosed', 'true');
-            // Adjust navbar position
-            document.querySelector('.navbar').style.top = '0';
+            // Adjust navbar and hero position
+            const navbar = document.querySelector('.navbar');
+            const hero = document.querySelector('.hero');
+            if (navbar) navbar.style.top = '0';
+            if (hero) hero.style.marginTop = '70px';
         });
     }
 } else if (promotionBar && promotionClosed) {
     promotionBar.classList.add('hidden');
-    document.querySelector('.navbar').style.top = '0';
+    const navbar = document.querySelector('.navbar');
+    const hero = document.querySelector('.hero');
+    if (navbar) navbar.style.top = '0';
+    if (hero) hero.style.marginTop = '70px';
+}
+
+// Adjust hero margin when promotion bar is visible
+if (promotionBar && !promotionClosed) {
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        hero.style.marginTop = '110px';
+    }
 }
 

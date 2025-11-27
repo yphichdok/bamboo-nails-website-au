@@ -516,7 +516,7 @@ p, span, li, a, input, textarea, select, button {
     overflow: hidden;
 }
 
-.promotion-bar:not(.hidden) ~ .navbar ~ .hero {
+body:has(.promotion-bar:not(.hidden)) .hero {
     margin-top: 110px;
 }
 
