@@ -257,33 +257,65 @@ window.addEventListener('scroll', () => {
             
             // Only hide/show if scrolled past threshold
             if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
+                const isPromotionVisible = promotionBar && !promotionBar.classList.contains('hidden');
+                const promotionHeight = isPromotionVisible ? 32 : 0; // Mobile promotion bar height
+                const navbarHeight = 60; // Mobile navbar height
+                
                 if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
-                    // Scrolling down - hide navbar and promotion bar together
-                    navbar.classList.add('navbar-hidden');
-                    if (promotionBar && !promotionBar.classList.contains('hidden')) {
+                    // Scrolling down - hide navbar and promotion bar completely
+                    if (isPromotionVisible) {
                         promotionBar.classList.add('promotion-bar-hidden');
-                        // Force update to ensure both hide together
+                        // Hide promotion bar completely
                         promotionBar.style.transform = 'translateY(-100%)';
+                        promotionBar.style.zIndex = '10000'; // Lower z-index when hidden
                     }
-                    navbar.style.transform = 'translateY(-100%)';
+                    
+                    navbar.classList.add('navbar-hidden');
+                    // Hide navbar completely - calculate full hide distance
+                    if (isPromotionVisible) {
+                        // If promotion bar is visible, hide navbar below it
+                        navbar.style.transform = `translateY(-${navbarHeight + promotionHeight}px)`;
+                        navbar.style.top = '0'; // Reset top to allow complete hide
+                    } else {
+                        // If no promotion bar, just hide navbar
+                        navbar.style.transform = 'translateY(-100%)';
+                    }
                 } else {
-                    // Scrolling up - show navbar and promotion bar together
-                    navbar.classList.remove('navbar-hidden');
-                    navbar.style.transform = '';
-                    if (promotionBar && !promotionBar.classList.contains('hidden')) {
+                    // Scrolling up - show navbar and promotion bar
+                    if (isPromotionVisible) {
                         promotionBar.classList.remove('promotion-bar-hidden');
                         promotionBar.style.transform = '';
+                        promotionBar.style.zIndex = '10001'; // Restore z-index
+                    }
+                    
+                    navbar.classList.remove('navbar-hidden');
+                    navbar.style.transform = '';
+                    // Restore navbar top position if promotion bar is visible
+                    if (isPromotionVisible) {
+                        navbar.style.top = '32px';
+                    } else {
+                        navbar.style.top = '0';
                     }
                 }
             }
             
             // Always show navbar and promotion bar at the top
             if (currentScrollTop <= 50) {
-                navbar.classList.remove('navbar-hidden');
-                navbar.style.transform = '';
-                if (promotionBar && !promotionBar.classList.contains('hidden')) {
+                const isPromotionVisible = promotionBar && !promotionBar.classList.contains('hidden');
+                
+                if (isPromotionVisible) {
                     promotionBar.classList.remove('promotion-bar-hidden');
                     promotionBar.style.transform = '';
+                    promotionBar.style.zIndex = '10001';
+                }
+                
+                navbar.classList.remove('navbar-hidden');
+                navbar.style.transform = '';
+                // Restore navbar top position
+                if (isPromotionVisible) {
+                    navbar.style.top = '32px';
+                } else {
+                    navbar.style.top = '0';
                 }
             }
             
@@ -641,9 +673,14 @@ const adjustLayout = (promotionVisible) => {
         // Ensure navbar is visible when promotion bar is visible
         if (promotionVisible) {
             navbar.classList.remove('navbar-hidden');
+            navbar.style.transform = '';
             // Also ensure promotion bar is visible (not hidden by scroll)
             if (promotionBar && !promotionBar.classList.contains('hidden')) {
                 promotionBar.classList.remove('promotion-bar-hidden');
+                promotionBar.style.transform = '';
+                promotionBar.style.zIndex = '10001';
+                promotionBar.style.opacity = '1';
+                promotionBar.style.visibility = 'visible';
             }
         }
     }
