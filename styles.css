@@ -544,6 +544,13 @@ body:has(.promotion-bar:not(.hidden)) .hero {
     margin-top: 110px;
 }
 
+/* Mobile specific hero adjustment */
+@media (max-width: 767px) {
+    body:has(.promotion-bar:not(.hidden)) .hero {
+        margin-top: 92px; /* Promotion bar (32px) + navbar (60px) */
+    }
+}
+
 /* Hero Slideshow */
 .hero-slideshow {
     position: absolute;
@@ -2482,15 +2489,18 @@ html {
         display: flex;
     }
 
+    .navbar {
+        min-height: 60px;
+        padding: 0;
+    }
+    
     .nav-wrapper {
         padding: 0.75rem 0;
         justify-content: space-between;
         position: relative;
         min-height: 60px;
-    }
-    
-    .navbar {
-        min-height: 60px;
+        height: 60px;
+        align-items: center;
     }
     
     .logo {
