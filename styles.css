@@ -852,6 +852,16 @@ body:has(.promotion-bar:not(.hidden)) .hero {
     background-clip: text;
 }
 
+/* Desktop: Hide line break, show inline */
+.hero-title .mobile-break {
+    display: none;
+}
+
+.hero-title-line1,
+.hero-title-line2 {
+    display: inline;
+}
+
 @keyframes gradientShift {
     0% {
         background-position: 0% 50%;
@@ -2585,7 +2595,17 @@ html {
     .hero-title {
         font-size: 2.8rem;
     }
-
+    
+    /* Mobile: Show line break, hide on desktop */
+    .hero-title .mobile-break {
+        display: block;
+    }
+    
+    .hero-title-line1,
+    .hero-title-line2 {
+        display: block;
+    }
+    
     .hero-subtitle {
         font-size: 1.2rem;
     }
@@ -3186,7 +3206,17 @@ html {
     .hero-title {
         font-size: 1.75rem;
     }
-
+    
+    /* Ensure line break on very small screens */
+    .hero-title .mobile-break {
+        display: block;
+    }
+    
+    .hero-title-line1,
+    .hero-title-line2 {
+        display: block;
+    }
+    
     .hero-subtitle {
         font-size: 0.9rem;
     }
