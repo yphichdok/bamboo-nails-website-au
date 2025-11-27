@@ -78,9 +78,16 @@ if (hamburger && navMenuRight) {
         // Show navbar and promotion bar when menu is opened (mobile)
         if (isMobileDevice() && navbar) {
             navbar.classList.remove('navbar-hidden');
+            navbar.style.transform = '';
             const promotionBar = document.getElementById('promotionBar');
             if (promotionBar && !promotionBar.classList.contains('hidden')) {
                 promotionBar.classList.remove('promotion-bar-hidden');
+                promotionBar.style.transform = '';
+                promotionBar.style.zIndex = '10001';
+                // Restore navbar top if promotion bar is visible
+                navbar.style.top = '32px';
+            } else {
+                navbar.style.top = '0';
             }
         }
         
