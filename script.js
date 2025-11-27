@@ -559,6 +559,7 @@ const promotionClose = document.getElementById('promotionClose');
 const adjustLayout = (promotionVisible) => {
     const navbar = document.querySelector('.navbar');
     const hero = document.querySelector('.hero');
+    const body = document.body;
     
     if (navbar) {
         navbar.style.top = promotionVisible ? '40px' : '0';
@@ -567,8 +568,12 @@ const adjustLayout = (promotionVisible) => {
         hero.style.marginTop = promotionVisible ? '110px' : '70px';
     }
     
-    // Update CSS custom property for mobile menu positioning
-    document.documentElement.style.setProperty('--promotion-offset', promotionVisible ? '40px' : '0px');
+    // Add/remove class for mobile menu positioning
+    if (promotionVisible) {
+        body.classList.add('promotion-visible');
+    } else {
+        body.classList.remove('promotion-visible');
+    }
 };
 
 // Check if promotion bar was closed in this session

@@ -2540,27 +2540,25 @@ html {
 
     .nav-menu-left.active {
         left: 0;
-        top: 100px; /* Adjusted for promotion bar (40px) + navbar (60px) */
+        top: 60px;
         opacity: 1;
         visibility: visible;
     }
     
     .nav-menu-right.active {
         left: 0;
-        top: calc(100px + 180px); /* Position below left menu */
+        top: calc(60px + 180px); /* Position below left menu */
         opacity: 1;
         visibility: visible;
     }
     
-    /* Adjust mobile menu when promotion bar is hidden */
-    .promotion-bar.hidden ~ .navbar ~ * .nav-menu-left.active,
-    body:not(:has(.promotion-bar)) .nav-menu-left.active {
-        top: 60px;
+    /* Adjust mobile menu when promotion bar is visible */
+    body.promotion-visible .nav-menu-left.active {
+        top: 100px; /* Promotion bar (40px) + navbar (60px) */
     }
     
-    .promotion-bar.hidden ~ .navbar ~ * .nav-menu-right.active,
-    body:not(:has(.promotion-bar)) .nav-menu-right.active {
-        top: calc(60px + 180px);
+    body.promotion-visible .nav-menu-right.active {
+        top: calc(100px + 180px);
     }
     
     .nav-menu-left li,
