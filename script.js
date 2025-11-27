@@ -1,32 +1,56 @@
-// Hero Slideshow with Random Transitions
+// Hero Slideshow with Random Transitions - Optimized for Performance
 const heroSlideshow = () => {
     const slides = document.querySelectorAll('.hero-slide');
     if (slides.length === 0) return;
     
     let currentSlide = 0;
+    let isTransitioning = false;
+    let slideTimeout;
     const transitions = ['fade', 'slide', 'zoom', 'blur'];
+    
+    // Preload images for better performance
+    slides.forEach((slide) => {
+        const img = slide.querySelector('img');
+        if (img && !img.complete) {
+            img.loading = 'eager';
+        }
+    });
     
     // Randomly assign initial transitions to slides
     slides.forEach((slide, index) => {
         const randomTransition = transitions[Math.floor(Math.random() * transitions.length)];
         slide.setAttribute('data-transition', randomTransition);
+        // GPU acceleration
+        slide.style.transform = 'translateZ(0)';
+        slide.style.willChange = 'opacity, transform, filter';
     });
     
     const showSlide = (index) => {
-        // Remove active class from all slides
-        slides.forEach(slide => {
-            slide.classList.remove('active');
-        });
+        if (isTransitioning) return;
+        isTransitioning = true;
         
-        // Small delay to ensure transition works
-        setTimeout(() => {
-            // Randomly assign transition for current slide
-            const randomTransition = transitions[Math.floor(Math.random() * transitions.length)];
-            slides[index].setAttribute('data-transition', randomTransition);
+        // Use requestAnimationFrame for smooth transitions
+        requestAnimationFrame(() => {
+            // Remove active class from all slides
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
             
-            // Add active class to current slide
-            slides[index].classList.add('active');
-        }, 50);
+            // Use requestAnimationFrame for next frame
+            requestAnimationFrame(() => {
+                // Randomly assign transition for current slide
+                const randomTransition = transitions[Math.floor(Math.random() * transitions.length)];
+                slides[index].setAttribute('data-transition', randomTransition);
+                
+                // Add active class to current slide
+                slides[index].classList.add('active');
+                
+                // Reset transition flag after animation completes
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 1000); // Max transition duration
+            });
+        });
     };
     
     const nextSlide = () => {
@@ -35,21 +59,36 @@ const heroSlideshow = () => {
     };
     
     // Initialize first slide
-    showSlide(0);
+    requestAnimationFrame(() => {
+        showSlide(0);
+    });
     
     // Change slide every 4-6 seconds (random interval for more dynamic feel)
     const changeSlide = () => {
         const interval = 4000 + Math.random() * 2000; // 4-6 seconds
-        setTimeout(() => {
+        slideTimeout = setTimeout(() => {
             nextSlide();
             changeSlide();
         }, interval);
     };
     
-    // Start slideshow after initial delay (reduced for faster initial load)
-    setTimeout(() => {
-        changeSlide();
-    }, 1500); // Start after 1.5 seconds for faster initial experience
+    // Wait for page load before starting slideshow
+    if (document.readyState === 'complete') {
+        setTimeout(() => {
+            changeSlide();
+        }, 1500);
+    } else {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                changeSlide();
+            }, 1500);
+        });
+    }
+    
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+        if (slideTimeout) clearTimeout(slideTimeout);
+    });
 };
 
 // Initialize slideshow when DOM is loaded
@@ -274,64 +313,68 @@ if (!navbar) {
 // Helper function to check if mobile device
 const isMobileDevice = () => window.innerWidth <= 767;
 
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    // Enhanced navbar shadow on scroll
-    if (currentScroll > 100) {
-        navbar.style.boxShadow = '0 4px 40px rgba(0, 0, 0, 0.12), 0 1px 0 rgba(102, 187, 106, 0.1)';
-        navbar.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 0.99) 0%, rgba(255, 254, 248, 0.97) 100%)';
-    } else {
-        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-        navbar.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 254, 248, 0.95) 100%)';
-    }
-    
-    // Hide/show navbar on scroll (both mobile and desktop)
-    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
-    // Clear any existing timeout
-    clearTimeout(scrollTimeout);
-    
-    // Throttle scroll events for better performance
-    scrollTimeout = setTimeout(() => {
-        // Use requestAnimationFrame to ensure smooth updates
+// Optimized scroll handler with throttling and requestAnimationFrame
+let ticking = false;
+const handleScroll = () => {
+    if (!ticking) {
         requestAnimationFrame(() => {
-            // Calculate scroll direction
-            const scrollDifference = currentScrollTop - lastScrollTop;
-            const scrollThreshold = 5; // Minimum scroll distance to trigger hide/show
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            const currentScrollTop = currentScroll;
             
-            // Determine if we should hide or show
-            // Hide when scrolling down more than threshold and past 100px
-            // Show when scrolling up or at the top
-            if (Math.abs(scrollDifference) > scrollThreshold) {
-                if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
-                    // Scrolling down - hide navbar
-                    if (!navbar.classList.contains('navbar-hidden')) {
-                        navbar.classList.add('navbar-hidden');
-                    }
-                } else if (currentScrollTop < lastScrollTop || currentScrollTop <= 50) {
-                    // Scrolling up or at top - show navbar
-                    if (navbar.classList.contains('navbar-hidden')) {
-                        navbar.classList.remove('navbar-hidden');
-                    }
-                }
+            // Enhanced navbar shadow on scroll (only update if changed)
+            if (currentScroll > 100 && lastScroll <= 100) {
+                navbar.style.boxShadow = '0 4px 40px rgba(0, 0, 0, 0.12), 0 1px 0 rgba(102, 187, 106, 0.1)';
+                navbar.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 0.99) 0%, rgba(255, 254, 248, 0.97) 100%)';
+            } else if (currentScroll <= 100 && lastScroll > 100) {
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                navbar.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 254, 248, 0.95) 100%)';
             }
             
-            // Update lastScrollTop for next comparison
-            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+            // Hide/show navbar on scroll (both mobile and desktop)
+            // Clear any existing timeout
+            clearTimeout(scrollTimeout);
+            
+            // Throttle scroll events for better performance
+            scrollTimeout = setTimeout(() => {
+                // Calculate scroll direction
+                const scrollDifference = currentScrollTop - lastScrollTop;
+                const scrollThreshold = 5; // Minimum scroll distance to trigger hide/show
+                
+                // Determine if we should hide or show
+                if (Math.abs(scrollDifference) > scrollThreshold) {
+                    if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+                        // Scrolling down - hide navbar
+                        if (!navbar.classList.contains('navbar-hidden')) {
+                            navbar.classList.add('navbar-hidden');
+                        }
+                    } else if (currentScrollTop < lastScrollTop || currentScrollTop <= 50) {
+                        // Scrolling up or at top - show navbar
+                        if (navbar.classList.contains('navbar-hidden')) {
+                            navbar.classList.remove('navbar-hidden');
+                        }
+                    }
+                }
+                
+                // Update lastScrollTop for next comparison
+                lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+            }, 16); // ~60fps throttling
+            
+            // Optimized parallax effect for hero content (only if in viewport)
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent && currentScroll < window.innerHeight) {
+                const parallaxSpeed = currentScroll * 0.5;
+                heroContent.style.transform = `translate3d(0, ${parallaxSpeed}px, 0)`;
+                heroContent.style.opacity = Math.max(0.5, 1 - (currentScroll / window.innerHeight) * 0.5);
+            }
+            
+            lastScroll = currentScroll;
+            ticking = false;
         });
-    }, 10); // Throttle to every 10ms
-    
-    // Parallax effect for hero content
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent && currentScroll < window.innerHeight) {
-        const parallaxSpeed = currentScroll * 0.5;
-        heroContent.style.transform = `translateY(${parallaxSpeed}px)`;
-        heroContent.style.opacity = 1 - (currentScroll / window.innerHeight) * 0.5;
+        ticking = true;
     }
-    
-    lastScroll = currentScroll;
-});
+};
+
+window.addEventListener('scroll', handleScroll, { passive: true });
 
 // Contact Form Handling
 const contactForm = document.getElementById('contactForm');
@@ -362,7 +405,14 @@ if (contactForm) {
 }
 
 // Enhanced Scroll Animations with Transformations
+// Wait for page to be fully loaded before initializing animations
 const initScrollAnimations = () => {
+    // Check if page is fully loaded
+    if (document.readyState !== 'complete') {
+        window.addEventListener('load', initScrollAnimations);
+        return;
+    }
+    
     // Use requestIdleCallback for better performance, fallback to setTimeout
     const scheduleAnimation = (callback) => {
         if ('requestIdleCallback' in window) {
@@ -372,113 +422,136 @@ const initScrollAnimations = () => {
         }
     };
     
-    // Animation options with different thresholds (optimized)
+    // Optimized animation options
     const observerOptions = {
-        threshold: 0.1,
+        threshold: [0, 0.1, 0.2],
         rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
+        entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 const element = entry.target;
                 const animationType = element.dataset.animation || 'fadeUp';
                 
                 // Add delay for stagger effect (reduced for faster feel)
-                const delay = element.dataset.delay || index * 0.05;
+                const delay = parseFloat(element.dataset.delay) || 0;
                 
                 // Use requestAnimationFrame for smoother animations
                 requestAnimationFrame(() => {
-                    setTimeout(() => {
+                    const animate = () => {
                         element.classList.add('animate-in');
+                        // Remove will-change after animation to free resources
+                        setTimeout(() => {
+                            element.style.willChange = 'auto';
+                        }, 1000);
                         observer.unobserve(element); // Only animate once
-                    }, delay * 1000);
+                    };
+                    
+                    if (delay > 0) {
+                        setTimeout(animate, delay * 1000);
+                    } else {
+                        animate();
+                    }
                 });
             }
         });
     }, observerOptions);
 
-    // Animate sections (optimized with will-change)
+    // Animate sections (optimized with GPU acceleration)
     document.querySelectorAll('section').forEach((section, index) => {
         if (!section.id || section.id === 'home') return; // Skip hero section
         
         section.style.opacity = '0';
-        section.style.transform = 'translateY(50px)';
+        section.style.transform = 'translate3d(0, 50px, 0)';
         section.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
         section.style.willChange = 'opacity, transform';
+        section.style.backfaceVisibility = 'hidden';
         section.dataset.animation = 'fadeUp';
         section.dataset.delay = index * 0.05;
         observer.observe(section);
     });
 
-    // Animate service cards with stagger (optimized)
+    // Animate service cards with stagger (optimized with GPU acceleration)
     document.querySelectorAll('.service-card').forEach((card, index) => {
         card.style.opacity = '0';
-        card.style.transform = 'translateY(40px) scale(0.95)';
+        card.style.transform = 'translate3d(0, 40px, 0) scale(0.95)';
         card.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
         card.style.willChange = 'opacity, transform';
+        card.style.backfaceVisibility = 'hidden';
         card.dataset.animation = 'fadeUpScale';
         card.dataset.delay = index * 0.1;
         observer.observe(card);
     });
 
-    // Animate gallery items with stagger (optimized)
+    // Animate gallery items with stagger (optimized with GPU acceleration)
     document.querySelectorAll('.gallery-item').forEach((item, index) => {
         item.style.opacity = '0';
-        item.style.transform = 'translateY(30px) rotateY(10deg)';
+        item.style.transform = 'translate3d(0, 30px, 0) rotateY(10deg)';
         item.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
         item.style.willChange = 'opacity, transform';
+        item.style.backfaceVisibility = 'hidden';
         item.dataset.animation = 'fadeUpRotate';
         item.dataset.delay = index * 0.08;
         observer.observe(item);
     });
 
-    // Animate section titles
+    // Animate section titles (GPU accelerated)
     document.querySelectorAll('.section-title').forEach((title, index) => {
         title.style.opacity = '0';
-        title.style.transform = 'translateY(-20px)';
+        title.style.transform = 'translate3d(0, -20px, 0)';
         title.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        title.style.willChange = 'opacity, transform';
+        title.style.backfaceVisibility = 'hidden';
         title.dataset.animation = 'fadeDown';
         title.dataset.delay = 0.2;
         observer.observe(title);
     });
 
-    // Animate info items
+    // Animate info items (GPU accelerated)
     document.querySelectorAll('.info-item, .feature-card').forEach((item, index) => {
         item.style.opacity = '0';
-        item.style.transform = 'translateX(-30px)';
+        item.style.transform = 'translate3d(-30px, 0, 0)';
         item.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        item.style.willChange = 'opacity, transform';
+        item.style.backfaceVisibility = 'hidden';
         item.dataset.animation = 'slideRight';
         item.dataset.delay = index * 0.1;
         observer.observe(item);
     });
 
-    // Animate buttons
+    // Animate buttons (GPU accelerated)
     document.querySelectorAll('.btn-primary, .btn-service').forEach((btn, index) => {
         btn.style.opacity = '0';
-        btn.style.transform = 'scale(0.9)';
+        btn.style.transform = 'scale3d(0.9, 0.9, 1)';
         btn.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        btn.style.willChange = 'opacity, transform';
+        btn.style.backfaceVisibility = 'hidden';
         btn.dataset.animation = 'scale';
         btn.dataset.delay = 0.3;
         observer.observe(btn);
     });
 
-    // Animate contact form
+    // Animate contact form (GPU accelerated)
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         contactForm.style.opacity = '0';
-        contactForm.style.transform = 'translateX(30px)';
+        contactForm.style.transform = 'translate3d(30px, 0, 0)';
         contactForm.style.transition = 'opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
+        contactForm.style.willChange = 'opacity, transform';
+        contactForm.style.backfaceVisibility = 'hidden';
         contactForm.dataset.animation = 'slideLeft';
         contactForm.dataset.delay = 0.2;
         observer.observe(contactForm);
     }
 
-    // Animate about content
+    // Animate about content (GPU accelerated)
     document.querySelectorAll('.about-text, .about-image').forEach((item, index) => {
         item.style.opacity = '0';
-        item.style.transform = index % 2 === 0 ? 'translateX(-40px)' : 'translateX(40px)';
+        item.style.transform = index % 2 === 0 ? 'translate3d(-40px, 0, 0)' : 'translate3d(40px, 0, 0)';
         item.style.transition = 'opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
+        item.style.willChange = 'opacity, transform';
+        item.style.backfaceVisibility = 'hidden';
         item.dataset.animation = index % 2 === 0 ? 'slideRight' : 'slideLeft';
         item.dataset.delay = index * 0.15;
         observer.observe(item);
