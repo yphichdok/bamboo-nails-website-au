@@ -118,7 +118,6 @@ document.querySelectorAll('.nav-link').forEach(link => {
         }
         if (navMenuLeft) {
             navMenuLeft.classList.remove('active');
-            navMenuLeft.style.display = 'none';
         }
         if (hamburger) {
             hamburger.classList.remove('active');
