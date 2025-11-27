@@ -2372,16 +2372,24 @@ html {
         padding: 0.8rem 0;
     }
 
+    .nav-wrapper {
+        justify-content: center;
+        position: relative;
+    }
+    
     .logo {
-        position: static;
-        transform: none;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
         order: 2;
+        margin: 0;
     }
     
     .logo h1 {
         font-size: 1.1rem;
         letter-spacing: 1px;
         padding: 0.4rem 1rem;
+        text-align: center;
     }
     
     .logo h1::before {
