@@ -83,26 +83,35 @@
 
 @media (max-width: 767px) {
     .promotion-bar {
-        padding: 0.5rem 0;
+        padding: 0.45rem 0;
+        height: 32px;
         min-height: 32px;
+        max-height: 32px;
     }
     
     .promotion-content {
-        height: 22px;
+        height: 20px;
         padding: 0 0.5rem;
         max-width: calc(100% - 50px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .promotion-text {
         font-size: 0.8rem;
         letter-spacing: 0.4px;
         font-weight: 500;
+        line-height: 1.2;
     }
     
     .promotion-close {
         font-size: 1.2rem;
         padding: 0 0.5rem;
         line-height: 1;
+        height: 32px;
+        display: flex;
+        align-items: center;
     }
 }
 
@@ -2474,9 +2483,14 @@ html {
     }
 
     .nav-wrapper {
-        padding: 0.8rem 0;
+        padding: 0.75rem 0;
         justify-content: space-between;
         position: relative;
+        min-height: 60px;
+    }
+    
+    .navbar {
+        min-height: 60px;
     }
     
     .logo {
@@ -2648,6 +2662,12 @@ html {
         height: 80vh;
         min-height: 500px;
         margin-top: 60px;
+        padding-top: 0;
+    }
+    
+    /* Adjust hero when promotion bar is visible */
+    body.promotion-visible .hero {
+        margin-top: 92px; /* Promotion bar (32px) + navbar (60px) */
     }
 
     .hero-title {

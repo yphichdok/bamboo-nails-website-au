@@ -565,7 +565,7 @@ const adjustLayout = (promotionVisible) => {
     const isMobile = window.innerWidth <= 767;
     const promotionHeight = isMobile ? '32px' : '40px';
     const navbarOffset = isMobile ? '32px' : '40px';
-    const heroOffset = isMobile ? '102px' : '110px'; // navbar (60px) + promotion bar
+    const heroOffset = isMobile ? '92px' : '110px'; // promotion bar + navbar (60px)
     
     if (navbar) {
         navbar.style.top = promotionVisible ? navbarOffset : '0';
