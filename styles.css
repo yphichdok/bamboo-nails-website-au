@@ -83,23 +83,24 @@
 
 @media (max-width: 767px) {
     .promotion-bar {
-        padding: 0.4rem 0;
-        min-height: 28px;
+        padding: 0.5rem 0;
+        min-height: 32px;
     }
     
     .promotion-content {
-        height: 18px;
+        height: 22px;
         padding: 0 0.5rem;
         max-width: calc(100% - 50px);
     }
     
     .promotion-text {
-        font-size: 0.7rem;
-        letter-spacing: 0.3px;
+        font-size: 0.8rem;
+        letter-spacing: 0.4px;
+        font-weight: 500;
     }
     
     .promotion-close {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         padding: 0 0.5rem;
         line-height: 1;
     }
@@ -2561,11 +2562,11 @@ html {
     
     /* Adjust mobile menu when promotion bar is visible */
     body.promotion-visible .nav-menu-left.active {
-        top: 88px; /* Promotion bar (28px on mobile) + navbar (60px) */
+        top: 92px; /* Promotion bar (32px on mobile) + navbar (60px) */
     }
     
     body.promotion-visible .nav-menu-right.active {
-        top: calc(88px + 180px);
+        top: calc(92px + 180px);
     }
     
     .nav-menu-left li,

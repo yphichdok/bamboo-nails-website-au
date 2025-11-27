@@ -540,14 +540,14 @@ window.addEventListener('hashchange', setActiveNavLink);
 
 // Promotion Bar with Rotating Messages
 const promotionMessages = [
-    "🎄 Christmas Special: Book now and get 20% off on all services! Limited time offer.",
-    "🎉 New Year, New Nails! Start 2024 with beautiful nails. Book your appointment today!",
-    "💅 Valentine's Day Special: Treat yourself or your loved one to a luxury nail experience!",
-    "🌸 Spring Collection: Fresh nail designs and colors now available!",
-    "✨ Special Offer: Refer a friend and both get 15% off your next visit!",
-    "🎁 Holiday Packages: Perfect gift for someone special. Gift cards available!",
-    "💎 Premium Services: Experience our luxury nail treatments. Book now!",
-    "🌟 Follow us on Instagram for daily nail art inspiration and special offers!"
+    "🎄 Christmas Special: 20% off all services! Book now.",
+    "🎉 New Year, New Nails! Book your appointment today!",
+    "💅 Valentine's Special: Luxury nail experience available!",
+    "🌸 Spring Collection: Fresh designs now available!",
+    "✨ Refer a friend: Both get 15% off!",
+    "🎁 Holiday Packages: Gift cards available!",
+    "💎 Premium Services: Luxury treatments. Book now!",
+    "🌟 Follow us on Instagram for daily inspiration!"
 ];
 
 let currentPromotionIndex = 0;
@@ -563,9 +563,9 @@ const adjustLayout = (promotionVisible) => {
     
     // Get promotion bar height (smaller on mobile)
     const isMobile = window.innerWidth <= 767;
-    const promotionHeight = isMobile ? '28px' : '40px';
-    const navbarOffset = isMobile ? '28px' : '40px';
-    const heroOffset = isMobile ? '98px' : '110px'; // navbar (60px) + promotion bar
+    const promotionHeight = isMobile ? '32px' : '40px';
+    const navbarOffset = isMobile ? '32px' : '40px';
+    const heroOffset = isMobile ? '102px' : '110px'; // navbar (60px) + promotion bar
     
     if (navbar) {
         navbar.style.top = promotionVisible ? navbarOffset : '0';
