@@ -1115,7 +1115,7 @@ section::before {
     font-size: 0.95rem;
     letter-spacing: 0.8px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 6px 20px rgba(255, 182, 193, 0.4), 0 2px 8px rgba(255, 182, 193, 0.2);
+    box-shadow: 0 6px 20px rgba(102, 187, 106, 0.4), 0 2px 8px rgba(102, 187, 106, 0.3);
     border: none;
     cursor: pointer;
     width: 100%;
@@ -1767,9 +1767,9 @@ html {
 
 .filter-btn {
     padding: 10px 25px;
-    border: 2px solid var(--primary-color);
+    border: 2px solid var(--button-color);
     background: var(--white);
-    color: var(--primary-color);
+    color: var(--button-color);
     border-radius: 25px;
     cursor: pointer;
     font-weight: 600;
@@ -1779,9 +1779,9 @@ html {
 
 .filter-btn:hover,
 .filter-btn.active {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--yellow-warm) 100%);
-    color: var(--white);
-    border-color: var(--primary-color);
+    background: var(--button-color);
+    color: var(--text-white);
+    border-color: var(--button-color);
     transform: translateY(-2px);
 }
 
@@ -3038,8 +3038,8 @@ html {
     }
 
     .hero {
-        height: 70vh;
-        min-height: 400px;
+        height: 100vh;
+        min-height: 100vh;
     }
 
     .hero-title {
