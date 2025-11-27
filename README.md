@@ -36,12 +36,12 @@ A modern, responsive website for Bamboo Nails Coomera, featuring luxury nail sal
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/bamboo-nails-coomera.git
+git clone https://github.com/yourusername/bamboo-nails.git
 ```
 
 2. Navigate to the project directory:
 ```bash
-cd bamboo-nails-coomera
+cd bamboo-nails
 ```
 
 3. Open `index.html` in a web browser or use a local server:
@@ -58,7 +58,7 @@ npx http-server -p 3000
 ## File Structure
 
 ```
-bamboo-nails-coomera/
+bamboo-nails/
 ├── index.html
 ├── services.html
 ├── about.html
