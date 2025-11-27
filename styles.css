@@ -42,7 +42,7 @@
 /* Mobile: Hide promotion bar when scrolling down (along with navbar) */
 @media (max-width: 767px) {
     .promotion-bar {
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
         will-change: transform, opacity;
     }
     
@@ -50,7 +50,7 @@
         transform: translateY(-100%) !important;
         opacity: 0 !important;
         pointer-events: none;
-        visibility: hidden;
+        visibility: hidden !important;
     }
     
     /* Ensure promotion bar shows when manually closed */
@@ -343,18 +343,14 @@ html {
 /* Mobile: Hide navbar when scrolling down */
 @media (max-width: 767px) {
     .navbar {
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), top 0.3s ease;
-        will-change: transform;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), top 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: transform, opacity;
     }
     
     .navbar.navbar-hidden {
         pointer-events: none;
-        /* Transform will be set by JavaScript to account for promotion bar */
-    }
-    
-    /* Ensure navbar is completely hidden when scrolling */
-    .navbar.navbar-hidden[style*="translateY"] {
         opacity: 0;
+        /* Transform will be set by JavaScript */
     }
 }
 

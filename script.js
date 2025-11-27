@@ -262,69 +262,61 @@ window.addEventListener('scroll', () => {
             const scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
             const promotionBar = document.getElementById('promotionBar');
             
-            // Only hide/show if scrolled past threshold
-            if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
-                const isPromotionVisible = promotionBar && !promotionBar.classList.contains('hidden');
-                const promotionHeight = isPromotionVisible ? 32 : 0; // Mobile promotion bar height
-                const navbarHeight = 60; // Mobile navbar height
-                
-                if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
-                    // Scrolling down - hide navbar and promotion bar completely
-                    if (isPromotionVisible) {
-                        promotionBar.classList.add('promotion-bar-hidden');
-                        // Hide promotion bar completely
-                        promotionBar.style.transform = 'translateY(-100%)';
-                        promotionBar.style.zIndex = '10000'; // Lower z-index when hidden
-                    }
-                    
-                    navbar.classList.add('navbar-hidden');
-                    // Hide navbar completely - calculate full hide distance
-                    if (isPromotionVisible) {
-                        // If promotion bar is visible, hide navbar below it
-                        navbar.style.transform = `translateY(-${navbarHeight + promotionHeight}px)`;
-                        navbar.style.top = '0'; // Reset top to allow complete hide
-                    } else {
-                        // If no promotion bar, just hide navbar
+            // Get promotion bar state once
+            const isPromotionVisible = promotionBar && !promotionBar.classList.contains('hidden');
+            const shouldHide = currentScrollTop > lastScrollTop && currentScrollTop > 100;
+            const shouldShow = currentScrollTop <= 50 || currentScrollTop <= lastScrollTop;
+            
+            // Use requestAnimationFrame to ensure synchronous updates
+            requestAnimationFrame(() => {
+                // Only hide/show if scrolled past threshold
+                if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
+                    if (shouldHide) {
+                        // Scrolling down - hide BOTH elements simultaneously
+                        if (isPromotionVisible) {
+                            promotionBar.classList.add('promotion-bar-hidden');
+                            promotionBar.style.transform = 'translateY(-100%)';
+                            promotionBar.style.opacity = '0';
+                            promotionBar.style.visibility = 'hidden';
+                        }
+                        
+                        navbar.classList.add('navbar-hidden');
                         navbar.style.transform = 'translateY(-100%)';
+                        navbar.style.top = '0';
+                        navbar.style.opacity = '0';
+                    } else if (shouldShow) {
+                        // Scrolling up - show BOTH elements simultaneously
+                        if (isPromotionVisible) {
+                            promotionBar.classList.remove('promotion-bar-hidden');
+                            promotionBar.style.transform = '';
+                            promotionBar.style.opacity = '1';
+                            promotionBar.style.visibility = 'visible';
+                            promotionBar.style.zIndex = '10001';
+                        }
+                        
+                        navbar.classList.remove('navbar-hidden');
+                        navbar.style.transform = '';
+                        navbar.style.opacity = '1';
+                        navbar.style.top = isPromotionVisible ? '32px' : '0';
                     }
-                } else {
-                    // Scrolling up - show navbar and promotion bar
+                }
+                
+                // Always show navbar and promotion bar at the top
+                if (currentScrollTop <= 50) {
                     if (isPromotionVisible) {
                         promotionBar.classList.remove('promotion-bar-hidden');
                         promotionBar.style.transform = '';
-                        promotionBar.style.zIndex = '10001'; // Restore z-index
+                        promotionBar.style.opacity = '1';
+                        promotionBar.style.visibility = 'visible';
+                        promotionBar.style.zIndex = '10001';
                     }
                     
                     navbar.classList.remove('navbar-hidden');
                     navbar.style.transform = '';
-                    // Restore navbar top position if promotion bar is visible
-                    if (isPromotionVisible) {
-                        navbar.style.top = '32px';
-                    } else {
-                        navbar.style.top = '0';
-                    }
+                    navbar.style.opacity = '1';
+                    navbar.style.top = isPromotionVisible ? '32px' : '0';
                 }
-            }
-            
-            // Always show navbar and promotion bar at the top
-            if (currentScrollTop <= 50) {
-                const isPromotionVisible = promotionBar && !promotionBar.classList.contains('hidden');
-                
-                if (isPromotionVisible) {
-                    promotionBar.classList.remove('promotion-bar-hidden');
-                    promotionBar.style.transform = '';
-                    promotionBar.style.zIndex = '10001';
-                }
-                
-                navbar.classList.remove('navbar-hidden');
-                navbar.style.transform = '';
-                // Restore navbar top position
-                if (isPromotionVisible) {
-                    navbar.style.top = '32px';
-                } else {
-                    navbar.style.top = '0';
-                }
-            }
+            });
             
             lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
         }, 10); // Throttle to every 10ms
