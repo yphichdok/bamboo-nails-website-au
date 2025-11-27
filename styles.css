@@ -43,15 +43,22 @@
 @media (max-width: 767px) {
     .promotion-bar {
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: transform;
     }
     
     .promotion-bar.promotion-bar-hidden {
-        transform: translateY(-100%);
+        transform: translateY(-100%) !important;
+        pointer-events: none;
     }
     
     /* Ensure promotion bar shows when manually closed */
     .promotion-bar.hidden {
         transform: translateY(-100%);
+    }
+    
+    /* When promotion bar is hidden by scroll, ensure it doesn't interfere with navbar */
+    .promotion-bar.promotion-bar-hidden ~ .navbar {
+        top: 0 !important;
     }
 }
 
@@ -334,15 +341,27 @@ html {
 @media (max-width: 767px) {
     .navbar {
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), top 0.3s ease;
+        will-change: transform;
     }
     
     .navbar.navbar-hidden {
-        transform: translateY(-100%);
+        transform: translateY(-100%) !important;
+        pointer-events: none;
     }
     
-    /* Ensure navbar shows when promotion bar is visible */
-    body.promotion-visible .navbar.navbar-hidden {
+    /* When promotion bar is hidden by scroll, adjust navbar position */
+    .promotion-bar.promotion-bar-hidden ~ .navbar.navbar-hidden {
+        transform: translateY(-100%) !important;
+    }
+    
+    /* Ensure navbar shows when promotion bar is visible (not hidden by scroll) */
+    body.promotion-visible .navbar.navbar-hidden:not(.navbar-hidden) {
         transform: translateY(0);
+    }
+    
+    /* If promotion bar is visible but navbar should be hidden, hide both */
+    .promotion-bar:not(.promotion-bar-hidden):not(.hidden) ~ .navbar.navbar-hidden {
+        transform: translateY(-100%) !important;
     }
 }
 
@@ -2593,7 +2612,7 @@ html {
     }
 
     .hero-title {
-        font-size: 2.8rem;
+        font-size: 3.5rem; /* Increased from 2.8rem for better mobile visibility */
     }
     
     /* Mobile: Show line break, hide on desktop */
@@ -3204,7 +3223,7 @@ html {
     }
 
     .hero-title {
-        font-size: 1.75rem;
+        font-size: 2.5rem; /* Increased from 1.75rem for better visibility on small screens */
     }
     
     /* Ensure line break on very small screens */
@@ -3303,9 +3322,9 @@ html {
     }
 
     .hero-title {
-        font-size: 1.8rem;
+        font-size: 2.2rem; /* Increased from 1.8rem for landscape mobile */
     }
-
+    
     .hero-subtitle {
         font-size: 0.95rem;
     }

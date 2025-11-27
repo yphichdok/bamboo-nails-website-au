@@ -258,16 +258,21 @@ window.addEventListener('scroll', () => {
             // Only hide/show if scrolled past threshold
             if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
                 if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
-                    // Scrolling down - hide navbar and promotion bar
+                    // Scrolling down - hide navbar and promotion bar together
                     navbar.classList.add('navbar-hidden');
                     if (promotionBar && !promotionBar.classList.contains('hidden')) {
                         promotionBar.classList.add('promotion-bar-hidden');
+                        // Force update to ensure both hide together
+                        promotionBar.style.transform = 'translateY(-100%)';
                     }
+                    navbar.style.transform = 'translateY(-100%)';
                 } else {
-                    // Scrolling up - show navbar and promotion bar
+                    // Scrolling up - show navbar and promotion bar together
                     navbar.classList.remove('navbar-hidden');
+                    navbar.style.transform = '';
                     if (promotionBar && !promotionBar.classList.contains('hidden')) {
                         promotionBar.classList.remove('promotion-bar-hidden');
+                        promotionBar.style.transform = '';
                     }
                 }
             }
@@ -275,8 +280,10 @@ window.addEventListener('scroll', () => {
             // Always show navbar and promotion bar at the top
             if (currentScrollTop <= 50) {
                 navbar.classList.remove('navbar-hidden');
+                navbar.style.transform = '';
                 if (promotionBar && !promotionBar.classList.contains('hidden')) {
                     promotionBar.classList.remove('promotion-bar-hidden');
+                    promotionBar.style.transform = '';
                 }
             }
             
