@@ -89,6 +89,9 @@
         padding: 0 0.75rem;
     }
 }
+
+:root {
+    --primary-color: #FFB6C1;
     --primary-dark: #FF91A4;
     --primary-light: #FFC0CB;
     --secondary-color: #66BB6A;
@@ -182,15 +185,11 @@ p, span, li, a, input, textarea, select, button {
     width: 100%;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 254, 248, 0.95) 100%);
     box-shadow: 0 4px 40px rgba(255, 182, 193, 0.12), 0 1px 0 rgba(255, 182, 193, 0.15);
-    z-index: 1000;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10000;
+    transition: top 0.3s ease;
     -webkit-backdrop-filter: blur(30px) saturate(180%);
     backdrop-filter: blur(30px) saturate(180%);
     border-bottom: 1px solid rgba(255, 182, 193, 0.2);
-}
-
-.promotion-bar:not(.hidden) ~ .navbar {
-    top: 40px;
 }
 
 .nav-wrapper {

@@ -555,12 +555,28 @@ const promotionBar = document.getElementById('promotionBar');
 const promotionText = document.getElementById('promotionText');
 const promotionClose = document.getElementById('promotionClose');
 
+// Function to adjust layout based on promotion bar visibility
+const adjustLayout = (promotionVisible) => {
+    const navbar = document.querySelector('.navbar');
+    const hero = document.querySelector('.hero');
+    
+    if (navbar) {
+        navbar.style.top = promotionVisible ? '40px' : '0';
+    }
+    if (hero) {
+        hero.style.marginTop = promotionVisible ? '110px' : '70px';
+    }
+};
+
 // Check if promotion bar was closed in this session
 const promotionClosed = sessionStorage.getItem('promotionClosed');
 
 if (promotionBar && promotionText && !promotionClosed) {
     // Set initial message
     promotionText.textContent = promotionMessages[currentPromotionIndex];
+    
+    // Adjust layout for visible promotion bar
+    adjustLayout(true);
     
     // Rotate messages every 20 seconds (matches animation duration)
     setInterval(() => {
@@ -573,26 +589,14 @@ if (promotionBar && promotionText && !promotionClosed) {
         promotionClose.addEventListener('click', () => {
             promotionBar.classList.add('hidden');
             sessionStorage.setItem('promotionClosed', 'true');
-            // Adjust navbar and hero position
-            const navbar = document.querySelector('.navbar');
-            const hero = document.querySelector('.hero');
-            if (navbar) navbar.style.top = '0';
-            if (hero) hero.style.marginTop = '70px';
+            adjustLayout(false);
         });
     }
 } else if (promotionBar && promotionClosed) {
     promotionBar.classList.add('hidden');
-    const navbar = document.querySelector('.navbar');
-    const hero = document.querySelector('.hero');
-    if (navbar) navbar.style.top = '0';
-    if (hero) hero.style.marginTop = '70px';
-}
-
-// Adjust hero margin when promotion bar is visible
-if (promotionBar && !promotionClosed) {
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        hero.style.marginTop = '110px';
-    }
+    adjustLayout(false);
+} else {
+    // No promotion bar, ensure default layout
+    adjustLayout(false);
 }
 
