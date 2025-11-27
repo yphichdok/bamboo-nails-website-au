@@ -75,9 +75,13 @@ if (hamburger && navMenuRight) {
         navMenuRight.classList.toggle('active');
         hamburger.classList.toggle('active');
         
-        // Show navbar when menu is opened (mobile)
+        // Show navbar and promotion bar when menu is opened (mobile)
         if (isMobileDevice() && navbar) {
             navbar.classList.remove('navbar-hidden');
+            const promotionBar = document.getElementById('promotionBar');
+            if (promotionBar && !promotionBar.classList.contains('hidden')) {
+                promotionBar.classList.remove('promotion-bar-hidden');
+            }
         }
         
         // Prevent body scroll when menu is open
@@ -240,7 +244,7 @@ window.addEventListener('scroll', () => {
         navbar.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 254, 248, 0.95) 100%)';
     }
     
-    // Mobile-only: Hide/show navbar on scroll
+    // Mobile-only: Hide/show navbar and promotion bar on scroll
     if (isMobileDevice()) {
         // Clear any existing timeout
         clearTimeout(scrollTimeout);
@@ -249,28 +253,42 @@ window.addEventListener('scroll', () => {
         scrollTimeout = setTimeout(() => {
             const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
+            const promotionBar = document.getElementById('promotionBar');
             
             // Only hide/show if scrolled past threshold
             if (Math.abs(currentScrollTop - lastScrollTop) > scrollThreshold) {
                 if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
-                    // Scrolling down - hide navbar
+                    // Scrolling down - hide navbar and promotion bar
                     navbar.classList.add('navbar-hidden');
+                    if (promotionBar && !promotionBar.classList.contains('hidden')) {
+                        promotionBar.classList.add('promotion-bar-hidden');
+                    }
                 } else {
-                    // Scrolling up - show navbar
+                    // Scrolling up - show navbar and promotion bar
                     navbar.classList.remove('navbar-hidden');
+                    if (promotionBar && !promotionBar.classList.contains('hidden')) {
+                        promotionBar.classList.remove('promotion-bar-hidden');
+                    }
                 }
             }
             
-            // Always show navbar at the top
+            // Always show navbar and promotion bar at the top
             if (currentScrollTop <= 50) {
                 navbar.classList.remove('navbar-hidden');
+                if (promotionBar && !promotionBar.classList.contains('hidden')) {
+                    promotionBar.classList.remove('promotion-bar-hidden');
+                }
             }
             
             lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
         }, 10); // Throttle to every 10ms
     } else {
-        // Desktop: Always show navbar
+        // Desktop: Always show navbar and promotion bar
         navbar.classList.remove('navbar-hidden');
+        const promotionBar = document.getElementById('promotionBar');
+        if (promotionBar && !promotionBar.classList.contains('hidden')) {
+            promotionBar.classList.remove('promotion-bar-hidden');
+        }
     }
     
     // Parallax effect for hero content
@@ -603,6 +621,7 @@ const adjustLayout = (promotionVisible) => {
     const navbar = document.querySelector('.navbar');
     const hero = document.querySelector('.hero');
     const body = document.body;
+    const promotionBar = document.getElementById('promotionBar');
     
     // Get promotion bar height (smaller on mobile)
     const isMobile = window.innerWidth <= 767;
@@ -615,6 +634,10 @@ const adjustLayout = (promotionVisible) => {
         // Ensure navbar is visible when promotion bar is visible
         if (promotionVisible) {
             navbar.classList.remove('navbar-hidden');
+            // Also ensure promotion bar is visible (not hidden by scroll)
+            if (promotionBar && !promotionBar.classList.contains('hidden')) {
+                promotionBar.classList.remove('promotion-bar-hidden');
+            }
         }
     }
     if (hero) {

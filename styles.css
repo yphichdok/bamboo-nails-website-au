@@ -39,6 +39,22 @@
     }
 }
 
+/* Mobile: Hide promotion bar when scrolling down (along with navbar) */
+@media (max-width: 767px) {
+    .promotion-bar {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .promotion-bar.promotion-bar-hidden {
+        transform: translateY(-100%);
+    }
+    
+    /* Ensure promotion bar shows when manually closed */
+    .promotion-bar.hidden {
+        transform: translateY(-100%);
+    }
+}
+
 .promotion-content {
     flex: 1;
     text-align: center;
