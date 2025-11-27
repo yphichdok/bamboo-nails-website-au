@@ -46,10 +46,10 @@ const heroSlideshow = () => {
         }, interval);
     };
     
-    // Start slideshow after initial delay
+    // Start slideshow after initial delay (reduced for faster initial load)
     setTimeout(() => {
         changeSlide();
-    }, 3000); // Start after 3 seconds
+    }, 1500); // Start after 1.5 seconds for faster initial experience
 };
 
 // Initialize slideshow when DOM is loaded
@@ -126,26 +126,35 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
-// Dropdown functionality for desktop
+// Dropdown functionality for desktop and mobile
 document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
     toggle.addEventListener('click', (e) => {
         // Only prevent default on mobile
         if (window.innerWidth <= 767) {
             e.preventDefault();
+            e.stopPropagation();
             const dropdown = toggle.closest('.dropdown');
             if (dropdown) {
+                // Close other dropdowns
+                document.querySelectorAll('.dropdown').forEach(d => {
+                    if (d !== dropdown) {
+                        d.classList.remove('active');
+                    }
+                });
                 dropdown.classList.toggle('active');
             }
         }
     });
 });
 
-// Close dropdown when clicking outside
+// Close dropdown when clicking outside (desktop only)
 document.addEventListener('click', (e) => {
-    if (!e.target.closest('.dropdown')) {
-        document.querySelectorAll('.dropdown').forEach(dropdown => {
-            dropdown.classList.remove('active');
-        });
+    if (window.innerWidth > 767) {
+        if (!e.target.closest('.dropdown')) {
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
     }
 });
 
@@ -221,10 +230,19 @@ if (contactForm) {
 
 // Enhanced Scroll Animations with Transformations
 const initScrollAnimations = () => {
-    // Animation options with different thresholds
+    // Use requestIdleCallback for better performance, fallback to setTimeout
+    const scheduleAnimation = (callback) => {
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(callback, { timeout: 2000 });
+        } else {
+            setTimeout(callback, 1);
+        }
+    };
+    
+    // Animation options with different thresholds (optimized)
     const observerOptions = {
-        threshold: 0.15,
-        rootMargin: '0px 0px -100px 0px'
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -233,46 +251,52 @@ const initScrollAnimations = () => {
                 const element = entry.target;
                 const animationType = element.dataset.animation || 'fadeUp';
                 
-                // Add delay for stagger effect
-                const delay = element.dataset.delay || index * 0.1;
+                // Add delay for stagger effect (reduced for faster feel)
+                const delay = element.dataset.delay || index * 0.05;
                 
-                setTimeout(() => {
-                    element.classList.add('animate-in');
-                    observer.unobserve(element); // Only animate once
-                }, delay * 1000);
+                // Use requestAnimationFrame for smoother animations
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        element.classList.add('animate-in');
+                        observer.unobserve(element); // Only animate once
+                    }, delay * 1000);
+                });
             }
         });
     }, observerOptions);
 
-    // Animate sections
+    // Animate sections (optimized with will-change)
     document.querySelectorAll('section').forEach((section, index) => {
         if (!section.id || section.id === 'home') return; // Skip hero section
         
         section.style.opacity = '0';
         section.style.transform = 'translateY(50px)';
-        section.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        section.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        section.style.willChange = 'opacity, transform';
         section.dataset.animation = 'fadeUp';
-        section.dataset.delay = index * 0.1;
+        section.dataset.delay = index * 0.05;
         observer.observe(section);
     });
 
-    // Animate service cards with stagger
+    // Animate service cards with stagger (optimized)
     document.querySelectorAll('.service-card').forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(40px) scale(0.95)';
-        card.style.transition = 'opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
+        card.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        card.style.willChange = 'opacity, transform';
         card.dataset.animation = 'fadeUpScale';
-        card.dataset.delay = index * 0.15;
+        card.dataset.delay = index * 0.1;
         observer.observe(card);
     });
 
-    // Animate gallery items with stagger
+    // Animate gallery items with stagger (optimized)
     document.querySelectorAll('.gallery-item').forEach((item, index) => {
         item.style.opacity = '0';
         item.style.transform = 'translateY(30px) rotateY(10deg)';
-        item.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        item.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        item.style.willChange = 'opacity, transform';
         item.dataset.animation = 'fadeUpRotate';
-        item.dataset.delay = index * 0.1;
+        item.dataset.delay = index * 0.08;
         observer.observe(item);
     });
 

@@ -449,6 +449,8 @@ p, span, li, a, input, textarea, select, button {
     opacity: 0;
     z-index: 0;
     pointer-events: none;
+    will-change: opacity, transform, filter;
+    transform: translateZ(0);
 }
 
 .hero-slide.active {
@@ -463,11 +465,13 @@ p, span, li, a, input, textarea, select, button {
     object-fit: cover;
     filter: brightness(0.7) saturate(1.2);
     will-change: transform, opacity, filter;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 /* Fade Transition */
 .hero-slide[data-transition="fade"] {
-    transition: opacity 2s ease-in-out;
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hero-slide[data-transition="fade"].active {
@@ -480,7 +484,7 @@ p, span, li, a, input, textarea, select, button {
 
 /* Slide Transition */
 .hero-slide[data-transition="slide"] {
-    transition: transform 2s ease-in-out, opacity 1.5s ease-in-out;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateX(100%);
 }
 
@@ -496,7 +500,7 @@ p, span, li, a, input, textarea, select, button {
 
 /* Zoom Transition */
 .hero-slide[data-transition="zoom"] {
-    transition: transform 3s ease-in-out, opacity 2s ease-in-out;
+    transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hero-slide[data-transition="zoom"].active {
@@ -511,7 +515,7 @@ p, span, li, a, input, textarea, select, button {
 
 /* Blur Transition */
 .hero-slide[data-transition="blur"] {
-    transition: filter 2.5s ease-in-out, opacity 2s ease-in-out;
+    transition: filter 2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hero-slide[data-transition="blur"].active {
@@ -789,13 +793,15 @@ section::before {
     border-radius: 28px;
     text-align: center;
     box-shadow: 0 10px 40px rgba(255, 182, 193, 0.18), 0 2px 8px rgba(255, 182, 193, 0.1);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     border: 2px solid rgba(255, 182, 193, 0.3);
     display: flex;
     flex-direction: column;
     height: 100%;
+    will-change: transform;
+    transform: translateZ(0);
     backdrop-filter: blur(10px);
 }
 
@@ -2409,13 +2415,14 @@ html {
         background: var(--white);
         width: 100%;
         text-align: center;
-        transition: left 0.3s ease;
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, visibility 0.3s ease;
         box-shadow: var(--shadow);
         padding: 1.5rem 0;
         z-index: 999;
         justify-content: center !important;
         opacity: 0;
         visibility: hidden;
+        will-change: left, opacity, visibility;
     }
 
     .nav-menu-left.active {
@@ -2439,29 +2446,44 @@ html {
     
     /* Ensure dropdown works on mobile */
     .dropdown-menu {
-        position: static;
-        transform: none;
-        opacity: 1;
-        visibility: visible;
-        box-shadow: none;
-        border: none;
-        background: transparent;
-        padding: 0.5rem 0 0.5rem 2rem;
-        margin-top: 0.5rem;
-        display: none;
+        position: static !important;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        box-shadow: none !important;
+        border: none !important;
+        background: transparent !important;
+        padding: 0.5rem 0 0.5rem 2rem !important;
+        margin-top: 0.5rem !important;
+        display: none !important;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        will-change: max-height;
     }
     
     .dropdown.active .dropdown-menu {
-        display: block;
+        display: block !important;
+        max-height: 200px;
+        padding: 0.5rem 0 0.5rem 2rem !important;
     }
     
     .dropdown-menu::before {
-        display: none;
+        display: none !important;
     }
     
     .dropdown-link {
         padding: 0.6rem 1rem;
         font-size: 0.95rem;
+        display: block;
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: opacity 0.2s ease, transform 0.2s ease, padding 0.2s ease;
+    }
+    
+    .dropdown.active .dropdown-link {
+        opacity: 1;
+        transform: translateX(0);
     }
     
     .dropdown-link:hover {
@@ -2469,46 +2491,8 @@ html {
     }
     
     .dropdown-arrow {
-        transition: transform 0.3s ease;
-    }
-    
-    .dropdown.active .dropdown-arrow {
-        transform: rotate(180deg);
-    }
-    
-    /* Mobile Dropdown */
-    .dropdown-menu {
-        position: static;
-        transform: none;
-        opacity: 1;
-        visibility: visible;
-        box-shadow: none;
-        border: none;
-        background: transparent;
-        padding: 0.5rem 0 0.5rem 2rem;
-        margin-top: 0.5rem;
-        display: none;
-    }
-    
-    .dropdown.active .dropdown-menu {
-        display: block;
-    }
-    
-    .dropdown-menu::before {
-        display: none;
-    }
-    
-    .dropdown-link {
-        padding: 0.6rem 1rem;
-        font-size: 0.95rem;
-    }
-    
-    .dropdown-link:hover {
-        padding-left: 1.5rem;
-    }
-    
-    .dropdown-arrow {
-        transition: transform 0.3s ease;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: transform;
     }
     
     .dropdown.active .dropdown-arrow {
