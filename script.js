@@ -558,11 +558,22 @@ const initScrollAnimations = () => {
     });
 };
 
-// Initialize scroll animations when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initScrollAnimations);
+// Initialize scroll animations when page is fully loaded for better performance
+if (document.readyState === 'complete') {
+    // Use requestIdleCallback to initialize animations when browser is idle
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(initScrollAnimations, { timeout: 2000 });
+    } else {
+        setTimeout(initScrollAnimations, 100);
+    }
 } else {
-    initScrollAnimations();
+    window.addEventListener('load', () => {
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(initScrollAnimations, { timeout: 2000 });
+        } else {
+            setTimeout(initScrollAnimations, 100);
+        }
+    });
 }
 
 // Location Modal Functionality
