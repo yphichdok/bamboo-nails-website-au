@@ -587,9 +587,8 @@ p, span, li, a, input, textarea, select, button {
     text-transform: uppercase;
     line-height: 1.15;
     position: relative;
-    color: var(--white) !important;
     display: inline-block;
-    background: linear-gradient(135deg, #66BB6A 0%, #D4AF37 25%, #FFEB3B 50%, #66BB6A 75%, #4CAF50 100%);
+    background: linear-gradient(135deg, #FFFFFF 0%, #FFB6C1 25%, #A8E6CF 50%, #FFF9C4 75%, #FFFFFF 100%);
     background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -2556,6 +2555,12 @@ html {
         font-size: 0.9rem;
         max-width: 200px;
         width: auto;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .hero-content {
+        text-align: center;
     }
 
     /* Sections */
