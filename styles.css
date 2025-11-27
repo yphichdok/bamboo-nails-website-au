@@ -2461,10 +2461,7 @@ html {
 
     .nav-wrapper {
         padding: 0.8rem 0;
-    }
-
-    .nav-wrapper {
-        justify-content: center;
+        justify-content: space-between;
         position: relative;
     }
     
@@ -2474,6 +2471,7 @@ html {
         transform: translateX(-50%);
         order: 2;
         margin: 0;
+        z-index: 1001;
     }
     
     .logo h1 {
@@ -2494,27 +2492,23 @@ html {
     .nav-menu-left {
         order: 1;
         flex: 0;
+        width: 0;
+        opacity: 0;
+        visibility: hidden;
     }
     
     .nav-menu-right {
         order: 3;
         flex: 0;
+        width: 0;
+        opacity: 0;
+        visibility: hidden;
     }
     
     .hamburger {
         order: 4;
-    }
-    
-    .nav-menu-left {
-        order: 1;
-    }
-    
-    .logo {
-        order: 2;
-    }
-    
-    .nav-menu-right {
-        order: 3;
+        margin-left: auto;
+        flex-shrink: 0;
     }
     
     /* Hide desktop menu items on mobile */
