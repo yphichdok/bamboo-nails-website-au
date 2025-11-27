@@ -242,40 +242,35 @@ window.addEventListener('scroll', () => {
         navbar.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 254, 248, 0.95) 100%)';
     }
     
-    // Mobile-only: Hide/show navbar on scroll
-    if (isMobileDevice()) {
-        // Clear any existing timeout
-        clearTimeout(scrollTimeout);
+    // Hide/show navbar on scroll (both mobile and desktop)
+    // Clear any existing timeout
+    clearTimeout(scrollTimeout);
+    
+    // Throttle scroll events for better performance
+    scrollTimeout = setTimeout(() => {
+        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
         
-        // Throttle scroll events for better performance
-        scrollTimeout = setTimeout(() => {
-            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
+        // Use requestAnimationFrame to ensure smooth updates
+        requestAnimationFrame(() => {
+            // Determine if we should hide or show
+            const shouldHide = currentScrollTop > lastScrollTop && currentScrollTop > 100;
+            const shouldShow = currentScrollTop <= 50 || currentScrollTop <= lastScrollTop;
             
-            // Use requestAnimationFrame to ensure smooth updates
-            requestAnimationFrame(() => {
-                // Determine if we should hide or show
-                const shouldHide = currentScrollTop > lastScrollTop && currentScrollTop > 100;
-                const shouldShow = currentScrollTop <= 50 || currentScrollTop <= lastScrollTop;
-                
-                if (shouldHide) {
-                    // Scrolling down - hide navbar
-                    navbar.classList.add('navbar-hidden');
-                    navbar.style.top = '0';
-                } else if (shouldShow) {
-                    // Scrolling up or at top - show navbar
-                    navbar.classList.remove('navbar-hidden');
-                    navbar.style.removeProperty('transform');
-                    navbar.style.top = '0';
-                }
-            });
-            
-            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-        }, 10); // Throttle to every 10ms
-    } else {
-        // Desktop: Always show navbar
-        navbar.classList.remove('navbar-hidden');
-    }
+            if (shouldHide) {
+                // Scrolling down - hide navbar
+                navbar.classList.add('navbar-hidden');
+                navbar.style.top = '0';
+            } else if (shouldShow) {
+                // Scrolling up or at top - show navbar
+                navbar.classList.remove('navbar-hidden');
+                navbar.style.removeProperty('transform');
+                navbar.style.top = '0';
+            }
+        });
+        
+        lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+    }, 10); // Throttle to every 10ms
     
     // Parallax effect for hero content
     const heroContent = document.querySelector('.hero-content');

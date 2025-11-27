@@ -163,17 +163,15 @@ html {
     min-height: 80px; /* Increased from default for larger header */
 }
 
-/* Mobile: Hide navbar when scrolling down */
-@media (max-width: 767px) {
-    .navbar {
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        will-change: transform;
-    }
-    
-    .navbar.navbar-hidden {
-        transform: translateY(-100%);
-        pointer-events: none;
-    }
+/* Hide navbar when scrolling down (both mobile and desktop) */
+.navbar {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+.navbar.navbar-hidden {
+    transform: translateY(-100%);
+    pointer-events: none;
 }
 
 .nav-wrapper {
