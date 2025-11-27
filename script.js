@@ -59,6 +59,45 @@ if (document.readyState === 'loading') {
     heroSlideshow();
 }
 
+// Scroll to Top Button Functionality
+const initScrollToTop = () => {
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    if (!scrollToTopBtn) return;
+    
+    // Show/hide button based on scroll position
+    const toggleScrollButton = () => {
+        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollPosition > 300) {
+            scrollToTopBtn.classList.add('visible');
+        } else {
+            scrollToTopBtn.classList.remove('visible');
+        }
+    };
+    
+    // Scroll to top when button is clicked
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Check scroll position on scroll
+    window.addEventListener('scroll', toggleScrollButton);
+    
+    // Initial check
+    toggleScrollButton();
+};
+
+// Initialize scroll to top button when DOM is loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollToTop);
+} else {
+    initScrollToTop();
+}
+
 // Mobile Navigation Toggle
 const hamburger = document.getElementById('hamburger');
 const navMenuLeft = document.getElementById('navMenuLeft');
