@@ -74,8 +74,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Skip to main content link for keyboard navigation -->
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+    
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="container">
             <div class="nav-wrapper">
                 <ul class="nav-menu nav-menu-left" id="navMenuLeft">
@@ -97,11 +100,11 @@
                     <li><a href="gallery.html" class="nav-link">Gallery</a></li>
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
                 </ul>
-                <div class="hamburger" id="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navMenuLeft navMenuRight">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </button>
             </div>
         </div>
     </nav>
@@ -114,12 +117,14 @@
         </div>
     </section>
 
+    <!-- Main Content -->
+    <main id="main-content">
     <!-- Contact Section -->
-    <section class="contact">
+    <section class="contact" aria-labelledby="contact-title">
         <div class="container">
             <div class="contact-content">
                 <div class="contact-info">
-                    <h2 class="section-title">Get In Touch</h2>
+                    <h2 class="section-title" id="contact-title">Get In Touch</h2>
                     <p>We'd love to hear from you. Reach out to us through any of the following ways:</p>
                     <div class="info-item">
                         <div class="info-icon">📍</div>
@@ -159,22 +164,22 @@
                 </div>
                 <div class="contact-form">
                     <h2 class="section-title">Send Us a Message</h2>
-                    <form id="contactForm">
+                    <form id="contactForm" aria-label="Contact form">
                         <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                            <label for="name">Your Name <span class="required" aria-label="required">*</span></label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required aria-required="true" autocomplete="name">
                         </div>
                         <div class="form-group">
-                            <label for="email">Your Email</label>
-                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                            <label for="email">Your Email <span class="required" aria-label="required">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="Your Email" required aria-required="true" autocomplete="email">
                         </div>
                         <div class="form-group">
                             <label for="phone">Your Phone</label>
-                            <input type="tel" id="phone" name="phone" placeholder="Your Phone">
+                            <input type="tel" id="phone" name="phone" placeholder="Your Phone" autocomplete="tel">
                         </div>
                         <div class="form-group">
                             <label for="service">Service Interested In</label>
-                            <select id="service" name="service" class="form-select">
+                            <select id="service" name="service" class="form-select" aria-label="Select a service">
                                 <option value="">Select a service</option>
                                 <option value="manicure">Manicure</option>
                                 <option value="pedicure">Pedicure</option>
@@ -187,8 +192,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="message">Your Message</label>
-                            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                            <label for="message">Your Message <span class="required" aria-label="required">*</span></label>
+                            <textarea id="message" name="message" rows="5" placeholder="Your Message" required aria-required="true"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
@@ -207,9 +212,10 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">

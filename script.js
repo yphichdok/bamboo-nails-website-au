@@ -45,6 +45,11 @@ const heroSlideshow = () => {
                 // Add active class to current slide
                 slides[index].classList.add('active');
                 
+                // Update ARIA attributes for accessibility
+                slides.forEach((slide, i) => {
+                    slide.setAttribute('aria-hidden', i !== index);
+                });
+                
                 // Reset transition flag after animation completes
                 setTimeout(() => {
                     isTransitioning = false;
@@ -143,7 +148,7 @@ const navMenuLeft = document.getElementById('navMenuLeft');
 const navMenuRight = document.getElementById('navMenuRight');
 
 if (hamburger && navMenuRight) {
-    hamburger.addEventListener('click', () => {
+    const toggleMobileMenu = () => {
         // Combine both menus for mobile
         const isActive = navMenuRight.classList.contains('active');
         
@@ -152,6 +157,10 @@ if (hamburger && navMenuRight) {
         }
         navMenuRight.classList.toggle('active');
         hamburger.classList.toggle('active');
+        
+        // Update ARIA attributes for accessibility
+        const isExpanded = !isActive;
+        hamburger.setAttribute('aria-expanded', isExpanded);
         
         // Show navbar when menu is opened (mobile)
         if (isMobileDevice() && navbar) {
@@ -165,6 +174,16 @@ if (hamburger && navMenuRight) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = '';
+        }
+    };
+    
+    hamburger.addEventListener('click', toggleMobileMenu);
+    
+    // Keyboard support for hamburger menu
+    hamburger.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleMobileMenu();
         }
     });
     
@@ -214,26 +233,59 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
-// Dropdown functionality for desktop and mobile
+// Dropdown functionality for desktop and mobile with keyboard support
 document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-    toggle.addEventListener('click', (e) => {
+    const toggleDropdown = (e) => {
         const dropdown = toggle.closest('.dropdown');
         if (!dropdown) return;
         
         // On mobile, toggle the dropdown
         if (window.innerWidth <= 767) {
-            e.preventDefault();
-            e.stopPropagation();
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
             
             // Close other dropdowns
             document.querySelectorAll('.dropdown').forEach(d => {
                 if (d !== dropdown) {
                     d.classList.remove('active');
+                    const otherToggle = d.querySelector('.dropdown-toggle');
+                    if (otherToggle) {
+                        otherToggle.setAttribute('aria-expanded', 'false');
+                    }
                 }
             });
             
             // Toggle current dropdown
+            const isActive = dropdown.classList.contains('active');
             dropdown.classList.toggle('active');
+            toggle.setAttribute('aria-expanded', !isActive);
+        }
+    };
+    
+    toggle.addEventListener('click', toggleDropdown);
+    
+    // Keyboard support for dropdown
+    toggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleDropdown(e);
+        } else if (e.key === 'Escape') {
+            const dropdown = toggle.closest('.dropdown');
+            if (dropdown && dropdown.classList.contains('active')) {
+                dropdown.classList.remove('active');
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const dropdown = toggle.closest('.dropdown');
+            if (dropdown) {
+                const firstLink = dropdown.querySelector('.dropdown-link');
+                if (firstLink) {
+                    firstLink.focus();
+                }
+            }
         }
     });
 });
@@ -580,27 +632,84 @@ if (document.readyState === 'complete') {
 const locationModal = document.getElementById('locationModal');
 const modalClose = document.querySelector('.modal-close');
 
+// Modal accessibility functions
+const openModal = () => {
+    if (locationModal) {
+        locationModal.style.display = 'flex';
+        locationModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        
+        // Focus on close button for keyboard users
+        const closeBtn = locationModal.querySelector('.modal-close');
+        if (closeBtn) {
+            setTimeout(() => closeBtn.focus(), 100);
+        }
+        
+        // Trap focus within modal
+        trapFocus(locationModal);
+    }
+};
+
+const closeModal = () => {
+    if (locationModal) {
+        locationModal.style.display = 'none';
+        locationModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        
+        // Return focus to the element that opened the modal
+        const lastFocusedElement = document.activeElement;
+        if (lastFocusedElement && lastFocusedElement.classList.contains('btn-service')) {
+            lastFocusedElement.focus();
+        }
+    }
+};
+
+// Focus trap for modal (WCAG requirement)
+const trapFocus = (modal) => {
+    const focusableElements = modal.querySelectorAll(
+        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+    
+    modal.addEventListener('keydown', function trapHandler(e) {
+        if (e.key === 'Tab') {
+            if (e.shiftKey) {
+                if (document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                }
+            } else {
+                if (document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        }
+    });
+};
+
 // Open modal when clicking Book Now/Book Appointment buttons
-document.querySelectorAll('a.btn-primary, .btn-primary[href*="contact"]').forEach(button => {
+document.querySelectorAll('a.btn-primary, .btn-primary[href*="contact"], button.btn-service').forEach(button => {
     const buttonText = button.textContent.toLowerCase().trim();
     // Only trigger for Book buttons, not Send Message
     if (buttonText.includes('book') && !buttonText.includes('send')) {
         button.addEventListener('click', (e) => {
             e.preventDefault();
-            if (locationModal) {
-                locationModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
+            openModal();
         });
     }
 });
 
 // Close modal
 if (modalClose) {
-    modalClose.addEventListener('click', () => {
-        if (locationModal) {
-            locationModal.style.display = 'none';
-            document.body.style.overflow = '';
+    modalClose.addEventListener('click', closeModal);
+    
+    // Keyboard support for close button
+    modalClose.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            closeModal();
         }
     });
 }
@@ -609,8 +718,7 @@ if (modalClose) {
 if (locationModal) {
     locationModal.addEventListener('click', (e) => {
         if (e.target === locationModal) {
-            locationModal.style.display = 'none';
-            document.body.style.overflow = '';
+            closeModal();
         }
     });
 }
@@ -618,17 +726,13 @@ if (locationModal) {
 // Close modal with Escape key
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && locationModal && locationModal.style.display === 'flex') {
-        locationModal.style.display = 'none';
-        document.body.style.overflow = '';
+        closeModal();
     }
 });
 
 // Global function to open location modal (used by service cards)
 function openLocationModal() {
-    if (locationModal) {
-        locationModal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
+    openModal();
 }
 
 // Active Navigation Link Indicator

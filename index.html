@@ -158,87 +158,92 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Skip to main content link for keyboard navigation -->
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+    
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="container">
             <div class="nav-wrapper">
-                <ul class="nav-menu nav-menu-left" id="navMenuLeft">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="services.html" class="nav-link">Services</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
+                <ul class="nav-menu nav-menu-left" id="navMenuLeft" role="menubar">
+                    <li role="none"><a href="index.html" class="nav-link" role="menuitem" aria-current="page">Home</a></li>
+                    <li role="none"><a href="services.html" class="nav-link" role="menuitem">Services</a></li>
+                    <li role="none"><a href="about.html" class="nav-link" role="menuitem">About</a></li>
                 </ul>
                 <div class="logo">
-                    <a href="index.html" style="text-decoration: none;"><h1>Bamboo Nails</h1></a>
+                    <a href="index.html" style="text-decoration: none;" aria-label="Bamboo Nails - Home"><h1>Bamboo Nails</h1></a>
                 </div>
-                <ul class="nav-menu nav-menu-right" id="navMenuRight">
-                    <li class="dropdown">
-                        <a href="#" class="nav-link dropdown-toggle">Location <span class="dropdown-arrow">▼</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="location-coomera.html" class="dropdown-link">Coomera</a></li>
-                            <li><a href="location-forest-lake.html" class="dropdown-link">Forest Lake</a></li>
+                <ul class="nav-menu nav-menu-right" id="navMenuRight" role="menubar">
+                    <li class="dropdown" role="none">
+                        <a href="#" class="nav-link dropdown-toggle" role="menuitem" aria-haspopup="true" aria-expanded="false" aria-label="Location menu">Location <span class="dropdown-arrow" aria-hidden="true">▼</span></a>
+                        <ul class="dropdown-menu" role="menu" aria-label="Location submenu">
+                            <li role="none"><a href="location-coomera.html" class="dropdown-link" role="menuitem">Coomera</a></li>
+                            <li role="none"><a href="location-forest-lake.html" class="dropdown-link" role="menuitem">Forest Lake</a></li>
                         </ul>
                     </li>
-                    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li role="none"><a href="gallery.html" class="nav-link" role="menuitem">Gallery</a></li>
+                    <li role="none"><a href="contact.html" class="nav-link" role="menuitem">Contact</a></li>
                 </ul>
-                <div class="hamburger" id="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navMenuLeft navMenuRight">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-slideshow">
-            <div class="hero-slide active" data-transition="fade">
-                <img src="assets/images/gallery/557601650_1364019059062290_4791306764023620799_n.jpg" alt="Beautiful nail art" loading="eager">
+    <section id="home" class="hero" role="banner">
+            <div class="hero-slideshow" aria-label="Hero image slideshow">
+            <div class="hero-slide active" data-transition="fade" aria-hidden="false">
+                <img src="assets/images/gallery/557601650_1364019059062290_4791306764023620799_n.jpg" alt="Beautiful nail art design showcasing intricate patterns" loading="eager">
             </div>
-            <div class="hero-slide" data-transition="slide">
-                <img src="assets/images/gallery/557621894_1366976132099916_7804972474361310197_n.jpg" alt="Elegant manicure" loading="lazy">
+            <div class="hero-slide" data-transition="slide" aria-hidden="true">
+                <img src="assets/images/gallery/557621894_1366976132099916_7804972474361310197_n.jpg" alt="Elegant manicure with sophisticated design" loading="lazy">
             </div>
-            <div class="hero-slide" data-transition="zoom">
-                <img src="assets/images/gallery/558009733_1364019085728954_2981780167142924617_n.jpg" alt="Gel nail design" loading="lazy">
+            <div class="hero-slide" data-transition="zoom" aria-hidden="true">
+                <img src="assets/images/gallery/558009733_1364019085728954_2981780167142924617_n.jpg" alt="Gel nail design with glossy finish" loading="lazy">
             </div>
-            <div class="hero-slide" data-transition="blur">
-                <img src="assets/images/gallery/558444848_1369065235224339_2921902336024531573_n.jpg" alt="Creative nail art" loading="lazy">
+            <div class="hero-slide" data-transition="blur" aria-hidden="true">
+                <img src="assets/images/gallery/558444848_1369065235224339_2921902336024531573_n.jpg" alt="Creative nail art with unique patterns" loading="lazy">
             </div>
-            <div class="hero-slide" data-transition="fade">
-                <img src="assets/images/gallery/561190610_1370013968462799_2729980968003015848_n.jpg" alt="Professional manicure" loading="lazy">
+            <div class="hero-slide" data-transition="fade" aria-hidden="true">
+                <img src="assets/images/gallery/561190610_1370013968462799_2729980968003015848_n.jpg" alt="Professional manicure with perfect finish" loading="lazy">
             </div>
-            <div class="hero-slide" data-transition="slide">
-                <img src="assets/images/gallery/574097030_1394614356002760_3076374447633675677_n.jpg" alt="Beautiful pedicure" loading="lazy">
+            <div class="hero-slide" data-transition="slide" aria-hidden="true">
+                <img src="assets/images/gallery/574097030_1394614356002760_3076374447633675677_n.jpg" alt="Beautiful pedicure with elegant design" loading="lazy">
             </div>
-            <div class="hero-slide" data-transition="zoom">
-                <img src="assets/images/gallery/575081870_1395596209237908_2192034110644739380_n.jpg" alt="Luxury nail service" loading="lazy">
+            <div class="hero-slide" data-transition="zoom" aria-hidden="true">
+                <img src="assets/images/gallery/575081870_1395596209237908_2192034110644739380_n.jpg" alt="Luxury nail service with premium treatment" loading="lazy">
             </div>
-            <div class="hero-slide" data-transition="blur">
-                <img src="assets/images/gallery/575182178_1397558565708339_580507346030728693_n.jpg" alt="Premium nail care" loading="lazy">
+            <div class="hero-slide" data-transition="blur" aria-hidden="true">
+                <img src="assets/images/gallery/575182178_1397558565708339_580507346030728693_n.jpg" alt="Premium nail care with professional quality" loading="lazy">
             </div>
-            <div class="hero-slide" data-transition="fade">
-                <img src="assets/images/gallery/578720911_1402468898550639_2088449473724489944_n.jpg" alt="Artistic nail design" loading="lazy">
+            <div class="hero-slide" data-transition="fade" aria-hidden="true">
+                <img src="assets/images/gallery/578720911_1402468898550639_2088449473724489944_n.jpg" alt="Artistic nail design with creative patterns" loading="lazy">
             </div>
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="hero-title"><span class="hero-title-line1">Welcome to</span><br class="mobile-break"><span class="hero-title-line2">Bamboo Nails</span></h1>
             <p class="hero-subtitle">Experience luxury nail care in a relaxing atmosphere</p>
-            <a href="contact.html" class="btn btn-primary">Book Appointment</a>
+            <a href="contact.html" class="btn btn-primary" aria-label="Book an appointment">Book Appointment</a>
         </div>
     </section>
 
+    <!-- Main Content -->
+    <main id="main-content">
     <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
+    <section id="gallery" class="gallery" aria-labelledby="gallery-title">
         <div class="container">
-            <h2 class="section-title">Gallery</h2>
+            <h2 class="section-title" id="gallery-title">Gallery</h2>
             <p class="section-subtitle">See our beautiful work</p>
             <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="assets/images/gallery/557601650_1364019059062290_4791306764023620799_n.jpg" alt="Beautiful nail art design" class="gallery-image" loading="lazy">
-                    <div class="gallery-overlay"></div>
-                    <div class="dew-effect"></div>
+                <div class="gallery-item" role="img" aria-label="Beautiful nail art design">
+                    <img src="assets/images/gallery/557601650_1364019059062290_4791306764023620799_n.jpg" alt="Beautiful nail art design featuring intricate patterns and vibrant colors" class="gallery-image" loading="lazy">
+                    <div class="gallery-overlay" aria-hidden="true"></div>
+                    <div class="dew-effect" aria-hidden="true"></div>
                 </div>
                 <div class="gallery-item">
                     <img src="assets/images/gallery/557621894_1366976132099916_7804972474361310197_n.jpg" alt="Elegant manicure design" class="gallery-image" loading="lazy">
@@ -291,7 +296,7 @@
                         <li>✓ Hand massage</li>
                         <li>✓ Polish application</li>
                     </ul>
-                    <a href="#" class="btn-service" onclick="event.preventDefault(); openLocationModal();">Book Now</a>
+                    <button type="button" class="btn-service" onclick="openLocationModal();" aria-label="Book Gel Manicure service">Book Now</button>
                 </div>
                 <div class="service-card featured">
                     <div class="popular-badge">Most Popular</div>
@@ -310,7 +315,7 @@
                         <li>✓ Chip-resistant</li>
                         <li>✓ Glossy shine</li>
                     </ul>
-                    <a href="#" class="btn-service" onclick="event.preventDefault(); openLocationModal();">Book Now</a>
+                    <button type="button" class="btn-service" onclick="openLocationModal();" aria-label="Book Gel Manicure service">Book Now</button>
                 </div>
                 <div class="service-card">
                     <div class="service-header">
@@ -328,7 +333,7 @@
                         <li>✓ Callus removal</li>
                         <li>✓ Foot massage</li>
                     </ul>
-                    <a href="#" class="btn-service" onclick="event.preventDefault(); openLocationModal();">Book Now</a>
+                    <button type="button" class="btn-service" onclick="openLocationModal();" aria-label="Book Gel Manicure service">Book Now</button>
                 </div>
                 <div class="service-card premium">
                     <div class="premium-badge">Premium</div>
@@ -347,18 +352,18 @@
                         <li>✓ Nail art design</li>
                         <li>✓ Extended massage</li>
                     </ul>
-                    <a href="#" class="btn-service" onclick="event.preventDefault(); openLocationModal();">Book Now</a>
+                    <button type="button" class="btn-service" onclick="openLocationModal();" aria-label="Book Gel Manicure service">Book Now</button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about">
+    <section id="about" class="about" aria-labelledby="about-title">
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2 class="section-title">About Us</h2>
+                    <h2 class="section-title" id="about-title">About Us</h2>
                     <p>Bamboo Nails Coomera is a premier nail salon dedicated to providing exceptional nail care services in a welcoming and relaxing environment. Our team of skilled technicians is committed to delivering the highest quality treatments using premium products and the latest techniques.</p>
                     <p>We believe that well-groomed nails are an essential part of personal care and self-expression. Whether you're looking for a classic manicure, intricate nail art, or specialized treatments, we're here to help you achieve the perfect look.</p>
                     <div class="about-features">
@@ -389,9 +394,9 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact" aria-labelledby="contact-title">
         <div class="container">
-            <h2 class="section-title">Contact Us</h2>
+            <h2 class="section-title" id="contact-title">Contact Us</h2>
             <p class="section-subtitle">Get in touch to book your appointment</p>
             <div class="contact-content">
                 <div class="contact-info">
@@ -445,18 +450,22 @@
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form id="contactForm">
+                    <form id="contactForm" aria-label="Contact form">
                         <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                            <label for="name">Your Name <span class="required" aria-label="required">*</span></label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required aria-required="true" autocomplete="name">
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                            <label for="email">Your Email <span class="required" aria-label="required">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="Your Email" required aria-required="true" autocomplete="email">
                         </div>
                         <div class="form-group">
-                            <input type="tel" id="phone" name="phone" placeholder="Your Phone">
+                            <label for="phone">Your Phone</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Your Phone" autocomplete="tel">
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                            <label for="message">Your Message <span class="required" aria-label="required">*</span></label>
+                            <textarea id="message" name="message" rows="5" placeholder="Your Message" required aria-required="true"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
@@ -464,9 +473,10 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
@@ -509,21 +519,21 @@
     </footer>
 
     <!-- Location Selection Modal -->
-    <div id="locationModal" class="modal">
+    <div id="locationModal" class="modal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description" aria-modal="true" aria-hidden="true">
         <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <h2 class="modal-title">Select Location</h2>
-            <p class="modal-subtitle">Choose your preferred location to book an appointment</p>
-            <div class="location-buttons">
-                <a href="tel:+61XXXXXXXXX" class="location-btn">
-                    <div class="location-icon">📍</div>
+            <button type="button" class="modal-close" aria-label="Close location selection modal">&times;</button>
+            <h2 class="modal-title" id="modal-title">Select Location</h2>
+            <p class="modal-subtitle" id="modal-description">Choose your preferred location to book an appointment</p>
+            <div class="location-buttons" role="group" aria-label="Location selection">
+                <a href="tel:+61XXXXXXXXX" class="location-btn" aria-label="Call Coomera location">
+                    <div class="location-icon" aria-hidden="true">📍</div>
                     <div class="location-info">
                         <h3>Coomera</h3>
                         <p>Click to call</p>
                     </div>
                 </a>
-                <a href="tel:+61XXXXXXXXX" class="location-btn">
-                    <div class="location-icon">📍</div>
+                <a href="tel:+61XXXXXXXXX" class="location-btn" aria-label="Call Forest Lake location">
+                    <div class="location-icon" aria-hidden="true">📍</div>
                     <div class="location-info">
                         <h3>Forest Lake</h3>
                         <p>Click to call</p>
