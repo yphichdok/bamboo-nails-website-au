@@ -569,6 +569,10 @@ const adjustLayout = (promotionVisible) => {
     
     if (navbar) {
         navbar.style.top = promotionVisible ? navbarOffset : '0';
+        // Ensure navbar is visible when promotion bar is visible
+        if (promotionVisible) {
+            navbar.classList.remove('navbar-hidden');
+        }
     }
     if (hero) {
         hero.style.marginTop = promotionVisible ? heroOffset : '70px';
