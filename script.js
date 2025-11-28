@@ -735,6 +735,111 @@ function openLocationModal() {
     openModal();
 }
 
+// Toggle collapsible service cards - Enhanced version
+window.toggleServiceCard = function(headerElement) {
+    if (!headerElement) {
+        console.error('toggleServiceCard: headerElement is null');
+        return;
+    }
+    
+    const card = headerElement.closest('.collapsible-service-card');
+    if (!card) {
+        console.error('toggleServiceCard: Could not find .collapsible-service-card');
+        return;
+    }
+    
+    const isActive = card.classList.contains('active');
+    const cardContent = card.querySelector('.card-content');
+    
+    // Close all other cards
+    document.querySelectorAll('.collapsible-service-card').forEach(otherCard => {
+        if (otherCard !== card) {
+            otherCard.classList.remove('active');
+            const otherContent = otherCard.querySelector('.card-content');
+            if (otherContent) {
+                otherContent.style.maxHeight = '0';
+                otherContent.style.padding = '0';
+            }
+        }
+    });
+    
+    // Toggle current card
+    if (isActive) {
+        card.classList.remove('active');
+        if (cardContent) {
+            cardContent.style.maxHeight = '0';
+            setTimeout(() => {
+                cardContent.style.padding = '0';
+            }, 300);
+        }
+    } else {
+        card.classList.add('active');
+        if (cardContent) {
+            // Calculate actual height for smooth transition
+            cardContent.style.maxHeight = '0';
+            cardContent.style.padding = '25px';
+            const scrollHeight = cardContent.scrollHeight;
+            cardContent.style.maxHeight = scrollHeight + 'px';
+            
+            // Smooth scroll to card if needed
+            setTimeout(() => {
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+    }
+}
+
+// Initialize collapsible cards on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize first card (Regular Nail Lacquer) as open on mobile
+    const firstCard = document.querySelector('.collapsible-service-card[data-category="regular-lacquer"]');
+    if (firstCard && window.innerWidth <= 768) {
+        firstCard.classList.add('active');
+        const firstCardContent = firstCard.querySelector('.card-content');
+        if (firstCardContent) {
+            // Calculate actual height for smooth transition
+            firstCardContent.style.maxHeight = '0';
+            firstCardContent.style.padding = '20px';
+            const scrollHeight = firstCardContent.scrollHeight;
+            firstCardContent.style.maxHeight = scrollHeight + 'px';
+            firstCardContent.style.opacity = '1';
+        }
+    }
+    
+    // Add click event listeners to all card headers as fallback
+    const cardHeaders = document.querySelectorAll('.collapsible-service-card .card-header');
+    cardHeaders.forEach(header => {
+        // Remove existing onclick to avoid duplicates
+        header.removeAttribute('onclick');
+        header.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.toggleServiceCard(this);
+        });
+        
+        // Add pointer cursor
+        header.style.cursor = 'pointer';
+    });
+    
+    // Also make the entire card clickable as backup
+    const cards = document.querySelectorAll('.collapsible-service-card');
+    cards.forEach(card => {
+        const header = card.querySelector('.card-header');
+        if (header) {
+            // Prevent double-clicking
+            card.addEventListener('click', function(e) {
+                if (e.target.closest('.card-header')) {
+                    return; // Already handled by header click
+                }
+            });
+        }
+    });
+});
+
+function openLocationModal() {
+    openModal();
+}
+
 // Active Navigation Link Indicator
 const setActiveNavLink = () => {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
