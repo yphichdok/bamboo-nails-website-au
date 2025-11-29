@@ -3999,12 +3999,14 @@ html {
     }
     
     /* Social Media Icons on Mobile - Show on Right */
-    .header-social {
+    .nav-menu-right .header-social {
         order: 2;
         display: flex !important;
         gap: 0.5rem;
-        margin-left: auto;
-        margin-right: 1rem;
+        position: absolute;
+        right: 50px; /* Position to the left of hamburger */
+        top: 50%;
+        transform: translateY(-50%);
         padding-left: 0;
         border-left: none;
         border-top: none;
@@ -4015,9 +4017,10 @@ html {
         opacity: 1 !important;
         visibility: visible !important;
         flex: 0 0 auto;
+        z-index: 1002;
     }
     
-    .header-social-link {
+    .nav-menu-right .header-social .header-social-link {
         width: 36px;
         height: 36px;
         display: flex;
@@ -4025,7 +4028,7 @@ html {
         justify-content: center;
     }
     
-    .header-social-link svg {
+    .nav-menu-right .header-social .header-social-link svg {
         width: 18px;
         height: 18px;
     }
