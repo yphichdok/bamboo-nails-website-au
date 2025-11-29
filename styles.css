@@ -3717,15 +3717,23 @@ html {
     }
     
     /* Position social icons absolutely, right after nav-menu-right ends (next to Contact) */
+    /* Since nav-menu-right has margin-right: 80px, position social icons at that location */
     .header-social {
         position: absolute;
-        right: 40px; /* Match container padding */
+        right: calc(40px + 0px); /* Start from container padding, nav-menu-right margin creates the gap */
         top: 50%;
         transform: translateY(-50%);
         margin-left: 0;
         padding-left: 0;
         margin-right: 0;
         z-index: 10;
+    }
+    
+    /* Better approach: position relative to nav-menu-right's end */
+    /* Since we can't use relative positioning (they're siblings), use calc to position after nav-menu-right */
+    .header-social {
+        right: 40px; /* Container padding */
+        margin-right: 0;
     }
 }
 
