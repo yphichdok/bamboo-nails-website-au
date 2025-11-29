@@ -1608,9 +1608,11 @@ html {
     opacity: 0;
 }
 
-/* Blur Transition */
+/* Blur Transition - OPTIMIZED: Reduced blur intensity for better performance */
+/* Note: CSS filter: blur() is expensive. Consider using fade/zoom instead on low-end devices */
 .hero-slide[data-transition="blur"] {
-    transition: filter 2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Removed filter transition - blur is too expensive */
 }
 
 .hero-slide[data-transition="blur"].active {
@@ -1619,14 +1621,32 @@ html {
 }
 
 .hero-slide[data-transition="blur"]:not(.active) {
-    filter: blur(10px) brightness(0.5);
+    /* Reduced blur from 10px to 5px for better performance */
+    filter: blur(5px) brightness(0.5);
     opacity: 0;
 }
 
-/* Continuous zoom effect for active slide - GPU Accelerated */
-.hero-slide.active img {
-    animation: continuousZoom 8s ease-in-out infinite alternate;
-    will-change: transform;
+/* Disable blur on low-end devices for better performance */
+@media (max-width: 768px) {
+    .hero-slide[data-transition="blur"] {
+        filter: none !important; /* Remove blur on mobile for better performance */
+    }
+}
+
+/* Continuous zoom effect for active slide - GPU Accelerated - OPTIMIZED */
+/* Only animate if user prefers motion, otherwise disable for better performance */
+@media (prefers-reduced-motion: no-preference) {
+    .hero-slide.active img {
+        animation: continuousZoom 12s ease-in-out infinite alternate;
+        will-change: transform;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-slide.active img {
+        animation: none;
+        will-change: auto;
+    }
 }
 
 @keyframes continuousZoom {
@@ -1634,7 +1654,7 @@ html {
         transform: scale3d(1, 1, 1);
     }
     100% {
-        transform: scale3d(1.1, 1.1, 1);
+        transform: scale3d(1.05, 1.05, 1); /* Reduced from 1.1 to 1.05 for less GPU load */
     }
 }
 
@@ -4605,10 +4625,11 @@ html {
     will-change: auto !important; /* Remove will-change after animation */
 }
 
-/* Parallax Effect for Sections */
+/* Parallax Effect for Sections - OPTIMIZED */
+/* Removed will-change from all sections - only apply when needed */
 section {
-    will-change: transform, opacity;
     position: relative;
+    /* will-change removed - only set dynamically when animating */
 }
 
 /* Smooth scroll behavior */

@@ -6,7 +6,9 @@ const heroSlideshow = () => {
     let currentSlide = 0;
     let isTransitioning = false;
     let slideTimeout;
-    const transitions = ['fade', 'slide', 'zoom', 'blur'];
+    // Removed 'blur' from transitions - it's too expensive for performance
+    // Use only GPU-accelerated transitions: fade, slide, zoom
+    const transitions = ['fade', 'slide', 'zoom'];
     
     // Preload images for better performance
     slides.forEach((slide) => {
@@ -20,9 +22,9 @@ const heroSlideshow = () => {
     slides.forEach((slide, index) => {
         const randomTransition = transitions[Math.floor(Math.random() * transitions.length)];
         slide.setAttribute('data-transition', randomTransition);
-        // GPU acceleration
+        // GPU acceleration - removed 'filter' from will-change (blur is expensive)
         slide.style.transform = 'translateZ(0)';
-        slide.style.willChange = 'opacity, transform, filter';
+        slide.style.willChange = 'opacity, transform';
     });
     
     const showSlide = (index) => {
@@ -412,9 +414,11 @@ const handleScroll = () => {
             }, 16); // ~60fps throttling
             
             // Optimized parallax effect for hero content (only if in viewport)
+            // Reduced parallax intensity for better performance
             const heroContent = document.querySelector('.hero-content');
             if (heroContent && currentScroll < window.innerHeight) {
-                const parallaxSpeed = currentScroll * 0.5;
+                // Reduced parallax speed from 0.5 to 0.3 for better performance
+                const parallaxSpeed = currentScroll * 0.3;
                 heroContent.style.transform = `translate3d(0, ${parallaxSpeed}px, 0)`;
                 heroContent.style.opacity = Math.max(0.5, 1 - (currentScroll / window.innerHeight) * 0.5);
             }
