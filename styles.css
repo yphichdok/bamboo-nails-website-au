@@ -3712,7 +3712,7 @@ html {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 2rem; /* Add gap between sections */
+        gap: 1rem; /* Add gap between sections */
     }
     
     /* Left menu - takes up space on left */
@@ -3725,29 +3725,16 @@ html {
     .logo {
         flex: 0 0 auto;
         order: 2;
-        position: relative; /* Change from absolute to relative for flexbox */
-        left: auto;
-        transform: none;
-        margin: 0 auto; /* Center it */
+        position: absolute; /* Keep absolute for centering */
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
     }
     
-    /* Right menu - takes up space on right */
-    .nav-menu-right {
-        flex: 0 0 auto;
-        order: 3;
-        position: relative;
-        margin-left: 0; /* Remove auto margin, use flexbox instead */
-        margin-right: 0;
-        padding-right: 0;
-        display: flex;
-        align-items: center;
-        gap: 0; /* No gap between menu items */
-    }
-    
-    /* Social icons - positioned right after nav-menu-right */
+    /* Social icons - move to appear after nav-menu-right using order */
     .header-social {
         flex: 0 0 auto;
-        order: 4;
+        order: 4; /* After nav-menu-right */
         position: relative; /* Change from absolute to relative for flexbox */
         right: auto;
         top: auto;
@@ -3760,6 +3747,24 @@ html {
         display: flex;
         align-items: center;
         gap: 0.5rem;
+    }
+    
+    /* Right menu - takes up space on right, before social icons */
+    .nav-menu-right {
+        flex: 0 0 auto;
+        order: 3; /* Before social icons */
+        position: relative;
+        margin-left: auto; /* Push to right */
+        margin-right: 0;
+        padding-right: 0;
+        display: flex;
+        align-items: center;
+        gap: 0; /* No gap between menu items */
+    }
+    
+    /* Group nav-menu-right and header-social together on the right */
+    .nav-menu-right + .header-social {
+        margin-left: 1.5rem; /* Spacing between Contact and social icons */
     }
 }
 
