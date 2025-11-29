@@ -1199,9 +1199,9 @@ html {
 }
 
 .logo-image {
-    height: 70px;
+    height: 85px;
     width: auto;
-    max-width: 280px;
+    max-width: 340px;
     max-height: 100%;
     object-fit: contain;
     display: block;
