@@ -919,7 +919,7 @@ select:focus-visible {
 
   color: var(--white);
 
-  border-radius: var(--radius-xl);
+  border-radius: 0; /* No rounded corners for hero section */
 
 }
 
