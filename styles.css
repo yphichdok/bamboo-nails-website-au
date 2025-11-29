@@ -4805,15 +4805,16 @@ html {
         font-size: 2.5rem;
     }
 
-    /* Page Header */
-    .page-header {
-        padding: 80px 0 50px;
-        margin-top: 80px; /* Updated to match navbar height */ /* Updated to match navbar height */
+    /* Ensure first sections have proper padding on mobile */
+    .gallery,
+    .services,
+    .about,
+    .contact {
+        padding-top: 70px !important; /* Mobile navbar height */
     }
-
-    .page-title {
-        font-size: 2rem;
-        padding: 0 15px;
+    
+    .location-info-section {
+        padding-top: 150px !important; /* Mobile navbar + original padding */
     }
 
     .page-subtitle {
