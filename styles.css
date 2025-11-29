@@ -1192,25 +1192,25 @@ html {
 .logo {
     position: absolute;
     left: 50%;
-    top: 0;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
     z-index: 1001;
     pointer-events: auto;
     width: auto;
     padding: 0.5rem 1rem; /* Vertical padding for safe spacing */
     margin: 0;
     max-width: calc(100% - 8rem); /* Safe margin from edges */
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: visible; /* Ensure logo is not cut off */
 }
 
 .logo-image {
-    height: 70px;
+    height: auto;
     width: auto;
     max-width: 340px;
-    max-height: calc(100% - 1rem); /* Safe margin from top/bottom */
+    max-height: 75px; /* Fixed max height to ensure full logo visible */
     object-fit: contain;
     display: block;
     transition: transform 0.3s ease;
@@ -4097,8 +4097,10 @@ html {
     }
     
     .logo-image {
-        height: 55px;
+        height: auto;
+        max-height: 60px; /* Fixed max height to ensure full logo visible */
         max-width: 200px;
+        width: auto;
     }
 
     .logo h1 {
