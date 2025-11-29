@@ -1938,7 +1938,7 @@ section::before {
 /* Services Section */
 .services {
     background: linear-gradient(180deg, #fff5f7 0%, #fff9f5 50%, #fff5f7 100%);
-    padding-top: 80px; /* Space for fixed navbar */
+    padding-top: 140px; /* Space for fixed navbar + extra breathing room */
 }
 
 .services-grid {
@@ -2590,7 +2590,7 @@ section::before {
 /* About Section */
 .about {
     background: linear-gradient(180deg, var(--white) 0%, #fff9f5 100%);
-    padding-top: 80px; /* Space for fixed navbar */
+    padding-top: 140px; /* Space for fixed navbar + extra breathing room */
 }
 
 .about-content {
@@ -2666,7 +2666,7 @@ section::before {
 /* Gallery Section */
 .gallery {
     background: linear-gradient(180deg, #fff9f5 0%, #fff5f7 100%);
-    padding-top: 80px; /* Space for fixed navbar */
+    padding-top: 140px; /* Space for fixed navbar + extra breathing room */
 }
 
 .gallery-grid {
@@ -2831,7 +2831,7 @@ img {
 /* Contact Section */
 .contact {
     background: linear-gradient(180deg, #fff9f5 0%, var(--white) 100%);
-    padding-top: 80px; /* Space for fixed navbar */
+    padding-top: 140px; /* Space for fixed navbar + extra breathing room */
 }
 
 .contact-content {
@@ -3382,7 +3382,7 @@ html {
 .location-info-section {
     background: linear-gradient(180deg, var(--white) 0%, #fff9f5 100%);
     padding: 100px 0;
-    padding-top: 180px; /* Space for fixed navbar + original padding */
+    padding-top: 240px; /* Space for fixed navbar + original padding + extra breathing room */
 }
 
 .location-info-grid {
