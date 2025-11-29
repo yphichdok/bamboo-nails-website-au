@@ -3952,19 +3952,20 @@ html {
     }
     
     .logo {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        order: 2;
+        position: relative;
+        left: 0;
+        transform: none;
+        order: 1;
         margin: 0;
         z-index: 1001;
+        flex: 0 0 auto;
     }
     
     .logo h1 {
         font-size: 1.1rem;
         letter-spacing: 1px;
         padding: 0.4rem 1rem;
-        text-align: center;
+        text-align: left;
     }
     
     .logo h1::before {
@@ -3992,9 +3993,41 @@ html {
     }
     
     .hamburger {
-        order: 4;
+        order: 3;
         margin-left: auto;
         flex-shrink: 0;
+    }
+    
+    /* Social Media Icons on Mobile - Show on Right */
+    .header-social {
+        order: 2;
+        display: flex !important;
+        gap: 0.5rem;
+        margin-left: auto;
+        margin-right: 1rem;
+        padding-left: 0;
+        border-left: none;
+        border-top: none;
+        padding-top: 0;
+        margin-top: 0;
+        width: auto;
+        justify-content: flex-end;
+        opacity: 1 !important;
+        visibility: visible !important;
+        flex: 0 0 auto;
+    }
+    
+    .header-social-link {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .header-social-link svg {
+        width: 18px;
+        height: 18px;
     }
     
     /* Hide desktop menu items on mobile */
