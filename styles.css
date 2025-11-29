@@ -3999,15 +3999,11 @@ html {
     }
     
     /* Social Media Icons on Mobile - Always Visible Next to Logo */
-    /* Position social icons in navbar - completely independent of parent menu visibility */
-    /* Use navbar as positioning context, not the hidden menu */
-    .navbar .nav-menu-right .header-social {
-        /* Position relative to navbar, not parent menu */
-        position: absolute !important;
-        top: 50% !important;
-        left: auto !important;
-        right: 60px !important; /* Position to the left of hamburger */
-        transform: translateY(-50%) !important;
+    /* Position social icons next to logo, completely independent of parent menu visibility */
+    .navbar .nav-menu-right .header-social,
+    .nav-wrapper .nav-menu-right .header-social {
+        /* Position next to logo, not in hidden menu */
+        position: static !important;
         display: flex !important;
         gap: 0.5rem;
         padding: 0 !important;
@@ -4016,7 +4012,7 @@ html {
         width: auto !important;
         height: auto !important;
         align-items: center !important;
-        justify-content: flex-end !important;
+        justify-content: flex-start !important;
         opacity: 1 !important;
         visibility: visible !important;
         z-index: 1002 !important;
@@ -4026,6 +4022,10 @@ html {
         clip: auto !important;
         clip-path: none !important;
         contain: none !important;
+        transform: none !important;
+        top: auto !important;
+        right: auto !important;
+        left: auto !important;
     }
     
     /* Force visibility in ALL parent states - highest specificity */
@@ -4036,13 +4036,28 @@ html {
         opacity: 1 !important;
         visibility: visible !important;
         display: flex !important;
-        position: absolute !important;
-        top: 50% !important;
-        right: 60px !important;
-        transform: translateY(-50%) !important;
+        position: static !important;
         pointer-events: auto !important;
         clip: auto !important;
         clip-path: none !important;
+    }
+    
+    /* Move nav-menu-right to be inline with logo */
+    .nav-menu-right {
+        order: 2 !important;
+        position: static !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        left: auto !important;
+        top: auto !important;
+        width: auto !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
     
     .nav-menu-right .header-social .header-social-link {
@@ -4051,20 +4066,23 @@ html {
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(255, 255, 255, 0.1);
+        background: transparent;
         border-radius: 50%;
         transition: all 0.3s ease;
+        color: var(--grey-dark) !important; /* Use dark grey for visibility */
     }
     
     .nav-menu-right .header-social .header-social-link:hover,
     .nav-menu-right .header-social .header-social-link:active {
-        background: rgba(238, 158, 178, 0.2);
+        background: rgba(139, 122, 125, 0.1); /* Light grey background on hover */
         transform: scale(1.1);
+        color: var(--grey) !important;
     }
     
     .nav-menu-right .header-social .header-social-link svg {
         width: 18px;
         height: 18px;
+        fill: currentColor;
     }
     
     /* Hide desktop menu items on mobile */
