@@ -3723,6 +3723,7 @@ html {
         padding-left: 2.5rem;
     }
     
+    /* Desktop: Move social icons to right side, next to Contact */
     .header-social {
         margin-left: 1rem;
         padding-left: 0.75rem;
@@ -3731,9 +3732,25 @@ html {
         align-items: center;
     }
     
-    .nav-menu-right .header-social {
-        display: flex;
-        gap: 0.5rem;
+    /* Desktop ONLY: Position social icons after Contact in nav-menu-right */
+    @media (min-width: 768px) {
+        .nav-wrapper {
+            position: relative;
+        }
+        
+        .header-social {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-left: 0;
+            padding-left: 0;
+            margin-right: 0;
+        }
+        
+        .nav-menu-right {
+            padding-right: 100px; /* Space for social icons */
+        }
     }
     
     .header-social-link {
