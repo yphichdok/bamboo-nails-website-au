@@ -1776,16 +1776,6 @@ html {
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     color: var(--white) !important;
 }
-    font-size: 2rem;
-    margin-bottom: 2.5rem;
-    opacity: 0.98;
-    animation: fadeInUp 1s ease 0.3s both;
-    font-weight: 500;
-    font-style: italic;
-    letter-spacing: 1.5px;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    color: var(--white) !important;
-}
 
 /* Buttons */
 .btn {
