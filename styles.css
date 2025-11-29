@@ -3732,37 +3732,6 @@ html {
         align-items: center;
     }
     
-    /* Desktop ONLY: Position social icons after Contact in nav-menu-right */
-    @media (min-width: 768px) {
-        .nav-wrapper {
-            position: relative;
-        }
-        
-        .nav-menu-right {
-            position: relative;
-            padding-right: 0;
-            margin-right: 0;
-        }
-        
-        /* Position social icons right after nav-menu-right (next to Contact) */
-        /* Add margin to nav-menu-right to create space for social icons */
-        .nav-menu-right {
-            margin-right: 80px; /* Space for social icons */
-        }
-        
-        /* Position social icons absolutely, right after nav-menu-right ends */
-        .header-social {
-            position: absolute;
-            right: 40px; /* Match container padding */
-            top: 50%;
-            transform: translateY(-50%);
-            margin-left: 0;
-            padding-left: 0;
-            margin-right: 0;
-            z-index: 10;
-        }
-    }
-    
     .header-social-link {
         width: 32px;
         height: 32px;
