@@ -4311,6 +4311,9 @@ html {
         transform: none;
         order: 1;
         margin: 0;
+        max-width: calc(100% - 4rem); /* Prevent overflow on mobile */
+        max-height: 70px; /* Match mobile navbar height */
+        overflow: hidden; /* Ensure logo doesn't overflow */
         z-index: 1001;
         flex: 0 0 auto;
         margin-right: auto;
