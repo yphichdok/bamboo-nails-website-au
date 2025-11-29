@@ -3995,33 +3995,6 @@ html {
         visibility: hidden;
     }
     
-    /* Extract social icons from hidden menu - keep menu hidden but show icons */
-    .nav-menu-right .header-social {
-        /* Keep parent menu hidden, but show social icons */
-        position: fixed !important;
-        top: 0 !important;
-        left: auto !important;
-        right: 60px !important; /* Position to the left of hamburger */
-        transform: translateY(0) !important;
-        display: flex !important;
-        gap: 0.5rem;
-        padding: 0 !important;
-        margin: 0 !important;
-        border: none !important;
-        width: auto !important;
-        height: 70px !important;
-        align-items: center !important;
-        justify-content: flex-end !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        z-index: 1002 !important;
-        background: transparent !important;
-        pointer-events: auto !important;
-        clip: auto !important;
-        clip-path: none !important;
-        contain: none !important;
-    }
-    
     .hamburger {
         order: 3;
         margin-left: auto;
@@ -4032,21 +4005,24 @@ html {
     /* Extract social icons from hidden menu - position next to logo */
     .navbar .nav-menu-right .header-social,
     .nav-wrapper .nav-menu-right .header-social {
-        /* Position fixed next to logo, break out of hidden parent menu */
-        position: fixed !important;
-        top: 0 !important;
+        /* Position next to logo, break out of hidden parent menu */
+        position: absolute !important;
+        top: 50% !important;
         left: auto !important;
-        right: 60px !important; /* Position to the left of hamburger */
-        transform: translateY(0) !important;
+        right: auto !important;
+        /* Position after logo - calculate based on logo width + gap */
+        margin-left: calc(100% + 10px) !important; /* Logo width + gap */
+        transform: translateY(-50%) !important;
         display: flex !important;
         gap: 0.5rem;
         padding: 0 !important;
-        margin: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
         border: none !important;
         width: auto !important;
-        height: 70px !important;
+        height: auto !important;
         align-items: center !important;
-        justify-content: flex-end !important;
+        justify-content: flex-start !important;
         opacity: 1 !important;
         visibility: visible !important;
         z-index: 1002 !important;
@@ -4057,6 +4033,12 @@ html {
         contain: none !important;
     }
     
+    /* Alternative: Position relative to logo container */
+    .logo::after {
+        content: '';
+        display: none;
+    }
+    
     /* Force visibility in ALL parent states - highest specificity */
     .navbar .nav-menu-right .header-social,
     .navbar .nav-menu-right:not(.active) .header-social,
@@ -4065,13 +4047,25 @@ html {
         opacity: 1 !important;
         visibility: visible !important;
         display: flex !important;
-        position: fixed !important;
-        top: 0 !important;
-        right: 60px !important;
-        height: 70px !important;
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
         pointer-events: auto !important;
         clip: auto !important;
         clip-path: none !important;
+    }
+    
+    /* Position social icons next to logo in nav-wrapper */
+    .nav-wrapper {
+        position: relative;
+    }
+    
+    .nav-wrapper .nav-menu-right .header-social {
+        position: absolute !important;
+        left: 180px !important; /* Position after logo (adjust based on logo width ~150px + padding) */
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        margin-left: 0 !important; /* Override previous margin */
     }
     
     
