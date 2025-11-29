@@ -3705,6 +3705,30 @@ html {
 
 /* Responsive Design */
 
+/* Desktop: Position social icons next to Contact (all desktop sizes) */
+@media (min-width: 768px) {
+    .nav-wrapper {
+        position: relative;
+    }
+    
+    .nav-menu-right {
+        position: relative;
+        margin-right: 80px; /* Space for social icons */
+    }
+    
+    /* Position social icons absolutely, right after nav-menu-right ends (next to Contact) */
+    .header-social {
+        position: absolute;
+        right: 40px; /* Match container padding */
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 0;
+        padding-left: 0;
+        margin-right: 0;
+        z-index: 10;
+    }
+}
+
 /* Smaller Desktop / Large Tablet (1024px - 1200px) */
 @media (min-width: 1024px) and (max-width: 1200px) {
     .container {
