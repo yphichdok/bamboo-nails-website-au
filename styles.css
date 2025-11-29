@@ -4810,11 +4810,11 @@ html {
     .services,
     .about,
     .contact {
-        padding-top: 70px !important; /* Mobile navbar height */
+        padding-top: 110px !important; /* Mobile navbar height + extra breathing room */
     }
     
     .location-info-section {
-        padding-top: 150px !important; /* Mobile navbar + original padding */
+        padding-top: 180px !important; /* Mobile navbar + original padding + extra breathing room */
     }
 
     .page-subtitle {
