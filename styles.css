@@ -4320,8 +4320,7 @@ html {
         margin: 0;
         padding: 0.3rem 0.5rem; /* Vertical padding for safe spacing */
         max-width: calc(100% - 8rem); /* Safe margin from edges */
-        max-height: calc(100% - 0.6rem); /* Safe margin from top/bottom */
-        overflow: hidden; /* Ensure logo doesn't overflow */
+        overflow: visible; /* Ensure logo is not cut off */
         z-index: 1001;
         flex: 0 0 auto;
         margin-right: auto;
