@@ -1192,19 +1192,22 @@ html {
 .logo {
     position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    transform: translateX(-50%);
     z-index: 1001;
     pointer-events: auto;
     width: auto;
     padding: 0.5rem 1rem; /* Vertical padding for safe spacing */
-    margin: 0 auto;
+    margin: 0;
     max-width: calc(100% - 8rem); /* Safe margin from edges */
-    max-height: calc(100% - 1rem); /* Safe margin from top/bottom */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo-image {
-    height: 85px;
+    height: 70px;
     width: auto;
     max-width: 340px;
     max-height: calc(100% - 1rem); /* Safe margin from top/bottom */
