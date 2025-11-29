@@ -3999,20 +3999,22 @@ html {
     }
     
     /* Social Media Icons on Mobile - Always Visible Next to Logo */
-    /* Position social icons in navbar, completely break out of parent menu visibility */
-    .nav-menu-right .header-social {
-        /* Completely independent positioning - break out of parent */
-        position: fixed !important;
-        top: 0 !important;
+    /* Position social icons in navbar - completely independent of parent menu visibility */
+    /* Use navbar as positioning context, not the hidden menu */
+    .navbar .nav-menu-right .header-social {
+        /* Position relative to navbar, not parent menu */
+        position: absolute !important;
+        top: 50% !important;
         left: auto !important;
         right: 60px !important; /* Position to the left of hamburger */
+        transform: translateY(-50%) !important;
         display: flex !important;
         gap: 0.5rem;
         padding: 0 !important;
         margin: 0 !important;
         border: none !important;
         width: auto !important;
-        height: 70px !important;
+        height: auto !important;
         align-items: center !important;
         justify-content: flex-end !important;
         opacity: 1 !important;
@@ -4020,7 +4022,6 @@ html {
         z-index: 1002 !important;
         background: transparent !important;
         pointer-events: auto !important;
-        transform: none !important;
         /* Break out of parent's visibility context */
         clip: auto !important;
         clip-path: none !important;
@@ -4028,18 +4029,17 @@ html {
     }
     
     /* Force visibility in ALL parent states - highest specificity */
-    .nav-menu-right .header-social,
-    .nav-menu-right:not(.active) .header-social,
-    .nav-menu-right.active .header-social,
-    .nav-wrapper .nav-menu-right .header-social,
-    .navbar .nav-menu-right .header-social {
+    .navbar .nav-menu-right .header-social,
+    .navbar .nav-menu-right:not(.active) .header-social,
+    .navbar .nav-menu-right.active .header-social,
+    .nav-wrapper .nav-menu-right .header-social {
         opacity: 1 !important;
         visibility: visible !important;
         display: flex !important;
-        position: fixed !important;
-        top: 0 !important;
+        position: absolute !important;
+        top: 50% !important;
         right: 60px !important;
-        height: 70px !important;
+        transform: translateY(-50%) !important;
         pointer-events: auto !important;
         clip: auto !important;
         clip-path: none !important;
