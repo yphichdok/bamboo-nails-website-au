@@ -1938,6 +1938,7 @@ section::before {
 /* Services Section */
 .services {
     background: linear-gradient(180deg, #fff5f7 0%, #fff9f5 50%, #fff5f7 100%);
+    padding-top: 80px; /* Space for fixed navbar */
 }
 
 .services-grid {
@@ -2589,6 +2590,7 @@ section::before {
 /* About Section */
 .about {
     background: linear-gradient(180deg, var(--white) 0%, #fff9f5 100%);
+    padding-top: 80px; /* Space for fixed navbar */
 }
 
 .about-content {
@@ -2664,6 +2666,7 @@ section::before {
 /* Gallery Section */
 .gallery {
     background: linear-gradient(180deg, #fff9f5 0%, #fff5f7 100%);
+    padding-top: 80px; /* Space for fixed navbar */
 }
 
 .gallery-grid {
