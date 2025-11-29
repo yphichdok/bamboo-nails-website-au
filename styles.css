@@ -4029,33 +4029,32 @@ html {
     }
     
     /* Social Media Icons on Mobile - Always Visible Next to Logo */
-    /* Position social icons next to logo, completely independent of parent menu visibility */
+    /* Extract social icons from hidden menu - position next to logo */
     .navbar .nav-menu-right .header-social,
     .nav-wrapper .nav-menu-right .header-social {
-        /* Position next to logo, not in hidden menu */
-        position: static !important;
+        /* Position fixed next to logo, break out of hidden parent menu */
+        position: fixed !important;
+        top: 0 !important;
+        left: auto !important;
+        right: 60px !important; /* Position to the left of hamburger */
+        transform: translateY(0) !important;
         display: flex !important;
         gap: 0.5rem;
         padding: 0 !important;
         margin: 0 !important;
         border: none !important;
         width: auto !important;
-        height: auto !important;
+        height: 70px !important;
         align-items: center !important;
-        justify-content: flex-start !important;
+        justify-content: flex-end !important;
         opacity: 1 !important;
         visibility: visible !important;
         z-index: 1002 !important;
         background: transparent !important;
         pointer-events: auto !important;
-        /* Break out of parent's visibility context */
         clip: auto !important;
         clip-path: none !important;
         contain: none !important;
-        transform: none !important;
-        top: auto !important;
-        right: auto !important;
-        left: auto !important;
     }
     
     /* Force visibility in ALL parent states - highest specificity */
@@ -4066,29 +4065,15 @@ html {
         opacity: 1 !important;
         visibility: visible !important;
         display: flex !important;
-        position: static !important;
+        position: fixed !important;
+        top: 0 !important;
+        right: 60px !important;
+        height: 70px !important;
         pointer-events: auto !important;
         clip: auto !important;
         clip-path: none !important;
     }
     
-    /* Move nav-menu-right to be inline with logo */
-    .nav-menu-right {
-        order: 2 !important;
-        position: static !important;
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        left: auto !important;
-        top: auto !important;
-        width: auto !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
     
     .nav-menu-right .header-social .header-social-link {
         width: 36px;
