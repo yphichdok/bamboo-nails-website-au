@@ -232,6 +232,20 @@
         </div>
     </footer>
 
+    <!-- Gallery Image Detail Modal -->
+    <div id="galleryModal" class="modal gallery-modal">
+        <div class="modal-content gallery-modal-content">
+            <span class="modal-close gallery-modal-close">&times;</span>
+            <div class="gallery-modal-image-wrapper">
+                <img id="galleryModalImage" src="" alt="" class="gallery-modal-image">
+            </div>
+            <div class="gallery-modal-info">
+                <h3 id="galleryModalTitle" class="gallery-modal-title"></h3>
+                <p id="galleryModalCategory" class="gallery-modal-category"></p>
+            </div>
+        </div>
+    </div>
+
     <!-- Location Selection Modal -->
     <div id="locationModal" class="modal">
         <div class="modal-content">
@@ -288,6 +302,62 @@
                     }
                 });
             });
+        });
+
+        // Gallery image detail modal functionality
+        const galleryModal = document.getElementById('galleryModal');
+        const galleryModalImage = document.getElementById('galleryModalImage');
+        const galleryModalTitle = document.getElementById('galleryModalTitle');
+        const galleryModalCategory = document.getElementById('galleryModalCategory');
+        const galleryModalClose = document.querySelector('.gallery-modal-close');
+
+        // Open gallery modal when clicking on gallery item
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const imageSrc = item.getAttribute('data-image-src');
+                const imageAlt = item.getAttribute('data-image-alt');
+                const category = item.getAttribute('data-category');
+                
+                // Format category name
+                const categoryNames = {
+                    'nail-art': 'Nail Art',
+                    'manicure': 'Manicure',
+                    'pedicure': 'Pedicure',
+                    'gel': 'Gel Polish'
+                };
+                
+                galleryModalImage.src = imageSrc;
+                galleryModalImage.alt = imageAlt;
+                galleryModalTitle.textContent = imageAlt;
+                galleryModalCategory.textContent = categoryNames[category] || category;
+                
+                galleryModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close gallery modal
+        if (galleryModalClose) {
+            galleryModalClose.addEventListener('click', () => {
+                galleryModal.style.display = 'none';
+                document.body.style.overflow = '';
+            });
+        }
+
+        // Close modal when clicking outside
+        galleryModal.addEventListener('click', (e) => {
+            if (e.target === galleryModal) {
+                galleryModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && galleryModal.style.display === 'flex') {
+                galleryModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
         });
     </script>
 
