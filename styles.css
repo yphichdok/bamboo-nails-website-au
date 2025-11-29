@@ -1511,6 +1511,20 @@ html {
         height: 100vh;
         min-height: 100vh;
         margin-top: 70px; /* Mobile navbar height */
+        border-radius: 0 !important; /* No rounded corners on mobile */
+    }
+    
+    /* Ensure hero images have no rounded corners on mobile */
+    .hero-slideshow {
+        border-radius: 0 !important;
+    }
+    
+    .hero-slide {
+        border-radius: 0 !important;
+    }
+    
+    .hero-slide img {
+        border-radius: 0 !important;
     }
 }
 
