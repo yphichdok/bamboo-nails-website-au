@@ -1526,6 +1526,7 @@ html {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    border-radius: 0; /* No rounded corners for hero slideshow */
 }
 
 .hero-slide {
@@ -1562,6 +1563,7 @@ html {
     -webkit-backface-visibility: hidden;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
+    border-radius: 0; /* No rounded corners for hero images */
 }
 
 /* Fade Transition */
