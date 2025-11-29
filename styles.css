@@ -2207,10 +2207,12 @@ section::before {
         grid-template-columns: 1fr auto; /* Ensure name left, price right */
         gap: 10px; /* Add gap between name and price */
         align-items: center;
+        border-bottom: 1px solid rgba(238, 158, 178, 0.15); /* Soft horizontal line */
     }
 
     .collapsible-service-card .menu-item:hover {
         padding-left: 20px;
+        border-bottom-color: rgba(238, 158, 178, 0.3); /* Slightly more visible on hover */
     }
 
     .collapsible-service-card .menu-item .item-name {
@@ -2262,10 +2264,12 @@ section::before {
         grid-template-columns: 1fr auto; /* Keep name left, price right */
         gap: 10px; /* Add gap between name and price */
         align-items: center;
+        border-bottom: 1px solid rgba(238, 158, 178, 0.15); /* Soft horizontal line */
     }
 
     .collapsible-service-card .menu-item:hover {
         padding-left: 15px;
+        border-bottom-color: rgba(238, 158, 178, 0.3); /* Slightly more visible on hover */
     }
 
     .collapsible-service-card .menu-item .item-name {
@@ -5354,10 +5358,12 @@ section:not(#home) {
         grid-template-columns: 1fr auto; /* Ensure name left, price right */
         gap: 10px; /* Add gap between name and price */
         align-items: center;
+        border-bottom: 1px solid rgba(238, 158, 178, 0.15); /* Soft horizontal line */
     }
 
     .menu-item:hover {
         padding-left: 20px;
+        border-bottom-color: rgba(238, 158, 178, 0.3); /* Slightly more visible on hover */
     }
 
     .menu-item .item-name {
@@ -5417,10 +5423,12 @@ section:not(#home) {
         grid-template-columns: 1fr auto; /* Keep name left, price right */
         gap: 10px; /* Add gap between name and price */
         align-items: center;
+        border-bottom: 1px solid rgba(238, 158, 178, 0.15); /* Soft horizontal line */
     }
 
     .menu-item:hover {
         padding-left: 15px;
+        border-bottom-color: rgba(238, 158, 178, 0.3); /* Slightly more visible on hover */
     }
 
     .menu-item .item-name {
