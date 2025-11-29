@@ -4333,8 +4333,8 @@ html {
     }
     
     .logo-image {
-        max-height: 40px !important; /* Smaller mobile size */
-        max-width: 160px !important;
+        max-height: 50px !important; /* Mobile size */
+        max-width: 190px !important;
     }
     
     .logo h1 {
