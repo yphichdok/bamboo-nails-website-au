@@ -122,22 +122,14 @@ const initScrollToTop = () => {
         }
     };
     
-    // Make a call when button is clicked
+    // Open location modal when button is clicked (same as booking)
     callButton.addEventListener('click', () => {
-        // Get phone number from contact section or use location modal
-        // Try to get phone from contact section first
-        const phoneElement = document.querySelector('.contact-info .info-item:has(.info-icon:contains("📞")) .info-text');
-        if (phoneElement) {
-            const phoneText = phoneElement.textContent.trim();
-            // Extract phone number (remove non-digits except +)
-            const phoneNumber = phoneText.replace(/[^\d+]/g, '');
-            if (phoneNumber) {
-                window.location.href = `tel:${phoneNumber}`;
-                return;
-            }
+        // Open the same location modal that shows locations for calling
+        if (typeof openLocationModal === 'function') {
+            openLocationModal();
+        } else if (typeof openModal === 'function') {
+            openModal();
         }
-        // Fallback: Open location modal to show phone numbers
-        openLocationModal();
     });
     
     // Check scroll position on scroll
