@@ -3817,6 +3817,55 @@ html {
     transform: scale(1.1);
 }
 
+/* Gallery Modal Navigation Buttons */
+.gallery-modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: var(--white);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 2.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10003;
+    transition: all 0.3s ease;
+    line-height: 1;
+    padding: 0;
+    user-select: none;
+}
+
+.gallery-modal-nav:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.gallery-modal-nav:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.gallery-modal-prev {
+    left: 20px;
+}
+
+.gallery-modal-next {
+    right: 20px;
+}
+
+.gallery-modal-counter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0.5rem 0 0 0;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
 /* Modal Responsive */
 @media (max-width: 767px) {
     .modal-content {
@@ -3858,6 +3907,20 @@ html {
         width: 40px;
         height: 40px;
         font-size: 2rem;
+    }
+    
+    .gallery-modal-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 2rem;
+    }
+    
+    .gallery-modal-prev {
+        left: 10px;
+    }
+    
+    .gallery-modal-next {
+        right: 10px;
     }
 
     .modal-title {

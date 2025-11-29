@@ -236,12 +236,15 @@
     <div id="galleryModal" class="modal gallery-modal">
         <div class="modal-content gallery-modal-content">
             <span class="modal-close gallery-modal-close">&times;</span>
+            <button class="gallery-modal-nav gallery-modal-prev" aria-label="Previous image">‹</button>
+            <button class="gallery-modal-nav gallery-modal-next" aria-label="Next image">›</button>
             <div class="gallery-modal-image-wrapper">
                 <img id="galleryModalImage" src="" alt="" class="gallery-modal-image">
             </div>
             <div class="gallery-modal-info">
                 <h3 id="galleryModalTitle" class="gallery-modal-title"></h3>
                 <p id="galleryModalCategory" class="gallery-modal-category"></p>
+                <p id="galleryModalCounter" class="gallery-modal-counter"></p>
             </div>
         </div>
     </div>
@@ -309,32 +312,94 @@
         const galleryModalImage = document.getElementById('galleryModalImage');
         const galleryModalTitle = document.getElementById('galleryModalTitle');
         const galleryModalCategory = document.getElementById('galleryModalCategory');
+        const galleryModalCounter = document.getElementById('galleryModalCounter');
         const galleryModalClose = document.querySelector('.gallery-modal-close');
+        const galleryModalPrev = document.querySelector('.gallery-modal-prev');
+        const galleryModalNext = document.querySelector('.gallery-modal-next');
+
+        // Store all visible gallery items and current index
+        let visibleGalleryItems = [];
+        let currentImageIndex = 0;
+
+        // Get all visible gallery items (respecting filters)
+        function getVisibleGalleryItems() {
+            return Array.from(galleryItems).filter(item => {
+                return item.style.display !== 'none' && item.style.opacity !== '0';
+            });
+        }
+
+        // Format category name
+        const categoryNames = {
+            'nail-art': 'Nail Art',
+            'manicure': 'Manicure',
+            'pedicure': 'Pedicure',
+            'gel': 'Gel Polish'
+        };
+
+        // Update modal with image data
+        function updateModalImage(index) {
+            if (visibleGalleryItems.length === 0) return;
+            
+            const item = visibleGalleryItems[index];
+            const imageSrc = item.getAttribute('data-image-src');
+            const imageAlt = item.getAttribute('data-image-alt');
+            const category = item.getAttribute('data-category');
+            
+            galleryModalImage.src = imageSrc;
+            galleryModalImage.alt = imageAlt;
+            galleryModalTitle.textContent = imageAlt;
+            galleryModalCategory.textContent = categoryNames[category] || category;
+            galleryModalCounter.textContent = `${index + 1} / ${visibleGalleryItems.length}`;
+            
+            // Update navigation buttons visibility
+            galleryModalPrev.style.display = visibleGalleryItems.length > 1 ? 'flex' : 'none';
+            galleryModalNext.style.display = visibleGalleryItems.length > 1 ? 'flex' : 'none';
+        }
+
+        // Navigate to next image
+        function nextImage() {
+            if (visibleGalleryItems.length === 0) return;
+            currentImageIndex = (currentImageIndex + 1) % visibleGalleryItems.length;
+            updateModalImage(currentImageIndex);
+        }
+
+        // Navigate to previous image
+        function prevImage() {
+            if (visibleGalleryItems.length === 0) return;
+            currentImageIndex = (currentImageIndex - 1 + visibleGalleryItems.length) % visibleGalleryItems.length;
+            updateModalImage(currentImageIndex);
+        }
 
         // Open gallery modal when clicking on gallery item
-        galleryItems.forEach(item => {
+        galleryItems.forEach((item, index) => {
             item.addEventListener('click', () => {
-                const imageSrc = item.getAttribute('data-image-src');
-                const imageAlt = item.getAttribute('data-image-alt');
-                const category = item.getAttribute('data-category');
+                visibleGalleryItems = getVisibleGalleryItems();
+                currentImageIndex = visibleGalleryItems.indexOf(item);
                 
-                // Format category name
-                const categoryNames = {
-                    'nail-art': 'Nail Art',
-                    'manicure': 'Manicure',
-                    'pedicure': 'Pedicure',
-                    'gel': 'Gel Polish'
-                };
+                if (currentImageIndex === -1) {
+                    currentImageIndex = 0;
+                }
                 
-                galleryModalImage.src = imageSrc;
-                galleryModalImage.alt = imageAlt;
-                galleryModalTitle.textContent = imageAlt;
-                galleryModalCategory.textContent = categoryNames[category] || category;
-                
+                updateModalImage(currentImageIndex);
                 galleryModal.style.display = 'flex';
                 document.body.style.overflow = 'hidden';
             });
         });
+
+        // Navigation button handlers
+        if (galleryModalNext) {
+            galleryModalNext.addEventListener('click', (e) => {
+                e.stopPropagation();
+                nextImage();
+            });
+        }
+
+        if (galleryModalPrev) {
+            galleryModalPrev.addEventListener('click', (e) => {
+                e.stopPropagation();
+                prevImage();
+            });
+        }
 
         // Close gallery modal
         if (galleryModalClose) {
@@ -352,12 +417,62 @@
             }
         });
 
-        // Close modal with Escape key
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && galleryModal.style.display === 'flex') {
-                galleryModal.style.display = 'none';
-                document.body.style.overflow = '';
+            if (galleryModal.style.display === 'flex') {
+                if (e.key === 'Escape') {
+                    galleryModal.style.display = 'none';
+                    document.body.style.overflow = '';
+                } else if (e.key === 'ArrowRight') {
+                    nextImage();
+                } else if (e.key === 'ArrowLeft') {
+                    prevImage();
+                }
             }
+        });
+
+        // Swipe functionality for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        galleryModal.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        galleryModal.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe left - next image
+                    nextImage();
+                } else {
+                    // Swipe right - previous image
+                    prevImage();
+                }
+            }
+        }
+
+        // Update visible items when filter changes
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update visible items after filter animation completes
+                setTimeout(() => {
+                    visibleGalleryItems = getVisibleGalleryItems();
+                    if (currentImageIndex >= visibleGalleryItems.length) {
+                        currentImageIndex = 0;
+                    }
+                    if (galleryModal.style.display === 'flex') {
+                        updateModalImage(currentImageIndex);
+                    }
+                }, 350);
+            });
         });
     </script>
 
