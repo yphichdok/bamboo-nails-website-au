@@ -3999,8 +3999,9 @@ html {
     }
     
     /* Social Media Icons on Mobile - Always Visible Next to Logo */
-    /* Position social icons in navbar, always visible regardless of menu state */
+    /* Position social icons in navbar, completely break out of parent menu visibility */
     .nav-menu-right .header-social {
+        /* Completely independent positioning - break out of parent */
         position: fixed !important;
         top: 0 !important;
         left: auto !important;
@@ -4019,14 +4020,19 @@ html {
         z-index: 1002 !important;
         background: transparent !important;
         pointer-events: auto !important;
-        /* Override any parent menu hiding */
         transform: none !important;
+        /* Break out of parent's visibility context */
+        clip: auto !important;
+        clip-path: none !important;
+        contain: none !important;
     }
     
-    /* Ensure social icons are ALWAYS visible - override parent menu states */
+    /* Force visibility in ALL parent states - highest specificity */
     .nav-menu-right .header-social,
     .nav-menu-right:not(.active) .header-social,
-    .nav-menu-right.active .header-social {
+    .nav-menu-right.active .header-social,
+    .nav-wrapper .nav-menu-right .header-social,
+    .navbar .nav-menu-right .header-social {
         opacity: 1 !important;
         visibility: visible !important;
         display: flex !important;
@@ -4034,6 +4040,9 @@ html {
         top: 0 !important;
         right: 60px !important;
         height: 70px !important;
+        pointer-events: auto !important;
+        clip: auto !important;
+        clip-path: none !important;
     }
     
     .nav-menu-right .header-social .header-social-link {
