@@ -1544,6 +1544,8 @@ html {
     -webkit-backface-visibility: hidden;
     perspective: 1000px;
     -webkit-perspective: 1000px;
+    border-radius: 0; /* No rounded corners for hero slides */
+    overflow: hidden; /* Ensure images don't overflow */
 }
 
 .hero-slide.active {
