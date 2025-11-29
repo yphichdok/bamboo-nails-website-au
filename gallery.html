@@ -292,10 +292,8 @@
                 galleryItems.forEach(item => {
                     if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
                         item.style.display = 'block';
-                        setTimeout(() => {
-                            item.style.opacity = '1';
-                            item.style.transform = 'scale(1)';
-                        }, 10);
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
                     } else {
                         item.style.opacity = '0';
                         item.style.transform = 'scale(0.8)';
@@ -324,7 +322,8 @@
         // Get all visible gallery items (respecting filters)
         function getVisibleGalleryItems() {
             return Array.from(galleryItems).filter(item => {
-                return item.style.display !== 'none' && item.style.opacity !== '0';
+                const style = window.getComputedStyle(item);
+                return style.display !== 'none' && style.opacity !== '0' && item.offsetParent !== null;
             });
         }
 
@@ -341,19 +340,27 @@
             if (visibleGalleryItems.length === 0) return;
             
             const item = visibleGalleryItems[index];
-            const imageSrc = item.getAttribute('data-image-src');
-            const imageAlt = item.getAttribute('data-image-alt');
+            const imgElement = item.querySelector('.gallery-image');
+            const imageSrc = imgElement ? imgElement.src : item.getAttribute('data-image-src');
+            const imageAlt = imgElement ? imgElement.alt : item.getAttribute('data-image-alt');
             const category = item.getAttribute('data-category');
             
+            if (!imageSrc) {
+                console.error('Image source not found for gallery item');
+                return;
+            }
+            
             galleryModalImage.src = imageSrc;
-            galleryModalImage.alt = imageAlt;
-            galleryModalTitle.textContent = imageAlt;
-            galleryModalCategory.textContent = categoryNames[category] || category;
+            galleryModalImage.alt = imageAlt || 'Gallery image';
+            galleryModalTitle.textContent = imageAlt || 'Gallery image';
+            galleryModalCategory.textContent = categoryNames[category] || category || 'Gallery';
             galleryModalCounter.textContent = `${index + 1} / ${visibleGalleryItems.length}`;
             
             // Update navigation buttons visibility
-            galleryModalPrev.style.display = visibleGalleryItems.length > 1 ? 'flex' : 'none';
-            galleryModalNext.style.display = visibleGalleryItems.length > 1 ? 'flex' : 'none';
+            if (galleryModalPrev && galleryModalNext) {
+                galleryModalPrev.style.display = visibleGalleryItems.length > 1 ? 'flex' : 'none';
+                galleryModalNext.style.display = visibleGalleryItems.length > 1 ? 'flex' : 'none';
+            }
         }
 
         // Navigate to next image
