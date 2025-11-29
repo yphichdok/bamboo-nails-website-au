@@ -3724,8 +3724,16 @@ html {
     }
     
     .header-social {
-        margin-left: 0.5rem;
+        margin-left: 1rem;
         padding-left: 0.75rem;
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+    
+    .nav-menu-right .header-social {
+        display: flex;
+        gap: 0.5rem;
     }
     
     .header-social-link {
@@ -4000,6 +4008,25 @@ html {
     }
     
     /* Social Media Icons on Mobile - Right Side, Before Hamburger */
+    /* Extract from nav-menu-right and position separately */
+    .nav-menu-right .header-social {
+        position: fixed !important;
+        top: 0 !important;
+        left: auto !important;
+        right: 60px !important;
+        height: 70px !important;
+        display: flex !important;
+        gap: 0.5rem;
+        align-items: center !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        z-index: 1002 !important;
+        pointer-events: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Also target direct .header-social for mobile */
     .header-social {
         order: 2;
         display: flex !important;
