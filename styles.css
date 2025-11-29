@@ -2831,6 +2831,7 @@ img {
 /* Contact Section */
 .contact {
     background: linear-gradient(180deg, #fff9f5 0%, var(--white) 100%);
+    padding-top: 80px; /* Space for fixed navbar */
 }
 
 .contact-content {
@@ -3381,6 +3382,7 @@ html {
 .location-info-section {
     background: linear-gradient(180deg, var(--white) 0%, #fff9f5 100%);
     padding: 100px 0;
+    padding-top: 180px; /* Space for fixed navbar + original padding */
 }
 
 .location-info-grid {
