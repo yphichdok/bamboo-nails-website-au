@@ -3959,9 +3959,6 @@ html {
         margin: 0;
         z-index: 1001;
         flex: 0 0 auto;
-        display: flex;
-        align-items: center;
-        gap: 10px; /* Space between logo and social icons */
     }
     
     .logo h1 {
