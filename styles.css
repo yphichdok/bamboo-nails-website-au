@@ -4234,24 +4234,6 @@ html {
         transform: translateY(0);
         box-shadow: 0 2px 10px rgba(238, 158, 178, 0.3), 0 1px 5px rgba(249, 171, 141, 0.2);
     }
-}
-
-/* Hide Book Now button on desktop - MUST be outside mobile media query */
-@media (min-width: 768px) {
-    .mobile-book-now {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        height: 0 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow: hidden !important;
-    }
-    
-    .btn-book-now-mobile {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
     }
     
     /* Ensure dropdown works on mobile */
