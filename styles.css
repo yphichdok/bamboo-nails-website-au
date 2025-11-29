@@ -3705,37 +3705,61 @@ html {
 
 /* Responsive Design */
 
-/* Desktop: Position social icons next to Contact (all desktop sizes) */
+/* Desktop: Restructure header components for proper spacing and layout */
 @media (min-width: 768px) {
     .nav-wrapper {
         position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem; /* Add gap between sections */
     }
     
+    /* Left menu - takes up space on left */
+    .nav-menu-left {
+        flex: 0 0 auto;
+        order: 1;
+    }
+    
+    /* Logo - centered, takes up space */
+    .logo {
+        flex: 0 0 auto;
+        order: 2;
+        position: relative; /* Change from absolute to relative for flexbox */
+        left: auto;
+        transform: none;
+        margin: 0 auto; /* Center it */
+    }
+    
+    /* Right menu - takes up space on right */
     .nav-menu-right {
+        flex: 0 0 auto;
+        order: 3;
         position: relative;
-        margin-right: 80px; /* Space for social icons */
+        margin-left: 0; /* Remove auto margin, use flexbox instead */
+        margin-right: 0;
+        padding-right: 0;
+        display: flex;
+        align-items: center;
+        gap: 0; /* No gap between menu items */
     }
     
-    /* Position social icons absolutely, right after nav-menu-right ends (next to Contact) */
-    /* nav-menu-right has margin-left: auto, pushing it to the right edge */
-    /* We want social icons to appear right after Contact (last item in nav-menu-right) */
-    /* Solution: Position from right edge with larger offset to account for nav-menu-right width */
-    /* nav-menu-right is approximately 250-350px wide (Location + Gallery + Contact) */
-    /* Position social icons right after it with some gap */
+    /* Social icons - positioned right after nav-menu-right */
     .header-social {
-        position: absolute;
-        right: calc(40px + 250px); /* Container padding + approximate nav-menu-right width */
-        top: 50%;
-        transform: translateY(-50%);
-        margin-left: 0;
+        flex: 0 0 auto;
+        order: 4;
+        position: relative; /* Change from absolute to relative for flexbox */
+        right: auto;
+        top: auto;
+        transform: none;
+        margin-left: 1.5rem; /* Add spacing between Contact and social icons */
+        margin-right: 0;
         padding-left: 0;
-        margin-right: 0;
+        padding-right: 0;
         z-index: 10;
-    }
-    
-    /* Remove margin-right from nav-menu-right since we're positioning social icons differently */
-    .nav-menu-right {
-        margin-right: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 }
 
