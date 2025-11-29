@@ -98,16 +98,19 @@
                         </svg>
                     </a>
                 </div>
-                <ul class="nav-menu nav-menu-right" id="navMenuRight">
-                    <li class="dropdown">
-                        <a href="#" class="nav-link dropdown-toggle">Location <span class="dropdown-arrow">▼</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="location-coomera.html" class="dropdown-link">Coomera</a></li>
-                            <li><a href="location-forest-lake.html" class="dropdown-link">Forest Lake</a></li>
+                <ul class="nav-menu nav-menu-right" id="navMenuRight" role="menubar">
+                    <li class="dropdown" role="none">
+                        <a href="#" class="nav-link dropdown-toggle" role="menuitem" aria-haspopup="true" aria-expanded="false" aria-label="Location menu">Location <span class="dropdown-arrow" aria-hidden="true">▼</span></a>
+                        <ul class="dropdown-menu" role="menu" aria-label="Location submenu">
+                            <li role="none"><a href="location-coomera.html" class="dropdown-link" role="menuitem">Coomera</a></li>
+                            <li role="none"><a href="location-forest-lake.html" class="dropdown-link" role="menuitem">Forest Lake</a></li>
                         </ul>
                     </li>
-                    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li role="none"><a href="gallery.html" class="nav-link" role="menuitem">Gallery</a></li>
+                    <li role="none"><a href="contact.html" class="nav-link" role="menuitem">Contact</a></li>
+                    <li class="mobile-book-now" role="none">
+                        <button class="btn-book-now-mobile" onclick="openLocationModal()" role="menuitem">Book Now</button>
+                    </li>
                 </ul>
                 <div class="hamburger" id="hamburger">
                     <span></span>
