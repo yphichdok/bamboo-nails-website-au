@@ -2948,7 +2948,7 @@ img {
     justify-content: center;
     width: 36px;
     height: 36px;
-    color: var(--text-main);
+    color: var(--grey);
     text-decoration: none;
     transition: all 0.3s ease;
     border-radius: 50%;
