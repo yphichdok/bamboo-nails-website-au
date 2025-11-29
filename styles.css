@@ -3999,7 +3999,7 @@ html {
         flex-shrink: 0;
     }
     
-    /* Social Media Icons on Mobile - Right Side */
+    /* Social Media Icons on Mobile - Right Side, Before Hamburger */
     .header-social {
         order: 2;
         display: flex !important;
