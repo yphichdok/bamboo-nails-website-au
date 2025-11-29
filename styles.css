@@ -1636,9 +1636,9 @@ html {
 /* Continuous zoom effect for active slide - GPU Accelerated - OPTIMIZED */
 /* Only animate if user prefers motion, otherwise disable for better performance */
 @media (prefers-reduced-motion: no-preference) {
-    .hero-slide.active img {
+.hero-slide.active img {
         animation: continuousZoom 12s ease-in-out infinite alternate;
-        will-change: transform;
+    will-change: transform;
     }
 }
 
@@ -3959,6 +3959,9 @@ html {
         margin: 0;
         z-index: 1001;
         flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Space between logo and social icons */
     }
     
     .logo h1 {
