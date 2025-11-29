@@ -3746,10 +3746,12 @@ html {
             margin-left: 0;
             padding-left: 0;
             margin-right: 0;
+            z-index: 10;
         }
         
         .nav-menu-right {
-            padding-right: 100px; /* Space for social icons */
+            padding-right: 90px; /* Space for social icons */
+            position: relative;
         }
     }
     
