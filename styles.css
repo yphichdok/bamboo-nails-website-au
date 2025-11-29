@@ -1211,8 +1211,8 @@ html {
 .logo-image {
     height: auto;
     width: auto;
-    max-width: 340px;
-    max-height: 70px; /* Max height to fit within header */
+    max-width: 400px;
+    max-height: 85px; /* Larger max height for desktop */
     object-fit: contain;
     display: block;
     transition: transform 0.3s ease;
