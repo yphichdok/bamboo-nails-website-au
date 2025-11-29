@@ -5219,6 +5219,7 @@ section:not(#home) {
     position: relative;
     transition: all 0.3s ease;
     border-left: 3px solid transparent;
+    border-bottom: 1px solid rgba(238, 158, 178, 0.15); /* Soft horizontal line between items */
 }
 
 .menu-item::before {
@@ -5234,6 +5235,7 @@ section:not(#home) {
 .menu-item:hover {
     padding-left: 25px;
     border-left-color: var(--pink-rose);
+    border-bottom-color: rgba(238, 158, 178, 0.3); /* Slightly more visible on hover */
     background: linear-gradient(to right, rgba(238, 158, 178, 0.08), transparent);
     border-radius: 8px;
 }
