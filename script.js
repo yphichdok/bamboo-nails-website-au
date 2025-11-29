@@ -105,29 +105,28 @@ if (document.readyState === 'loading') {
     heroSlideshow();
 }
 
-// Scroll to Top Button Functionality
+// Call Button Functionality (replaced Scroll to Top)
 const initScrollToTop = () => {
-    const scrollToTopBtn = document.getElementById('scrollToTop');
+    const callButton = document.getElementById('scrollToTop');
     
-    if (!scrollToTopBtn) return;
+    if (!callButton) return;
     
     // Show/hide button based on scroll position
     const toggleScrollButton = () => {
         const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
         
         if (scrollPosition > 300) {
-            scrollToTopBtn.classList.add('visible');
+            callButton.classList.add('visible');
         } else {
-            scrollToTopBtn.classList.remove('visible');
+            callButton.classList.remove('visible');
         }
     };
     
-    // Scroll to top when button is clicked
-    scrollToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+    // Make a call when button is clicked
+    callButton.addEventListener('click', () => {
+        // Get phone number from contact info or use default
+        const phoneNumber = '0412345678'; // Update this with actual phone number
+        window.location.href = `tel:${phoneNumber}`;
     });
     
     // Check scroll position on scroll
