@@ -4774,8 +4774,8 @@ section:not(#home) {
     }
 }
 
-/* Scroll to Top Button */
-.scroll-to-top {
+/* Call Button - Replaced Scroll to Top */
+.scroll-to-top.call-button {
     position: fixed;
     bottom: 30px;
     right: 30px;
@@ -4798,33 +4798,109 @@ section:not(#home) {
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     will-change: transform, opacity;
+    overflow: visible;
 }
 
-.scroll-to-top.visible {
+.scroll-to-top.call-button.visible {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    /* Shaking animation */
+    animation: shake 0.5s ease-in-out infinite;
 }
 
-.scroll-to-top:hover {
-    transform: translateY(-5px);
+.scroll-to-top.call-button:hover {
+    transform: translateY(-5px) scale(1.1);
     box-shadow: 0 6px 30px rgba(164, 198, 57, 0.8), 0 4px 15px rgba(238, 158, 178, 0.6);
     background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-light) 100%);
+    animation: shake 0.3s ease-in-out infinite;
 }
 
-.scroll-to-top:active {
-    transform: translateY(-2px);
+.scroll-to-top.call-button:active {
+    transform: translateY(-2px) scale(0.95);
 }
 
-.scroll-to-top svg {
+.scroll-to-top.call-button svg {
     width: 24px;
     height: 24px;
     stroke: var(--white);
     transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
 }
 
-.scroll-to-top:hover svg {
-    transform: translateY(-2px);
+.scroll-to-top.call-button:hover svg {
+    transform: scale(1.1);
+}
+
+/* Water Wave Animation */
+.call-button-waves {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.call-button .wave {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid rgba(238, 158, 178, 0.4);
+    animation: wavePulse 2s ease-out infinite;
+}
+
+.call-button .wave1 {
+    animation-delay: 0s;
+}
+
+.call-button .wave2 {
+    animation-delay: 0.7s;
+}
+
+.call-button .wave3 {
+    animation-delay: 1.4s;
+}
+
+/* Shaking Animation */
+@keyframes shake {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateY(0) rotate(-2deg);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateY(0) rotate(2deg);
+    }
+}
+
+.scroll-to-top.call-button.visible {
+    animation: shake 0.5s ease-in-out infinite;
+}
+
+.scroll-to-top.call-button.visible:hover {
+    animation: shake 0.3s ease-in-out infinite;
+}
+
+/* Water Wave Pulse Animation */
+@keyframes wavePulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2.5);
+        opacity: 0;
+    }
 }
 
 /* Mobile adjustments for call button */
