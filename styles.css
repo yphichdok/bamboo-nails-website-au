@@ -3745,29 +3745,21 @@ html {
         }
         
         /* Position social icons right after nav-menu-right (next to Contact) */
-        /* Calculate position based on nav-menu-right's end position */
+        /* Add margin to nav-menu-right to create space for social icons */
+        .nav-menu-right {
+            margin-right: 80px; /* Space for social icons */
+        }
+        
+        /* Position social icons absolutely, right after nav-menu-right ends */
         .header-social {
             position: absolute;
-            right: 40px; /* Match container padding to align with edge */
+            right: 40px; /* Match container padding */
             top: 50%;
             transform: translateY(-50%);
             margin-left: 0;
             padding-left: 0;
             margin-right: 0;
             z-index: 10;
-        }
-        
-        /* Adjust position to appear right after Contact link */
-        .nav-menu-right::after {
-            content: '';
-            display: inline-block;
-            width: 0;
-        }
-        
-        /* Position social icons right after the last item in nav-menu-right */
-        .header-social {
-            left: auto;
-            right: 40px; /* Container padding */
         }
     }
     
