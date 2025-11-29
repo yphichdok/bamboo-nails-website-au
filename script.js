@@ -747,6 +747,11 @@ window.toggleServiceCard = function(headerElement) {
         return;
     }
     
+    // Only apply collapsible behavior on mobile (max-width 768px)
+    if (window.innerWidth > 768) {
+        return; // Do nothing on desktop - cards are always visible
+    }
+    
     const card = headerElement.closest('.collapsible-service-card');
     if (!card) {
         console.error('toggleServiceCard: Could not find .collapsible-service-card');
@@ -756,7 +761,7 @@ window.toggleServiceCard = function(headerElement) {
     const isActive = card.classList.contains('active');
     const cardContent = card.querySelector('.card-content');
     
-    // Close all other cards
+    // Close all other cards first (ensure only one is open at a time)
     document.querySelectorAll('.collapsible-service-card').forEach(otherCard => {
         if (otherCard !== card) {
             otherCard.classList.remove('active');
@@ -764,6 +769,7 @@ window.toggleServiceCard = function(headerElement) {
             if (otherContent) {
                 otherContent.style.maxHeight = '0';
                 otherContent.style.padding = '0';
+                otherContent.style.opacity = '0'; // Ensure opacity is reset
             }
         }
     });
@@ -773,6 +779,7 @@ window.toggleServiceCard = function(headerElement) {
         card.classList.remove('active');
         if (cardContent) {
             cardContent.style.maxHeight = '0';
+            cardContent.style.opacity = '0'; // Hide content
             setTimeout(() => {
                 cardContent.style.padding = '0';
             }, 300);
@@ -782,7 +789,8 @@ window.toggleServiceCard = function(headerElement) {
         if (cardContent) {
             // Calculate actual height for smooth transition
             cardContent.style.maxHeight = '0';
-            cardContent.style.padding = '25px';
+            cardContent.style.padding = '20px'; // Set initial padding for calculation
+            cardContent.style.opacity = '1'; // Show content
             const scrollHeight = cardContent.scrollHeight;
             cardContent.style.maxHeight = scrollHeight + 'px';
             
@@ -796,22 +804,41 @@ window.toggleServiceCard = function(headerElement) {
 
 // Initialize collapsible cards on page load
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize first card (Regular Nail Lacquer) as open on mobile
-    const firstCard = document.querySelector('.collapsible-service-card[data-category="regular-lacquer"]');
-    if (firstCard && window.innerWidth <= 768) {
-        firstCard.classList.add('active');
-        const firstCardContent = firstCard.querySelector('.card-content');
-        if (firstCardContent) {
-            // Calculate actual height for smooth transition
-            firstCardContent.style.maxHeight = '0';
-            firstCardContent.style.padding = '20px';
-            const scrollHeight = firstCardContent.scrollHeight;
-            firstCardContent.style.maxHeight = scrollHeight + 'px';
-            firstCardContent.style.opacity = '1';
-        }
+    // Close all cards first (except the one with 'active' class)
+    const allCards = document.querySelectorAll('.collapsible-service-card');
+    
+    // On mobile: Only keep the first card (Regular Nail Lacquer) open, close all others
+    if (window.innerWidth <= 768) {
+        allCards.forEach((card, index) => {
+            const cardContent = card.querySelector('.card-content');
+            if (cardContent) {
+                // If it's the first card (Regular Nail Lacquer) and has 'active' class, keep it open
+                if (index === 0 && card.classList.contains('active')) {
+                    cardContent.style.maxHeight = '3000px'; // Sufficiently large
+                    cardContent.style.padding = '20px';
+                    cardContent.style.opacity = '1';
+                } else {
+                    // Close all other cards
+                    card.classList.remove('active');
+                    cardContent.style.maxHeight = '0';
+                    cardContent.style.padding = '0';
+                    cardContent.style.opacity = '0';
+                }
+            }
+        });
+    } else {
+        // On desktop: All cards are always visible (no collapsible behavior)
+        allCards.forEach(card => {
+            const cardContent = card.querySelector('.card-content');
+            if (cardContent) {
+                cardContent.style.maxHeight = 'none';
+                cardContent.style.padding = '';
+                cardContent.style.opacity = '1';
+            }
+        });
     }
     
-    // Add click event listeners to all card headers as fallback
+    // Add click event listeners to all card headers (mobile only)
     const cardHeaders = document.querySelectorAll('.collapsible-service-card .card-header');
     cardHeaders.forEach(header => {
         // Remove existing onclick to avoid duplicates
@@ -819,22 +846,44 @@ document.addEventListener('DOMContentLoaded', function() {
         header.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            window.toggleServiceCard(this);
+            // Only toggle on mobile
+            if (window.innerWidth <= 768) {
+                window.toggleServiceCard(this);
+            }
         });
         
         // Add pointer cursor
         header.style.cursor = 'pointer';
     });
     
-    // Also make the entire card clickable as backup
-    const cards = document.querySelectorAll('.collapsible-service-card');
-    cards.forEach(card => {
-        const header = card.querySelector('.card-header');
-        if (header) {
-            // Prevent double-clicking
-            card.addEventListener('click', function(e) {
-                if (e.target.closest('.card-header')) {
-                    return; // Already handled by header click
+    // Handle window resize - ensure proper state
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            // Desktop: Show all cards
+            allCards.forEach(card => {
+                const cardContent = card.querySelector('.card-content');
+                if (cardContent) {
+                    cardContent.style.maxHeight = 'none';
+                    cardContent.style.padding = '';
+                    cardContent.style.opacity = '1';
+                }
+            });
+        } else {
+            // Mobile: Only first card open
+            allCards.forEach((card, index) => {
+                const cardContent = card.querySelector('.card-content');
+                if (cardContent) {
+                    if (index === 0) {
+                        card.classList.add('active');
+                        cardContent.style.maxHeight = '3000px';
+                        cardContent.style.padding = '20px';
+                        cardContent.style.opacity = '1';
+                    } else {
+                        card.classList.remove('active');
+                        cardContent.style.maxHeight = '0';
+                        cardContent.style.padding = '0';
+                        cardContent.style.opacity = '0';
+                    }
                 }
             });
         }
