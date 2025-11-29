@@ -1239,7 +1239,7 @@ html {
     list-style: none;
     gap: 2rem;
     margin: 0;
-    padding: 0;
+    padding: 0.5rem 0; /* Vertical padding for safe spacing */
     align-items: center;
     flex-wrap: nowrap;
     flex-shrink: 0;
