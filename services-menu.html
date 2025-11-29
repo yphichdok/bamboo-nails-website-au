@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="description" content="Service Price List - Bamboo Nails Coomera. Complete pricing for all our professional nail care services including manicures, pedicures, gel polish, acrylic nails, and more.">
+    <meta name="keywords" content="nail salon prices, service menu, manicure prices, pedicure prices, gel polish prices, acrylic nails prices, Coomera, Forest Lake">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#A4C639">
+    <title>Service Price List - Bamboo Nails Coomera</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .services-menu-page {
+            padding: 120px 0 80px;
+            background: linear-gradient(180deg, #fff5f7 0%, #fff9f5 50%, #fff5f7 100%);
+            min-height: 100vh;
+        }
+
+        .menu-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .menu-wrapper {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 245, 247, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(238, 158, 178, 0.2), 0 10px 30px rgba(249, 171, 141, 0.15);
+            border: 2px solid rgba(238, 158, 178, 0.3);
+        }
+
+        .menu-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid rgba(238, 158, 178, 0.3);
+        }
+
+        .menu-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(45, 27, 31, 0.1);
+        }
+
+        .menu-header .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3em;
+            color: var(--pink-rose);
+            font-weight: 400;
+            letter-spacing: 2px;
+            font-style: italic;
+        }
+
+        .decorative-line {
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--pink-rose), var(--coral-peach), transparent);
+            margin: 25px auto;
+            border-radius: 2px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .menu-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 245, 247, 0.7) 100%);
+            padding: 35px;
+            border-radius: 20px;
+            border: 2px solid rgba(238, 158, 178, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(238, 158, 178, 0.1);
+        }
+
+        .menu-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(238, 158, 178, 0.25), 0 5px 15px rgba(249, 171, 141, 0.15);
+            border-color: var(--pink-rose);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: var(--pink-rose);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(238, 158, 178, 0.3);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 15px;
+            padding: 10px 0;
+            transition: padding-left 0.3s ease, color 0.3s ease;
+        }
+
+        .menu-item:hover {
+            padding-left: 10px;
+        }
+
+        .menu-item:hover .item-name {
+            color: var(--pink-rose);
+        }
+
+        .item-name {
+            flex: 1;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1em;
+            color: var(--text-primary);
+            position: relative;
+            padding-right: 15px;
+            font-weight: 500;
+        }
+
+        .item-name::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(238, 158, 178, 0.3), transparent);
+        }
+
+        .item-price {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--coral-peach);
+            font-size: 1.2em;
+            white-space: nowrap;
+            min-width: 100px;
+            text-align: right;
+        }
+
+        .price-range {
+            font-style: italic;
+            font-size: 0.95em;
+            color: var(--pink-rose);
+        }
+
+        .menu-footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid rgba(238, 158, 178, 0.3);
+        }
+
+        .footer-item {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5em;
+            color: var(--pink-rose);
+            margin: 15px 0;
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 1024px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-wrapper {
+                padding: 40px 30px;
+            }
+
+            .menu-header h1 {
+                font-size: 3em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .services-menu-page {
+                padding: 100px 0 60px;
+            }
+
+            .menu-container {
+                padding: 0 20px;
+            }
+
+            .menu-wrapper {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+
+            .menu-header h1 {
+                font-size: 2.5em;
+                letter-spacing: 2px;
+            }
+
+            .menu-header .subtitle {
+                font-size: 1.1em;
+            }
+
+            .section-title {
+                font-size: 1.6em;
+            }
+
+            .menu-section {
+                padding: 25px;
+            }
+
+            .menu-grid {
+                gap: 25px;
+            }
+
+            .item-name {
+                font-size: 1em;
+            }
+
+            .item-price {
+                font-size: 1.1em;
+                min-width: 80px;
+            }
+
+            .footer-item {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .menu-header h1 {
+                font-size: 2em;
+            }
+
+            .menu-grid {
+                gap: 20px;
+            }
+
+            .menu-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <ul class="nav-menu nav-menu-left" id="navMenuLeft">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="services-menu.html" class="nav-link active">Price List</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                </ul>
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none;"><h1>Bamboo Nails</h1></a>
+                </div>
+                <ul class="nav-menu nav-menu-right" id="navMenuRight">
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Location <span class="dropdown-arrow">▼</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="location-coomera.html" class="dropdown-link">Coomera</a></li>
+                            <li><a href="location-forest-lake.html" class="dropdown-link">Forest Lake</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="header-social">
+                        <a href="https://www.facebook.com/bamboonailscoomera" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="header-social-link facebook">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/bamboonailscoomera" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="header-social-link instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="services-menu-page">
+        <div class="menu-container">
+            <div class="menu-wrapper">
+                <div class="menu-header">
+                    <h1>Service Price List</h1>
+                    <div class="decorative-line"></div>
+                    <p class="subtitle">Premium Nail Care & Beauty Services</p>
+                </div>
+
+                <div class="menu-grid">
+                    <!-- Regular Nail Lacquer -->
+                    <div class="menu-section">
+                        <h2 class="section-title">Regular Nail Lacquer</h2>
+                        <div class="menu-item">
+                            <span class="item-name">Manicure</span>
+                            <span class="item-price">$30</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Pedicure Spa</span>
+                            <span class="item-price">$40</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Manicure & Pedicure Spa</span>
+                            <span class="item-price">$65</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Gold Class Manicure</span>
+                            <span class="item-price">$50</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Gold Class Pedicure Spa</span>
+                            <span class="item-price">$65</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Buff, Shape & Polish</span>
+                            <span class="item-price">$20</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Polish with any Services</span>
+                            <span class="item-price">$5</span>
+                        </div>
+                    </div>
+
+                    <!-- Gel Polish -->
+                    <div class="menu-section">
+                        <h2 class="section-title">Gel Polish</h2>
+                        <div class="menu-item">
+                            <span class="item-name">Buff, Shape & Gel Polish</span>
+                            <span class="item-price">$35</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Gel Polish Manicure</span>
+                            <span class="item-price">$50</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Gel Polish Pedicure Spa</span>
+                            <span class="item-price">$60</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Gel Polish Manicure & Pedicure Spa</span>
+                            <span class="item-price">$105</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Removal</span>
+                            <span class="item-price">$20</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Gel Polish with any Service</span>
+                            <span class="item-price">$20</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Removal with any Service</span>
+                            <span class="item-price">$5</span>
+                        </div>
+                    </div>
+
+                    <!-- Acrylic Nails -->
+                    <div class="menu-section">
+                        <h2 class="section-title">Acrylic Nails</h2>
+                        <div class="menu-item">
+                            <span class="item-name">Full Set with Polish</span>
+                            <span class="item-price">$55</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Full Set with Gel Polish</span>
+                            <span class="item-price">$70</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Infill with Polish</span>
+                            <span class="item-price">$40</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Infill with Gel Polish</span>
+                            <span class="item-price">$55</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Overlay with Polish</span>
+                            <span class="item-price">$50</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Overlay with Gel Polish</span>
+                            <span class="item-price">$65</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Ombre Full Set</span>
+                            <span class="item-price">$90</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Ombre Infill</span>
+                            <span class="item-price">$75</span>
+                        </div>
+                    </div>
+
+                    <!-- Dream Gel Builder -->
+                    <div class="menu-section">
+                        <h2 class="section-title">Dream Gel Builder</h2>
+                        <div class="menu-item">
+                            <span class="item-name">Full Set</span>
+                            <span class="item-price">$90</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Infill</span>
+                            <span class="item-price">$65</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Overlay</span>
+                            <span class="item-price">$80</span>
+                        </div>
+                    </div>
+
+                    <!-- SNS Dipping Powder -->
+                    <div class="menu-section">
+                        <h2 class="section-title">SNS - Dipping Powder</h2>
+                        <div class="menu-item">
+                            <span class="item-name">Buff, Shape & SNS</span>
+                            <span class="item-price">$60</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">SNS With Tips</span>
+                            <span class="item-price">$75</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">SNS Manicure</span>
+                            <span class="item-price">$70</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Long / Stiletto / Coffin Polish</span>
+                            <span class="item-price">$10</span>
+                        </div>
+                    </div>
+
+                    <!-- Additional Services -->
+                    <div class="menu-section">
+                        <h2 class="section-title">Additional Services</h2>
+                        <div class="menu-item">
+                            <span class="item-name">Repairs</span>
+                            <span class="item-price price-range">from $10</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">French Tips</span>
+                            <span class="item-price price-range">from $15</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Clear UV Gel Coat</span>
+                            <span class="item-price">$10</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Long / Stiletto / Coffin / Ballerina</span>
+                            <span class="item-price">$10</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Nail Art</span>
+                            <span class="item-price price-range">from $10 each</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Nail Art for Full Set</span>
+                            <span class="item-price price-range">from $30</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Nail Charms</span>
+                            <span class="item-price">$10</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Acrylic, SNS, Gel Builder Removal</span>
+                            <span class="item-price">$30</span>
+                        </div>
+                    </div>
+
+                    <!-- Waxing -->
+                    <div class="menu-section">
+                        <h2 class="section-title">Waxing</h2>
+                        <div class="menu-item">
+                            <span class="item-name">Eyebrow</span>
+                            <span class="item-price">$20</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Lip or Chin</span>
+                            <span class="item-price">$15</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Full Face</span>
+                            <span class="item-price">$45</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Underarms</span>
+                            <span class="item-price">$25</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">1/2 Arms</span>
+                            <span class="item-price">$25</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Full Arms</span>
+                            <span class="item-price">$30</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">1/2 Legs (Lower Legs)</span>
+                            <span class="item-price">$35</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Full Legs</span>
+                            <span class="item-price">$45</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Eyebrows Tint</span>
+                            <span class="item-price">$20</span>
+                        </div>
+                    </div>
+
+                    <!-- Eyelash Extensions -->
+                    <div class="menu-section">
+                        <h2 class="section-title">Eyelash Extensions</h2>
+                        <div class="menu-item">
+                            <span class="item-name">Infill</span>
+                            <span class="item-price price-range">from $70</span>
+                        </div>
+                        <div class="menu-item">
+                            <span class="item-name">Full Set</span>
+                            <span class="item-price price-range">from $90</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-footer">
+                    <div class="decorative-line"></div>
+                    <div class="footer-item">Gift Vouchers Available</div>
+                    <div class="footer-item">Appointments & Walk-Ins Welcome</div>
+                    <div class="decorative-line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Bamboo Nails Coomera</h3>
+                    <p>Your trusted nail salon in Coomera</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="services-menu.html">Price List</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/bamboonailscoomera" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="social-link facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                            <span>Facebook</span>
+                        </a>
+                        <a href="https://www.instagram.com/bamboonailscoomera" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-link instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                            <span>Instagram</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Bamboo Nails Coomera. All rights reserved.</p>
+                <p class="attribution">Images &copy; Bamboo Nails Coomera. Website designed with care.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

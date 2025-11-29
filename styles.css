@@ -1947,13 +1947,16 @@ section::before {
         display: none !important;
     }
     
+    /* CRITICAL: Override any mobile styles for desktop - target both selectors */
+    .collapsible-service-card.menu-section .card-content,
     .collapsible-service-card.menu-section .card-content.menu-section-content {
         max-height: none !important;
         overflow: visible !important;
         opacity: 1 !important;
         transition: none !important;
-        display: flex;
+        display: flex !important;
         flex-direction: column;
+        padding: 40px 45px !important;
         /* Padding comes from .menu-section-content */
     }
     
@@ -1975,6 +1978,27 @@ section::before {
         display: grid;
         grid-template-columns: 1fr auto;
         align-items: center;
+    }
+    
+    /* Ensure Book Now button is visible on desktop - align left */
+    .collapsible-service-card.menu-section .btn-book-now,
+    .collapsible-service-card.menu-section .card-content .btn-book-now,
+    .collapsible-service-card.menu-section .card-content.menu-section-content .btn-book-now {
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        margin-top: 25px !important;
+        margin-bottom: 25px !important;
+        position: relative !important;
+        z-index: 10 !important;
+        align-self: flex-start !important;
+        padding: 10px 18px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* Ensure card-content aligns items to start (left) on desktop */
+    .collapsible-service-card.menu-section .card-content.menu-section-content {
+        align-items: flex-start;
     }
 }
 
@@ -2112,7 +2136,9 @@ section::before {
         color: var(--coral-peach);
     }
 
-    .collapsible-service-card .card-content {
+    /* Mobile only - collapsible behavior */
+    /* Exclude menu-section cards from mobile collapsible behavior - they use desktop style */
+    .collapsible-service-card:not(.menu-section) .card-content {
         max-height: 0;
         overflow: hidden;
         padding: 0;
@@ -2120,12 +2146,38 @@ section::before {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 245, 247, 0.9) 100%);
         opacity: 0;
     }
-
-    .collapsible-service-card.active .card-content {
+    
+    /* For menu-section cards on mobile, ensure content is visible when active */
+    .collapsible-service-card.menu-section.active .card-content {
+        max-height: 3000px !important;
+        padding: 20px !important;
+        opacity: 1 !important;
+        overflow: visible !important;
+        transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease, opacity 0.3s ease 0.2s;
+    }
+    
+    /* Regular collapsible cards (non-menu-section) when active */
+    .collapsible-service-card:not(.menu-section).active .card-content {
         max-height: 3000px;
         padding: 20px;
         opacity: 1;
         transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease, opacity 0.3s ease 0.2s;
+        overflow: visible;
+    }
+    
+    /* Ensure Book Now button is visible when card is active on mobile */
+    .collapsible-service-card.active .btn-book-now,
+    .collapsible-service-card.menu-section.active .btn-book-now {
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    /* Ensure Book Now button is visible when card is active on mobile */
+    .collapsible-service-card.active .btn-book-now {
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
 
     .collapsible-service-card .menu-item {
@@ -4838,6 +4890,43 @@ section:not(#home) {
     display: flex;
     flex-direction: column;
     position: relative;
+    align-items: stretch; /* Don't center children - let them align naturally */
+}
+
+/* Ensure Book Now buttons are visible in menu-section-content - prevent width stretching */
+.menu-section-content .btn-book-now,
+.menu-section-content > .btn-book-now,
+.menu-section .menu-section-content .btn-book-now,
+.card-content.menu-section-content .btn-book-now {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 10 !important;
+    align-self: flex-start !important; /* Left align on desktop */
+    width: auto !important; /* Prevent stretching - CRITICAL */
+    max-width: none !important;
+    min-width: auto !important;
+    flex: none !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
+    flex-basis: auto !important;
+    box-sizing: border-box !important;
+}
+
+/* Desktop: Force visibility */
+@media (min-width: 769px) {
+    .menu-section .btn-book-now,
+    .menu-section-content .btn-book-now,
+    .card-content.menu-section-content .btn-book-now,
+    .collapsible-service-card.menu-section .btn-book-now,
+    .collapsible-service-card.menu-section .card-content .btn-book-now,
+    .collapsible-service-card.menu-section .card-content.menu-section-content .btn-book-now {
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        margin-top: 25px !important;
+    }
 }
 
 .menu-section .section-title {
@@ -4861,6 +4950,222 @@ section:not(#home) {
     height: 3px;
     background: linear-gradient(to right, var(--pink-rose), var(--coral-peach));
     border-radius: 2px;
+}
+
+/* Book Now Button - Base Styles - UNIFIED for both pages */
+.btn-book-now {
+    margin-top: 25px;
+    margin-bottom: 20px;
+    padding: 10px 18px !important;
+    background: linear-gradient(135deg, var(--pink-rose) 0%, var(--coral-peach) 100%) !important;
+    color: var(--white) !important;
+    border: none !important;
+    border-radius: 20px !important;
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(238, 158, 178, 0.3), 0 2px 8px rgba(249, 171, 141, 0.2) !important;
+    position: relative;
+    overflow: hidden;
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 10;
+    white-space: nowrap !important;
+    align-self: flex-start !important; /* Default: left align for desktop */
+    width: auto !important; /* Ensure button doesn't stretch - same on both pages */
+    max-width: none !important;
+    min-width: auto !important;
+    flex: none !important; /* Don't allow flex to stretch button */
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
+}
+
+/* Desktop: Keep left align for both pages - NO CHANGE */
+@media (min-width: 769px) {
+    /* Target ALL buttons on both pages - left align on desktop */
+    .btn-book-now,
+    .menu-section .btn-book-now,
+    .menu-section > .btn-book-now,
+    .menu-section-content .btn-book-now,
+    .menu-section-content > .btn-book-now,
+    .menu-section .menu-section-content .btn-book-now,
+    .menu-section .menu-section-content > .btn-book-now,
+    .card-content.menu-section-content .btn-book-now,
+    .card-content.menu-section-content > .btn-book-now,
+    .collapsible-service-card.menu-section .btn-book-now,
+    .collapsible-service-card.menu-section .card-content .btn-book-now,
+    .collapsible-service-card.menu-section .card-content.menu-section-content .btn-book-now,
+    .collapsible-service-card.menu-section .card-content.menu-section-content > .btn-book-now {
+        align-self: flex-start !important;
+        margin-top: 25px !important;
+        margin-bottom: 25px !important;
+        padding: 10px 18px !important;
+        font-size: 0.9rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.5px !important;
+        border-radius: 20px !important;
+        background: linear-gradient(135deg, var(--pink-rose) 0%, var(--coral-peach) 100%) !important;
+        color: var(--white) !important;
+        box-shadow: 0 4px 15px rgba(238, 158, 178, 0.3), 0 2px 8px rgba(249, 171, 141, 0.2) !important;
+        font-family: 'Cormorant Garamond', serif !important;
+        width: auto !important; /* Same width on both pages - content-based - CRITICAL */
+        max-width: none !important;
+        min-width: auto !important;
+        display: inline-block !important;
+        flex: none !important; /* Prevent flex from stretching */
+        flex-grow: 0 !important;
+        flex-shrink: 0 !important;
+        flex-basis: auto !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* Mobile: Services page center, Home page center - EXACT SAME STYLING */
+@media (max-width: 768px) {
+    /* Services page: Center align buttons on mobile */
+    .menu-section .menu-section-content .btn-book-now,
+    .menu-section .menu-section-content > .btn-book-now,
+    .menu-section-content .btn-book-now,
+    .menu-section-content > .btn-book-now {
+        align-self: center !important;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+        padding: 9px 16px !important;
+        font-size: 0.85rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.5px !important;
+        border-radius: 20px !important;
+        background: linear-gradient(135deg, var(--pink-rose) 0%, var(--coral-peach) 100%) !important;
+        color: var(--white) !important;
+        box-shadow: 0 4px 15px rgba(238, 158, 178, 0.3), 0 2px 8px rgba(249, 171, 141, 0.2) !important;
+        font-family: 'Cormorant Garamond', serif !important;
+        width: auto !important; /* Same width on both pages - content-based */
+        max-width: none !important;
+        min-width: auto !important;
+        display: inline-block !important;
+        flex: none !important; /* Prevent flex from stretching */
+        flex-grow: 0 !important;
+        flex-shrink: 0 !important;
+        flex-basis: auto !important;
+    }
+    
+    /* Home page: Center align buttons on mobile (keep existing behavior) */
+    .btn-book-now,
+    .card-content.menu-section-content .btn-book-now,
+    .card-content.menu-section-content > .btn-book-now,
+    .collapsible-service-card.menu-section .btn-book-now,
+    .collapsible-service-card.active .btn-book-now {
+        align-self: center !important;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+        padding: 9px 16px !important;
+        font-size: 0.85rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.5px !important;
+        border-radius: 20px !important;
+        background: linear-gradient(135deg, var(--pink-rose) 0%, var(--coral-peach) 100%) !important;
+        color: var(--white) !important;
+        box-shadow: 0 4px 15px rgba(238, 158, 178, 0.3), 0 2px 8px rgba(249, 171, 141, 0.2) !important;
+        font-family: 'Cormorant Garamond', serif !important;
+        width: auto !important; /* Same width on both pages - content-based */
+        max-width: none !important;
+        min-width: auto !important;
+        display: inline-block !important;
+        flex: none !important; /* Prevent flex from stretching */
+        flex-grow: 0 !important;
+        flex-shrink: 0 !important;
+        flex-basis: auto !important;
+    }
+}
+
+/* Desktop: Always visible */
+@media (min-width: 769px) {
+    .btn-book-now,
+    .menu-section .btn-book-now,
+    .menu-section-content .btn-book-now,
+    .card-content .btn-book-now,
+    .collapsible-service-card .btn-book-now,
+    .collapsible-service-card.menu-section .btn-book-now,
+    .collapsible-service-card.menu-section .card-content .btn-book-now {
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+/* Mobile: Visible when card is active */
+@media (max-width: 768px) {
+    .collapsible-service-card.active .btn-book-now,
+    .collapsible-service-card.active .card-content .btn-book-now {
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+.btn-book-now::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--coral-peach) 0%, var(--pink-rose) 100%);
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+}
+
+.btn-book-now span,
+.btn-book-now {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-book-now:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(238, 158, 178, 0.4), 0 3px 12px rgba(249, 171, 141, 0.3);
+}
+
+.btn-book-now:hover::before {
+    left: 0;
+}
+
+.btn-book-now:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(238, 158, 178, 0.3), 0 1px 5px rgba(249, 171, 141, 0.2);
+}
+
+/* Mobile: Keep menu items left-aligned, only center the button */
+@media (max-width: 768px) {
+    .menu-section-content,
+    .card-content.menu-section-content {
+        align-items: stretch; /* Keep menu items left-aligned */
+    }
+    
+    /* Only center the button, not menu items */
+    .menu-section-content .btn-book-now,
+    .card-content.menu-section-content .btn-book-now {
+        align-self: center !important;
+    }
+}
+
+/* Small mobile: Slightly smaller buttons - consistent across both pages */
+@media (max-width: 480px) {
+    .btn-book-now,
+    .menu-section .btn-book-now,
+    .menu-section-content .btn-book-now,
+    .card-content.menu-section-content .btn-book-now,
+    .collapsible-service-card.menu-section .btn-book-now,
+    .collapsible-service-card.active .btn-book-now {
+        margin-top: 15px !important;
+        margin-bottom: 15px !important;
+        padding: 8px 14px !important;
+        font-size: 0.8rem !important;
+    }
 }
 
 .menu-item {

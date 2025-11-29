@@ -735,6 +735,11 @@ function openLocationModal() {
     openModal();
 }
 
+// Make openLocationModal globally accessible
+window.openLocationModal = function() {
+    openModal();
+};
+
 // Toggle collapsible service cards - Enhanced version
 window.toggleServiceCard = function(headerElement) {
     if (!headerElement) {

@@ -3,10 +3,17 @@
   "version": "1.0.0",
   "description": "Professional nail salon website for Bamboo Nails Coomera",
   "scripts": {
-    "build": "echo 'No build step required for static site'"
+    "build": "echo 'No build step required for static site'",
+    "dev": "http-server -p 3000 -o",
+    "start": "npm run dev"
   },
   "keywords": ["nail-salon", "website", "static"],
   "author": "Bamboo Nails Coomera",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
 }
+
+
 
