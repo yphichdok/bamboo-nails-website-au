@@ -3740,12 +3740,15 @@ html {
         
         .nav-menu-right {
             position: relative;
-            padding-right: 80px; /* Space for social icons */
+            padding-right: 0;
+            margin-right: 0;
         }
         
+        /* Position social icons right after nav-menu-right (next to Contact) */
+        /* Calculate position based on nav-menu-right's end position */
         .header-social {
             position: absolute;
-            right: 0;
+            right: 40px; /* Match container padding to align with edge */
             top: 50%;
             transform: translateY(-50%);
             margin-left: 0;
@@ -3754,12 +3757,17 @@ html {
             z-index: 10;
         }
         
-        /* Position social icons relative to nav-menu-right, not nav-wrapper */
-        .nav-wrapper > .header-social {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
+        /* Adjust position to appear right after Contact link */
+        .nav-menu-right::after {
+            content: '';
+            display: inline-block;
+            width: 0;
+        }
+        
+        /* Position social icons right after the last item in nav-menu-right */
+        .header-social {
+            left: auto;
+            right: 40px; /* Container padding */
         }
     }
     
