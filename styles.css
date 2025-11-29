@@ -3717,13 +3717,14 @@ html {
     }
     
     /* Position social icons absolutely, right after nav-menu-right ends (next to Contact) */
-    /* The challenge: header-social is a sibling of nav-menu-right, positioned absolutely */
-    /* nav-menu-right has margin-left: auto, pushing it to the right */
+    /* nav-menu-right has margin-left: auto, pushing it to the right edge */
     /* We want social icons to appear right after Contact (last item in nav-menu-right) */
-    /* Solution: Position from right edge, but the margin-right on nav-menu-right creates visual space */
+    /* Solution: Position from right edge with larger offset to account for nav-menu-right width */
+    /* nav-menu-right is approximately 250-350px wide (Location + Gallery + Contact) */
+    /* Position social icons right after it with some gap */
     .header-social {
         position: absolute;
-        right: 40px; /* Container padding - positions from right edge of nav-wrapper */
+        right: calc(40px + 250px); /* Container padding + approximate nav-menu-right width */
         top: 50%;
         transform: translateY(-50%);
         margin-left: 0;
@@ -3732,21 +3733,9 @@ html {
         z-index: 10;
     }
     
-    /* The margin-right on nav-menu-right creates space, but social icons are still at far right */
-    /* We need to position them relative to nav-menu-right's end position */
-    /* Since we can't use relative positioning (siblings), we'll use a fixed offset */
-    /* Remove margin-right from nav-menu-right and position social icons differently */
+    /* Remove margin-right from nav-menu-right since we're positioning social icons differently */
     .nav-menu-right {
-        margin-right: 0; /* Remove margin - we'll position social icons differently */
-    }
-    
-    /* Position social icons using left, calculating from where nav-menu-right ends */
-    /* nav-menu-right is pushed right with margin-left: auto */
-    /* We need to calculate: 100% - (nav-menu-right width + gap) */
-    /* For now, use a fixed position that should work */
-    .header-social {
-        right: auto;
-        left: calc(100% - 300px); /* Approximate - adjust based on screen size */
+        margin-right: 0;
     }
 }
 
