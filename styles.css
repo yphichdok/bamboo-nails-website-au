@@ -4805,8 +4805,6 @@ section:not(#home) {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
-    /* Shaking animation */
-    animation: shake 0.5s ease-in-out infinite;
 }
 
 .scroll-to-top.call-button:hover {
@@ -4876,10 +4874,10 @@ section:not(#home) {
         transform: translateY(0) rotate(0deg);
     }
     10%, 30%, 50%, 70%, 90% {
-        transform: translateY(0) rotate(-2deg);
+        transform: translateY(0) rotate(-3deg);
     }
     20%, 40%, 60%, 80% {
-        transform: translateY(0) rotate(2deg);
+        transform: translateY(0) rotate(3deg);
     }
 }
 
