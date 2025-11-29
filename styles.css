@@ -3998,8 +3998,8 @@ html {
         flex-shrink: 0;
     }
     
-    /* Social Media Icons on Mobile - Show on Right */
-    /* Extract social icons from hidden menu and position them in navbar */
+    /* Social Media Icons on Mobile - Always Visible on Right */
+    /* Extract social icons from hidden menu and position them in navbar - always visible */
     .nav-menu-right .header-social {
         position: fixed !important;
         top: 0 !important;
@@ -4018,6 +4018,15 @@ html {
         z-index: 1002;
         background: transparent;
         pointer-events: auto;
+        /* Always visible regardless of parent menu state */
+        left: auto !important;
+    }
+    
+    /* Ensure social icons are visible even when nav-menu-right is hidden */
+    .nav-menu-right:not(.active) .header-social {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: flex !important;
     }
     
     .nav-menu-right .header-social .header-social-link {
