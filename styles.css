@@ -4332,6 +4332,11 @@ html {
         box-sizing: border-box;
     }
     
+    .logo-image {
+        max-height: 40px !important; /* Smaller mobile size */
+        max-width: 160px !important;
+    }
+    
     .logo h1 {
         font-size: 1.1rem;
         letter-spacing: 1px;
