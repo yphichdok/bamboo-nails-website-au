@@ -2184,6 +2184,9 @@ section::before {
         padding: 10px 0;
         padding-left: 15px;
         margin-bottom: 15px;
+        grid-template-columns: 1fr auto; /* Ensure name left, price right */
+        gap: 10px; /* Add gap between name and price */
+        align-items: center;
     }
 
     .collapsible-service-card .menu-item:hover {
@@ -2192,11 +2195,18 @@ section::before {
 
     .collapsible-service-card .menu-item .item-name {
         font-size: 1.05em;
+        white-space: nowrap; /* Prevent text wrapping */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Show ellipsis if text is too long */
+        min-width: 0; /* Allow grid item to shrink */
     }
 
     .collapsible-service-card .menu-item .item-price {
         font-size: 1.15em;
-        padding-left: 15px;
+        padding-left: 10px;
+        text-align: right; /* Keep price on the right */
+        white-space: nowrap; /* Prevent price from wrapping */
+        flex-shrink: 0; /* Don't shrink the price */
     }
 }
 
@@ -2229,6 +2239,9 @@ section::before {
         padding: 8px 0;
         padding-left: 12px;
         margin-bottom: 12px;
+        grid-template-columns: 1fr auto; /* Keep name left, price right */
+        gap: 10px; /* Add gap between name and price */
+        align-items: center;
     }
 
     .collapsible-service-card .menu-item:hover {
@@ -2237,11 +2250,18 @@ section::before {
 
     .collapsible-service-card .menu-item .item-name {
         font-size: 0.95em;
+        white-space: nowrap; /* Prevent text wrapping */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Show ellipsis if text is too long */
+        min-width: 0; /* Allow grid item to shrink */
     }
 
     .collapsible-service-card .menu-item .item-price {
         font-size: 1.05em;
-        padding-left: 12px;
+        padding-left: 10px;
+        text-align: right; /* Keep price on the right */
+        white-space: nowrap; /* Prevent price from wrapping */
+        flex-shrink: 0; /* Don't shrink the price */
     }
 }
 
@@ -5213,6 +5233,10 @@ section:not(#home) {
     font-weight: 500;
     transition: all 0.3s ease;
     line-height: 1.4;
+    white-space: nowrap; /* Prevent text wrapping on all screen sizes */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Show ellipsis if text is too long */
+    min-width: 0; /* Allow grid item to shrink */
 }
 
 .menu-item .item-price {
@@ -5304,6 +5328,9 @@ section:not(#home) {
         padding: 10px 0;
         padding-left: 15px;
         margin-bottom: 15px;
+        grid-template-columns: 1fr auto; /* Ensure name left, price right */
+        gap: 10px; /* Add gap between name and price */
+        align-items: center;
     }
 
     .menu-item:hover {
@@ -5312,11 +5339,18 @@ section:not(#home) {
 
     .menu-item .item-name {
         font-size: 1.05em;
+        white-space: nowrap; /* Prevent text wrapping */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Show ellipsis if text is too long */
+        min-width: 0; /* Allow grid item to shrink */
     }
 
     .menu-item .item-price {
         font-size: 1.15em;
-        padding-left: 15px;
+        padding-left: 10px;
+        text-align: right; /* Keep price on the right */
+        white-space: nowrap; /* Prevent price from wrapping */
+        flex-shrink: 0; /* Don't shrink the price */
     }
 
     .menu-footer .footer-item {
@@ -5357,8 +5391,9 @@ section:not(#home) {
         padding: 8px 0;
         padding-left: 12px;
         margin-bottom: 12px;
-        grid-template-columns: 1fr;
-        gap: 5px;
+        grid-template-columns: 1fr auto; /* Keep name left, price right */
+        gap: 10px; /* Add gap between name and price */
+        align-items: center;
     }
 
     .menu-item:hover {
@@ -5367,12 +5402,18 @@ section:not(#home) {
 
     .menu-item .item-name {
         font-size: 1em;
+        white-space: nowrap; /* Prevent text wrapping */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Show ellipsis if text is too long */
+        min-width: 0; /* Allow grid item to shrink */
     }
 
     .menu-item .item-price {
         font-size: 1.1em;
-        padding-left: 0;
-        text-align: left;
+        padding-left: 10px;
+        text-align: right; /* Keep price on the right */
+        white-space: nowrap; /* Prevent price from wrapping */
+        flex-shrink: 0; /* Don't shrink the price */
     }
 }
 
