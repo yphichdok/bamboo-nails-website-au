@@ -4100,7 +4100,7 @@ html {
     
     .logo-image {
         height: auto;
-        max-height: 60px; /* Fixed max height to ensure full logo visible */
+        max-height: 55px; /* Original mobile size */
         max-width: 200px;
         width: auto;
     }
