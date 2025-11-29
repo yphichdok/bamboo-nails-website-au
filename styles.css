@@ -3705,6 +3705,25 @@ html {
 
 /* Responsive Design */
 
+/* Desktop: Hide Book Now button from mobile menu */
+@media (min-width: 768px) {
+    .mobile-book-now {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+    }
+    
+    .btn-book-now-mobile {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+}
+
 /* Desktop: Restructure header components for proper spacing and layout */
 @media (min-width: 768px) {
     .nav-wrapper {
