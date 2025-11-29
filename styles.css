@@ -3995,6 +3995,33 @@ html {
         visibility: hidden;
     }
     
+    /* Extract social icons from hidden menu - keep menu hidden but show icons */
+    .nav-menu-right .header-social {
+        /* Keep parent menu hidden, but show social icons */
+        position: fixed !important;
+        top: 0 !important;
+        left: auto !important;
+        right: 60px !important; /* Position to the left of hamburger */
+        transform: translateY(0) !important;
+        display: flex !important;
+        gap: 0.5rem;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        width: auto !important;
+        height: 70px !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        z-index: 1002 !important;
+        background: transparent !important;
+        pointer-events: auto !important;
+        clip: auto !important;
+        clip-path: none !important;
+        contain: none !important;
+    }
+    
     .hamburger {
         order: 3;
         margin-left: auto;
