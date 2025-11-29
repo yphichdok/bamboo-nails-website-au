@@ -4078,6 +4078,15 @@ html {
         visibility: hidden;
         will-change: left, opacity, visibility;
     }
+    
+    /* Exception: Social icons should NOT be hidden with parent menu */
+    .nav-menu-right .header-social {
+        /* Override parent menu hiding - social icons stay visible */
+        position: fixed !important;
+        left: auto !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
 
     .nav-menu-left.active {
         left: 0;
