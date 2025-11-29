@@ -3734,8 +3734,9 @@ html {
     
     /* Desktop ONLY: Position social icons after Contact in nav-menu-right */
     @media (min-width: 768px) {
-        .nav-wrapper {
+        .nav-menu-right {
             position: relative;
+            padding-right: 0;
         }
         
         .header-social {
@@ -3749,8 +3750,8 @@ html {
             z-index: 10;
         }
         
-        .nav-menu-right {
-            padding-right: 90px; /* Space for social icons */
+        /* Ensure nav-wrapper doesn't interfere */
+        .nav-wrapper {
             position: relative;
         }
     }
