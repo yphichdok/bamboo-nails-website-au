@@ -3998,35 +3998,42 @@ html {
         flex-shrink: 0;
     }
     
-    /* Social Media Icons on Mobile - Always Visible on Right */
-    /* Extract social icons from hidden menu and position them in navbar - always visible */
+    /* Social Media Icons on Mobile - Always Visible Next to Logo */
+    /* Position social icons in navbar, always visible regardless of menu state */
     .nav-menu-right .header-social {
         position: fixed !important;
         top: 0 !important;
+        left: auto !important;
         right: 60px !important; /* Position to the left of hamburger */
         display: flex !important;
         gap: 0.5rem;
-        padding: 0;
-        margin: 0;
-        border: none;
-        width: auto;
-        height: 70px;
-        align-items: center;
-        justify-content: flex-end;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        width: auto !important;
+        height: 70px !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
         opacity: 1 !important;
         visibility: visible !important;
-        z-index: 1002;
-        background: transparent;
-        pointer-events: auto;
-        /* Always visible regardless of parent menu state */
-        left: auto !important;
+        z-index: 1002 !important;
+        background: transparent !important;
+        pointer-events: auto !important;
+        /* Override any parent menu hiding */
+        transform: none !important;
     }
     
-    /* Ensure social icons are visible even when nav-menu-right is hidden */
-    .nav-menu-right:not(.active) .header-social {
+    /* Ensure social icons are ALWAYS visible - override parent menu states */
+    .nav-menu-right .header-social,
+    .nav-menu-right:not(.active) .header-social,
+    .nav-menu-right.active .header-social {
         opacity: 1 !important;
         visibility: visible !important;
         display: flex !important;
+        position: fixed !important;
+        top: 0 !important;
+        right: 60px !important;
+        height: 70px !important;
     }
     
     .nav-menu-right .header-social .header-social-link {
@@ -4040,7 +4047,8 @@ html {
         transition: all 0.3s ease;
     }
     
-    .nav-menu-right .header-social .header-social-link:hover {
+    .nav-menu-right .header-social .header-social-link:hover,
+    .nav-menu-right .header-social .header-social-link:active {
         background: rgba(238, 158, 178, 0.2);
         transform: scale(1.1);
     }
