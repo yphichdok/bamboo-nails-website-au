@@ -3999,25 +3999,25 @@ html {
     }
     
     /* Social Media Icons on Mobile - Show on Right */
+    /* Extract social icons from hidden menu and position them in navbar */
     .nav-menu-right .header-social {
-        order: 2;
+        position: fixed !important;
+        top: 0 !important;
+        right: 60px !important; /* Position to the left of hamburger */
         display: flex !important;
         gap: 0.5rem;
-        position: absolute;
-        right: 50px; /* Position to the left of hamburger */
-        top: 50%;
-        transform: translateY(-50%);
-        padding-left: 0;
-        border-left: none;
-        border-top: none;
-        padding-top: 0;
-        margin-top: 0;
+        padding: 0;
+        margin: 0;
+        border: none;
         width: auto;
+        height: 70px;
+        align-items: center;
         justify-content: flex-end;
         opacity: 1 !important;
         visibility: visible !important;
-        flex: 0 0 auto;
         z-index: 1002;
+        background: transparent;
+        pointer-events: auto;
     }
     
     .nav-menu-right .header-social .header-social-link {
@@ -4026,6 +4026,14 @@ html {
         display: flex;
         align-items: center;
         justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-menu-right .header-social .header-social-link:hover {
+        background: rgba(238, 158, 178, 0.2);
+        transform: scale(1.1);
     }
     
     .nav-menu-right .header-social .header-social-link svg {
