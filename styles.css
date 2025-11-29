@@ -4353,6 +4353,7 @@ html {
     .hamburger {
         order: 3;
         margin-left: auto;
+        margin-right: 0.5rem; /* Safe margin from right edge */
         flex-shrink: 0;
     }
     
@@ -4382,7 +4383,7 @@ html {
         gap: 0.5rem;
         align-items: center;
         margin-left: auto;
-        margin-right: 10px;
+        margin-right: 1rem; /* Safe margin from right edge */
         opacity: 1 !important;
         visibility: visible !important;
     }
