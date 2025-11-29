@@ -1186,25 +1186,28 @@ html {
     width: 100%;
     min-height: 80px; /* Increased for larger header */
     box-sizing: border-box;
+    gap: 1rem; /* Safe spacing between components */
 }
 
 .logo {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
     z-index: 1001;
     pointer-events: auto;
     width: auto;
-    padding: 0 1rem;
+    padding: 0.5rem 1rem; /* Vertical padding for safe spacing */
     margin: 0 auto;
     max-width: calc(100% - 8rem); /* Safe margin from edges */
+    max-height: calc(100% - 1rem); /* Safe margin from top/bottom */
 }
 
 .logo-image {
     height: 85px;
     width: auto;
     max-width: 340px;
-    max-height: 100%;
+    max-height: calc(100% - 1rem); /* Safe margin from top/bottom */
     object-fit: contain;
     display: block;
     transition: transform 0.3s ease;
@@ -4310,9 +4313,9 @@ html {
         transform: none;
         order: 1;
         margin: 0;
-        padding: 0 0.5rem;
+        padding: 0.3rem 0.5rem; /* Vertical padding for safe spacing */
         max-width: calc(100% - 8rem); /* Safe margin from edges */
-        max-height: 70px; /* Match mobile navbar height */
+        max-height: calc(100% - 0.6rem); /* Safe margin from top/bottom */
         overflow: hidden; /* Ensure logo doesn't overflow */
         z-index: 1001;
         flex: 0 0 auto;
