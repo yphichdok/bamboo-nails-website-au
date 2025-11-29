@@ -1198,24 +1198,21 @@ html {
     margin: 0 auto;
 }
 
+.logo-image {
+    height: 50px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+    transform: scale(1.05);
+}
+
 .logo h1 {
-    font-family: 'Playfair Display', serif;
-    position: relative;
-    display: inline-block;
-    font-size: 1.8rem;
-    color: var(--text-main) !important; /* Black color for logo text */
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    white-space: nowrap;
-    margin: 0;
-    text-transform: uppercase;
-    padding: 0.5rem 1.5rem;
-    text-align: center;
-    /* Remove gradient background clip */
-    background: none !important;
-    -webkit-background-clip: unset !important;
-    -webkit-text-fill-color: var(--text-main) !important;
-    background-clip: unset !important;
+    display: none; /* Hide text logo when image is used */
 }
 
 .logo h1::before {
@@ -4084,6 +4081,11 @@ html {
 
     .logo {
         padding: 0 2.5rem;
+    }
+    
+    .logo-image {
+        height: 40px;
+        max-width: 150px;
     }
 
     .logo h1 {
