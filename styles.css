@@ -3999,18 +3999,14 @@ html {
     }
     
     /* Social Media Icons on Mobile - Always Visible Next to Logo */
-    .nav-menu-right .header-social {
-        position: fixed !important;
-        top: 0 !important;
-        left: 160px !important; /* Position after logo */
-        height: 70px !important;
+    .header-social {
+        order: 2;
         display: flex !important;
         gap: 0.5rem;
-        align-items: center !important;
+        align-items: center;
+        margin-left: 10px;
         opacity: 1 !important;
         visibility: visible !important;
-        z-index: 1002 !important;
-        pointer-events: auto !important;
     }
     
     .nav-menu-right .header-social .header-social-link {
