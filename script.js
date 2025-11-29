@@ -124,9 +124,20 @@ const initScrollToTop = () => {
     
     // Make a call when button is clicked
     callButton.addEventListener('click', () => {
-        // Get phone number from contact info or use default
-        const phoneNumber = '0412345678'; // Update this with actual phone number
-        window.location.href = `tel:${phoneNumber}`;
+        // Get phone number from contact section or use location modal
+        // Try to get phone from contact section first
+        const phoneElement = document.querySelector('.contact-info .info-item:has(.info-icon:contains("📞")) .info-text');
+        if (phoneElement) {
+            const phoneText = phoneElement.textContent.trim();
+            // Extract phone number (remove non-digits except +)
+            const phoneNumber = phoneText.replace(/[^\d+]/g, '');
+            if (phoneNumber) {
+                window.location.href = `tel:${phoneNumber}`;
+                return;
+            }
+        }
+        // Fallback: Open location modal to show phone numbers
+        openLocationModal();
     });
     
     // Check scroll position on scroll
