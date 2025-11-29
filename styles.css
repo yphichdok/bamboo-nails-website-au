@@ -4322,10 +4322,14 @@ html {
         margin: 0;
         padding: 0.3rem 0.5rem; /* Vertical padding for safe spacing */
         max-width: calc(100% - 8rem); /* Safe margin from edges */
-        overflow: visible; /* Ensure logo is not cut off */
+        overflow: hidden; /* Keep logo within header */
         z-index: 1001;
         flex: 0 0 auto;
         margin-right: auto;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
     }
     
     .logo h1 {
